@@ -67,69 +67,7 @@
             <teiHeader>
                 <fileDesc>
                     <titleStmt>
-                        <title/>
-                        <editor>
-                            <xsl:value-of select="//atom:email"/>
-                        </editor>
-                        <principal>
-                            <persName ref="https://orcid.org/0000-0002-1726-1712" xml:id="gv">
-                                <forename>Georg</forename>
-                                <surname>Vogeler</surname>
-                            </persName>
-                        </principal>
-                        <respStmt>
-                            <resp>Project Lead; Art historical description</resp>
-                            <persName ref="https://orcid.org/0000-0002-9503-7097" xml:id="mr">
-                                <forename>Martin</forename>
-                                <surname>Roland</surname>
-                            </persName>
-                        </respStmt>
-                        <respStmt>
-                            <resp>Art historical description</resp>
-                            <persName ref="https://orcid.org/0000-0002-8406-0785" xml:id="gb">
-                                <forename>Gabriele</forename>
-                                <surname>Bartz</surname>
-                            </persName>
-                        </respStmt>
-                        <respStmt>
-                            <resp>Diplomatic description</resp>
-                            <persName ref="https://orcid.org/0000-0003-3269-453X" xml:id="mg">
-                                <forename>Markus</forename>
-                                <surname>Gneiß</surname>
-                            </persName>
-                        </respStmt>
-                        <respStmt>
-                            <resp>Project Lead; Diplomatic description</resp>
-                            <persName ref="https://orcid.org/0000-0002-1967-6022" xml:id="az">
-                                <forename>Andreas</forename>
-                                <surname>Zajic</surname>
-                            </persName>
-                        </respStmt>
-                        <respStmt>
-                            <resp>Digital transformation; modelling</resp>
-                            <persName ref="https://orcid.org/0000-0002-5114-0594" xml:id="sw">
-                                <forename>Sean</forename>
-                                <surname>Winslow</surname>
-                            </persName>
-                        </respStmt>
-                        <respStmt>
-                            <resp>Digital transformation</resp>
-                            <persName ref="https://orcid.org/0000-0003-0594-1902" xml:id="mb">
-                                <forename>Martina</forename>
-                                <surname>Bürgermeister</surname>
-                            </persName>
-                        </respStmt>
-                        <funder>
-                            <orgName ref="https://www.fwf.ac.at/">
-                                <choice>
-                                    <expan>Fonds zur Förderung der wissenschaftlichen
-                                        Forschung</expan>
-                                    <abbr>FWF</abbr>
-                                </choice>
-                            </orgName> Projekt P 26706-G21 "Illuminierten Urkunden als
-                            Gesamtkunstwerk" and Projekt FWF-ORD84 "Erhalt fachspezifischer
-                            Funktionalitäten bei Langzeitarchivierung in einem allgemeinen
-                            Datenarchiv für die Geisteswissenschaften."</funder>
+                        <title/>    
                     </titleStmt>
                     <publicationStmt>
                         <publisher>
@@ -583,17 +521,38 @@
             <xsl:apply-templates/>
         </damage>
     </xsl:template>
+    <!-- add date attributes -->
+    <!-- START: date transformation -->
     <xsl:template match="cei:date">
+        <xsl:variable name="certainty" select="@certainty"/>
+        <xsl:variable name="facs" select="@facs"/>
+        <xsl:variable name="notAfter"/>
+        <xsl:variable name="notBefore"/>
+        <xsl:variable name="value" select="@value"/>        
         <date>
+            <xsl:call-template name="genericAttributes"/>
+            <xsl:if test="attribute()">
+                <xsl:if test="$certainty">
+                    
+                </xsl:if>
+            </xsl:if>
             <xsl:apply-templates/>
         </date>
     </xsl:template>
+    <!-- END: date transformation -->
+
+    <!-- Start: dateRange transformation -->
     <xsl:template match="cei:dateRange">
         <xsl:variable name="from" select="@from"/>
         <xsl:variable name="to" select="@to"/>
         <xsl:choose>
-            <xsl:when test="$from = $to">
-                <date when="{$from}">
+            <xsl:when test="$from">
+                <date from="{$from}">
+                    <xsl:apply-templates/>
+                </date>
+            </xsl:when>
+            <xsl:when test="$to">
+                <date to="{$to}">
                     <xsl:apply-templates/>
                 </date>
             </xsl:when>
@@ -604,6 +563,9 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
+    <!-- END: dateRange transformation -->
+    
     <xsl:template match="cei:decoDesc[. != '']">
         <decoDesc>
             <xsl:apply-templates/>
@@ -906,7 +868,7 @@
     </xsl:template>
     <xsl:template match="cei:persName">
         <persName>
-            <xsl:apply-templates/>
+            <xsl:call-template name="genericAttributes"/>
         </persName>
     </xsl:template>
     <xsl:template match="cei:witness/cei:physicalDesc">
@@ -1128,6 +1090,24 @@
             <xsl:attribute name="resp">
                 <xsl:value-of select="./@resp"/>
             </xsl:attribute>
+        </xsl:if>
+        
+        <xsl:if test="./@lang">
+            <xsl:attribute name="xml:lang">
+                <xsl:value-of select="./@lang"/>
+            </xsl:attribute>
+        </xsl:if>
+        
+        
+        <xsl:if test="./@reg">
+            <xsl:element name="choice">
+                <xsl:element name="reg">
+                    <xsl:value-of select="./@reg"/>
+                </xsl:element>
+                <xsl:element name="orig">
+                    <xsl:value-of select="current()"/>
+                </xsl:element>
+            </xsl:element>
         </xsl:if>
     </xsl:template>
 
