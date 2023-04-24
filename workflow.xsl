@@ -67,7 +67,7 @@
             <teiHeader>
                 <fileDesc>
                     <titleStmt>
-                        <title/>    
+                        <title/>
                     </titleStmt>
                     <publicationStmt>
                         <publisher>
@@ -76,16 +76,15 @@
                                 Informationsmodellierung - Austrian Centre for Digital Humanities,
                                 Karl-Franzens-Universität Graz</orgName>
                             <!-- old id is included in the new id and is hashed in fedora-->
-                            <idno type="PID" resp="https://illuminierte-urkunden.uni-graz.at/">
+                            <!--<idno type="PID" resp="https://illuminierte-urkunden.uni-graz.at/">
                                 <xsl:value-of select="$pid"/>
                             </idno>
                             <ref target="{$contextname}" type="context">
                                 <xsl:value-of select="$contextname"/>
-                            </ref>
+                            </ref>-->
                         </publisher>
                         <distributor>
-                            <orgName ref="https://gams.uni-graz.at">GAMS - Geisteswissenschaftliches
-                                Asset Management System</orgName>
+                            <orgName ref="monasterium.net">Monasterium</orgName>
 
                         </distributor>
                         <availability>
@@ -117,6 +116,7 @@
                         </date>
                     </publicationStmt>
                     <sourceDesc>
+                        <xsl:apply-templates select="//cei:body/cei:idno"/>
                         <bibl>Originally converted to TEI based upon a CEI file from <ref
                                 target="http://monasterium.net/">Monasterium</ref>, <idno
                                 type="Monasterium">
@@ -156,11 +156,7 @@
                 </fileDesc>
                 <encodingDesc>
                     <projectDesc>
-                        <p>The <ref target="https://illuminierte-urkunden.uni-graz.at">Illuminierte
-                                Urkunden</ref> project is a cross-disciplinary historical,
-                            art-historical, and digital humanities project which collects
-                            illuminated medieval charters from all over Europe, publishes them, and
-                            explores them in detailed studies.</p>
+                        <p>some didip desc</p>
                     </projectDesc>
                     <listPrefixDef>
                         <prefixDef ident="zotero" matchPattern="([a-z]+[a-z0-9]*)"
@@ -322,6 +318,11 @@
                 </diploDesc>
                 <xsl:apply-templates select="//cei:witnessOrig/cei:auth[. != '']"/>
                 <!-- There are  cei:figure tags in witnessOrig that need to be moved to facsimile (no anchors neeeded?) -->
+            
+            <msContents>
+                <xsl:apply-templates select="//cei:witnessOrig/cei:p"/>
+                <xsl:apply-templates select="//cei:witnessOrig/cei:rubrum"/>
+            </msContents>
             </msDesc>
         </witness>
     </xsl:template>
@@ -349,6 +350,19 @@
             <xsl:value-of select="."/>
         </ref>
     </xsl:template>
+    
+    <!-- START: witnessOrig p -->
+<!--    <xsl:template name="witnessOrigP" match="/cei:witnessOrig/cei:p">    
+            <p>
+                <xsl:if test="./attribute()">
+                    <xsl:call-template name="genericAttributes"/>
+                </xsl:if>
+                <xsl:value-of select="./text()"/>
+            </p>
+    </xsl:template>-->
+    
+    <!-- END: witnessOrig p -->
+    
     <xsl:template match="cei:abstract">
         <p>
             <xsl:apply-templates/>
@@ -524,18 +538,10 @@
     <!-- add date attributes -->
     <!-- START: date transformation -->
     <xsl:template match="cei:date">
-        <xsl:variable name="certainty" select="@certainty"/>
-        <xsl:variable name="facs" select="@facs"/>
-        <xsl:variable name="notAfter"/>
-        <xsl:variable name="notBefore"/>
-        <xsl:variable name="value" select="@value"/>        
+
         <date>
             <xsl:call-template name="genericAttributes"/>
-            <xsl:if test="attribute()">
-                <xsl:if test="$certainty">
-                    
-                </xsl:if>
-            </xsl:if>
+     
             <xsl:apply-templates/>
         </date>
     </xsl:template>
@@ -563,9 +569,9 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <!-- END: dateRange transformation -->
-    
+
     <xsl:template match="cei:decoDesc[. != '']">
         <decoDesc>
             <xsl:apply-templates/>
@@ -581,12 +587,38 @@
             <xsl:apply-templates/>
         </desc>
     </xsl:template>
+    <!-- START: charter dimensions -->
     <xsl:template match="cei:dimensions">
         <!-- no text allowed within dimensions -->
-        <dimensions>
-            <xsl:apply-templates select="node()[text()]"/>
-        </dimensions>
+        <xsl:choose>
+            <xsl:when test="./text()">
+                <measure>
+                    <xsl:value-of select="."/>
+                </measure>
+            </xsl:when>
+            <xsl:otherwise>
+                <dimensions>
+                    <xsl:if test="./@type">
+                        <xsl:attribute name="type">
+                            <xsl:value-of select="./@type"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:apply-templates select="node()[text()]"/>
+                    <xsl:if test="./@unit">
+                        <xsl:call-template name="dimensionsUnit"/>
+                    </xsl:if>
+                    
+                </dimensions>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
+    <xsl:template name="dimensionsUnit" match="cei:dimensions/@unit">
+        <unit>
+            <xsl:value-of select="./@unit"/>
+        </unit>
+    </xsl:template>
+    <!-- END: Charter dimensions -->
+
     <xsl:template match="cei:diplomaticAnalysis">
         <xsl:apply-templates/>
     </xsl:template>
@@ -625,7 +657,7 @@
     <xsl:template match="cei:forename">
         <forename>
             <xsl:apply-templates/>
-        </forename>
+        </forename> 
     </xsl:template>
     <xsl:template match="cei:geogName">
         <geogName>
@@ -633,7 +665,28 @@
         </geogName>
     </xsl:template>
     <xsl:template match="cei:graphic" mode="image">
-        <graphic url="{@url}"/>
+        <xsl:choose>
+            <xsl:when test="name(..) = 'cei:figure'">
+                <graphic>
+                    <xsl:attribute name="url">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                    <xsl:if test="parent::cei:figure/attribute()">
+                        <xsl:for-each select="@*">
+                            <xsl:attribute name="{name()}">
+                                <xsl:value-of select="."/>
+                            </xsl:attribute>
+                            <p>loop</p>
+                        </xsl:for-each>
+                    </xsl:if>
+                </graphic>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <p>other</p>
+                <graphic url="{@url}"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="cei:group">
         <group>
@@ -717,9 +770,26 @@
             <xsl:apply-templates select="cei:note"/>
         </msIdentifier>
     </xsl:template>
-    <!--  NOT IN USE  
-    <xsl:template match="cei:body/cei:idno">        
-    </xsl:template>-->
+    <!-- START: cei:body/ cei:idno -->
+    <xsl:template match="cei:body/cei:idno">
+        <msDesc xml:id="sourceCharter">
+            <idno>
+                <xsl:call-template name="genericAttributes"/>
+                <xsl:value-of select="."/>
+            </idno>
+            <xsl:if test="./@old">
+                <altIdentifier>
+                    <idno>
+
+                        <xsl:value-of select="."/>
+                    </idno>
+                </altIdentifier>
+            </xsl:if>
+        </msDesc>
+    </xsl:template>
+    <!-- END: cei:body/cei:idno -->
+
+
     <xsl:template match="cei:idno[not(parent::cei:body)]">
         <idno>
             <xsl:apply-templates/>
@@ -850,11 +920,15 @@
     </xsl:template>
     <xsl:template match="cei:p[. != ''] | cei:pTenor[. != '']">
         <p>
-            <xsl:if test="@n != ''">
+            <xsl:if test="./attribute()">
+                <xsl:call-template name="genericAttributes"/>
+            </xsl:if>
+            
+            <!--<xsl:if test="@n != ''">
                 <xsl:attribute name="n">
                     <xsl:value-of select="@n"/>
                 </xsl:attribute>
-            </xsl:if>
+            </xsl:if>-->
             <xsl:apply-templates/>
         </p>
     </xsl:template>
@@ -868,7 +942,15 @@
     </xsl:template>
     <xsl:template match="cei:persName">
         <persName>
-            <xsl:call-template name="genericAttributes"/>
+            <xsl:choose>
+                <xsl:when test="./attribute()">
+                    <xsl:call-template name="genericAttributes"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
+
         </persName>
     </xsl:template>
     <xsl:template match="cei:witness/cei:physicalDesc">
@@ -1052,7 +1134,7 @@
         <legend>
             <xsl:call-template name="genericAttributes"/>
             <xsl:value-of select="text()"/>
-            
+
         </legend>
     </xsl:template>
 
@@ -1060,55 +1142,116 @@
     <xsl:template name="genericAttributes">
         <xsl:if test="./@n">
             <xsl:attribute name="n">
-                <xsl:value-of select="./@n"/>
+                <xsl:value-of select="."/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@facs">
             <xsl:attribute name="facs">
-                <xsl:value-of select="./@facs"/>
+                <xsl:value-of select="."/>
             </xsl:attribute>
         </xsl:if>
 
         <xsl:if test="./@id">
             <xsl:attribute name="xml:id">
-                <xsl:value-of select="./@id"/>
+                <xsl:value-of select="."/>
             </xsl:attribute>
         </xsl:if>
 
         <xsl:if test="./@lang">
             <xsl:attribute name="xml:lang">
-                <xsl:value-of select="./@lang"/>
+                <xsl:value-of select="."/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
             <xsl:attribute name="rend">
-                <xsl:value-of select="./@rend"/>
+                <xsl:value-of select="."/>
             </xsl:attribute>
         </xsl:if>
 
         <xsl:if test="./@resp">
             <xsl:attribute name="resp">
-                <xsl:value-of select="./@resp"/>
+                <xsl:value-of select="."/>
             </xsl:attribute>
         </xsl:if>
         
-        <xsl:if test="./@lang">
-            <xsl:attribute name="xml:lang">
-                <xsl:value-of select="./@lang"/>
+        <xsl:if test="./@value">
+            <xsl:attribute name="when">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:if>
+
+        <xsl:if test="./@from">
+            <xsl:attribute name="from">
+                <xsl:value-of select="."/>
             </xsl:attribute>
         </xsl:if>
         
-        
-        <xsl:if test="./@reg">
-            <xsl:element name="choice">
-                <xsl:element name="reg">
-                    <xsl:value-of select="./@reg"/>
-                </xsl:element>
-                <xsl:element name="orig">
-                    <xsl:value-of select="current()"/>
-                </xsl:element>
-            </xsl:element>
+        <xsl:if test="./@to">
+            <xsl:attribute name="to">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
         </xsl:if>
+        
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:if>
+        
+        <xsl:if test="./@notBefore">
+            <xsl:attribute name="noteBefore">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:if>
+        
+        <xsl:if test="./@notAfter">
+            <xsl:attribute name="notAfter">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:if>
+        
+        <xsl:if test="./@to">
+            <xsl:attribute name="to">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:if>
+        
+        <xsl:if test="./@type">
+            <xsl:choose>
+                <xsl:when test="./@type and parent::*/cei:p">
+                    <xsl:attribute name="n">
+                        <xsl:value-of select="./@type"/>
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="type">
+                        <xsl:value-of select="."/>
+                    </xsl:attribute>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+        
+        <xsl:if test="./@unit">
+            <xsl:attribute name="unit">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:if>
+
+        <xsl:choose>
+            <xsl:when test="./@reg">
+                <xsl:element name="choice">
+                    <xsl:element name="reg">
+                        <xsl:value-of select="./@reg"/>
+                    </xsl:element>
+                    <xsl:element name="orig">
+                        <xsl:value-of select="current()"/>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- END: check generic Attributes -->
