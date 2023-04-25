@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.tei-c.org/ns/1.0 file:/Users/florian/Downloads/tei_ms/document.xsd">
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.tei-c.org/ns/1.0 file:/Users/florian/Downloads/tei_ms/document.xsd">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title/>
+                <title>
                 <title/>
             </titleStmt>
             <publicationStmt>
@@ -16,21 +15,11 @@
                 <p/>
                 <ab/>
             </sourceDesc>
-            <sourceDesc>
-                <bibl/>
-                <listRelation>
-                    <p/>
-                </listRelation>
-            </sourceDesc>
         </fileDesc>
     </teiHeader>
-    <facsimile>
-        <media url="http://www.oxygenxml.com/" mimeType="mimeType1"/>
-        <surface>
-        </surface>
-    </facsimile>
     <text>
-        <group>
-        </group>
+        <body>
+            <p></p>
+        </body>
     </text>
 </TEI>
