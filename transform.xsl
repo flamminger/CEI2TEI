@@ -230,7 +230,7 @@
     <!-- START: witnessOrig -->
     <xsl:template match="cei:witnessOrig">
         <bibl type="witnessOrig">
-            <xsl:apply-templates select="cei:traditioForm | cei:archIdentifier | cei:p"/>
+            <xsl:apply-templates select="cei:traditioForm | cei:archIdentifier"/>
         </bibl>
     </xsl:template>
     <!-- END: witnessOrig -->
@@ -276,9 +276,12 @@
                 </supportDesc>
                 <layoutDesc>
                     <!-- TODO FIX layout p -->
-                    <xsl:apply-templates select="cei:p[@type = 'layout']"/>
+                    <xsl:apply-templates select="//cei:p[@type = 'layout']"/>
                 </layoutDesc>
             </objectDesc>
+            <handDesc>
+                <xsl:apply-templates select="//cei:p[@type = 'handDesc']"/>
+            </handDesc>
         </physDesc>
     </xsl:template>
     <!-- END: physicalDesc -->
@@ -370,26 +373,25 @@
     </xsl:template>
     <!-- END: p -->
 
-    <!-- START: p layout -->
-    <xsl:template match="cei:p/@type['layout']">
-        <p>
-            <xsl:value-of select="."/>
-        </p>
-    </xsl:template>
-    <!-- END: p layout -->
-
     <!-- START: layout > p -->
     <xsl:template name="pLayout" match="cei:p[@type = 'layout']">
         <layout>
-            <xsl:for-each select="cei:p">
+            <xsl:for-each select=".">
                 <p>
-                    <xsl:value-of select="cei:p/text()"/>
+                    <xsl:value-of select="../cei:p/text()"/>
                 </p>
             </xsl:for-each>
         </layout>
     </xsl:template>
     <!-- END: layout > p -->
 
-
-
+    <!-- START: handDesc > p -->
+    <xsl:template name="pHanddesc" match="cei:p[@type = 'handDesc']">
+            <xsl:for-each select=".">
+                <p>
+                    <xsl:value-of select="../cei:p/text()"/>
+                </p>
+            </xsl:for-each>
+    </xsl:template>
+    <!-- END: handDesc > p -->
 </xsl:stylesheet>
