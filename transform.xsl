@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:atom="http://www.w3.org/2005/Atom"
-                xmlns="http://www.tei-c.org/ns/1.0" xmlns:cei="http://www.monasterium.net/NS/cei"
-                xmlns:bf="http://betterform.sourceforge.net/xforms" xmlns:xalan="http://xml.apache.org/xslt"
-                exclude-result-prefixes="xs" version="3.0">
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://www.tei-c.org/ns/1.0" xmlns:cei="http://www.monasterium.net/NS/cei"
+    xmlns:bf="http://betterform.sourceforge.net/xforms" xmlns:xalan="http://xml.apache.org/xslt" xmlns:rng="http://relaxng.org/ns/structure/1.0"
+    exclude-result-prefixes="xs" version="3.0">
+
     <xsl:output method="xml" indent="yes" xalan:indent-amount="4"/>
     <xsl:strip-space elements="*"/>
 
@@ -30,23 +32,29 @@
 
     <!-- START: ROOT DOCUMENT -->
     <xsl:template match="/">
-        <TEI xmlns="http://www.tei-c.org/ns/1.0"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.tei-c.org/ns/1.0 file:/Users/florian/Downloads/tei_ms/document.xsd">
+        <xsl:processing-instruction name="xml-model">
+            href="SCHEMA" type="application/relax-ng-compact-syntax"
+        </xsl:processing-instruction>
+        
+
+        <TEI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:bf="http://betterform.sourceforge.net/xforms"
+            xmlns:cei="http://www.monasterium.net/NS/cei" xmlns:xalan="http://xml.apache.org/xslt"
+            xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://www.tei-c.org/ns/1.0">
             <teiHeader>
                 <fileDesc>
                     <titleStmt>
                         <title>
-                            <xsl:apply-templates select="//cei:text/cei:body/cei:idno" mode="teiTitle"/>
+                            <xsl:apply-templates select="//cei:text/cei:body/cei:idno"
+                                mode="teiTitle"/>
                         </title>
                     </titleStmt>
                     <publicationStmt>
                         <publisher>
                             <orgName ref="http://d-nb.info/gnd/1137284463"
-                                     corresp="https://informationsmodellierung.uni-graz.at">Zentrum für
+                                corresp="https://informationsmodellierung.uni-graz.at">Zentrum für
                                 Informationsmodellierung - Austrian Centre for Digital Humanities,
-                                Karl-Franzens-Universität Graz
-                            </orgName>
+                                Karl-Franzens-Universität Graz </orgName>
                         </publisher>
                         <distributor>
                             <orgName ref="monasterium.net">Monasterium</orgName>
@@ -55,19 +63,21 @@
                     <sourceDesc>
                         <!-- CHECK ELEMENT ORDER OF MODEL -->
                         <msDesc>
-                            <xsl:apply-templates select="//cei:text/cei:body/cei:idno" mode="msDescId"/>
-                            <xsl:apply-templates select="//*[local-name()='physicalDesc']"/>
-                            <xsl:apply-templates select="//*[local-name()='issued']" mode="issuedHistory"/>
+                            <xsl:apply-templates select="//cei:text/cei:body/cei:idno"
+                                mode="msDescId"/>
+                            <xsl:apply-templates select="//*[local-name() = 'physicalDesc']"/>
+                            <xsl:apply-templates select="//*[local-name() = 'issued']"
+                                mode="issuedHistory"/>
                         </msDesc>
                     </sourceDesc>
                 </fileDesc>
             </teiHeader>
             <text>
                 <front>
-                    <xsl:apply-templates select="//*[local-name()='abstract']"/>
+                    <xsl:apply-templates select="//*[local-name() = 'abstract']"/>
                 </front>
                 <body>
-                    <p></p>
+                    <p/>
                 </body>
             </text>
         </TEI>
@@ -136,7 +146,7 @@
             <history>
                 <origin xml:id="issued">
                     <xsl:apply-templates/>
-                    <xsl:apply-templates select="//*[local-name()='witnessOrig']"/>
+                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                 </origin>
             </history>
         </xsl:if>
@@ -276,11 +286,11 @@
                 </supportDesc>
                 <layoutDesc>
                     <!-- TODO FIX layout p -->
-                    <xsl:apply-templates select="//cei:p[@type = 'layout']"/>
+                    <xsl:apply-templates select="//cei:p[@type = 'layout']" mode="pLayout"/>
                 </layoutDesc>
             </objectDesc>
             <handDesc>
-                <xsl:apply-templates select="//cei:p[@type = 'handDesc']"/>
+                <xsl:apply-templates select="//cei:p[@type = 'handDesc']" mode="pHanddesc"/>
             </handDesc>
         </physDesc>
     </xsl:template>
@@ -374,7 +384,7 @@
     <!-- END: p -->
 
     <!-- START: layout > p -->
-    <xsl:template name="pLayout" match="cei:p[@type = 'layout']">
+    <xsl:template name="pLayout" match="cei:p[@type = 'layout']" mode="pLayout">
         <layout>
             <xsl:for-each select=".">
                 <p>
@@ -386,12 +396,12 @@
     <!-- END: layout > p -->
 
     <!-- START: handDesc > p -->
-    <xsl:template name="pHanddesc" match="cei:p[@type = 'handDesc']">
-            <xsl:for-each select=".">
-                <p>
-                    <xsl:value-of select="../cei:p/text()"/>
-                </p>
-            </xsl:for-each>
+    <xsl:template name="pHanddesc" match="cei:p[@type = 'handDesc']" mode="pHanddesc">
+        <xsl:for-each select=".">
+            <p>
+                <xsl:value-of select="../cei:p/text()"/>
+            </p>
+        </xsl:for-each>
     </xsl:template>
     <!-- END: handDesc > p -->
 </xsl:stylesheet>

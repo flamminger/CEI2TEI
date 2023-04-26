@@ -14,8 +14,8 @@
    </app:control>
    <atom:content type="application/xml">-->
 <cei:text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.monasterium.net/NS/cei ../../../cei.xsd"
-          xmlns:cei="http://www.monasterium.net/NS/cei" type="charter">
+ xsi:schemaLocation="http://www.monasterium.net/NS/cei ../../../cei.xsd"
+ xmlns:cei="http://www.monasterium.net/NS/cei" type="charter">
          <cei:front></cei:front>
          <cei:body>
             <cei:idno id="Fontenay_2694660298">Fontenay 2694660298</cei:idno>
@@ -44,12 +44,13 @@
                      <cei:dimensions type="written" unit="mm">
                         <cei:height>50</cei:height>
                         <cei:width>137</cei:width>
+                        
                      </cei:dimensions>
                   </cei:physicalDesc>
-                  <cei:p type="layout">Columns: 1, Lines: 7 - réglure à la pointe sèche (12 [1 l.], 38 [6 ur], 32 [5 ur])
+                  <cei:p  type="layout">Columns: 1, Lines: 7 - réglure à la pointe sèche (12 [1 l.], 38 [6 ur], 32 [5 ur])
                      ; repli avec une entaille simple centrale
                   </cei:p>
-                  <cei:p type="handDesc">écriture diplomatique</cei:p>
+                  <cei:p  type="handDesc">écriture diplomatique</cei:p>
                   <cei:rubrum>Mentions dorsales : (XIIIe s.) « Carta super Odone
                      filii Andree de Fontanis » (de la main de l’acte ?) ;
                      (barré) « De Estormer » ; « XXVI. » (gratté) ; « de quodam

@@ -41,7 +41,7 @@
                <cei:arch>Národní archiv Praha</cei:arch>
             </cei:archIdentifier>
             <!-- one auth element or one sealDesc element could equal one seal. -->
-            <cei:auth n="1">
+            <cei:auth n="1" facs="#NA-ACK_00002_p1_r">
                <!-- existing sealDesc Element -->
                <sealDesc>
                   bulla aurea Friderici II., regis Siciliae, 56 mm fere illaesa in
