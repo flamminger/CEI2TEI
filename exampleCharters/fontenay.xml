@@ -14,7 +14,7 @@
    </app:control>
    <atom:content type="application/xml">-->
 <cei:text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.monasterium.net/NS/cei ../../../cei.xsd"
+ xsi:schemaLocation="http://www.monasterium.net/NS/cei file:/Users/florian/Documents/zim/DiDip/transformation/cei.xsd"
  xmlns:cei="http://www.monasterium.net/NS/cei" type="charter">
          <cei:front></cei:front>
          <cei:body>
@@ -29,11 +29,16 @@
                <cei:witnessOrig>
                   <cei:traditioForm>Original</cei:traditioForm>
                   <cei:archIdentifier>
+                     
+                   
                      <cei:settlement>Dijon</cei:settlement>
+                     
                      <cei:arch>Archives départementales de la Côte
                         d'Or
                      </cei:arch>
+                     
                      <cei:idno>15 H 148, pièce 4</cei:idno>
+                     
                   </cei:archIdentifier>
                   <cei:physicalDesc>
                      <cei:material>Original en parchemin</cei:material>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?xml-model
+        href="file:/Users/florian/Documents/zim/DiDip/transformation/CEI2TEI/schema/tei_cei/rng/tei2cei.rnc" type="application/relax-ng-compact-syntax"
+        ?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns="http://www.tei-c.org/ns/1.0" xmlns:cei="http://www.monasterium.net/NS/cei"
@@ -33,7 +35,7 @@
     <!-- START: ROOT DOCUMENT -->
     <xsl:template match="/">
         <xsl:processing-instruction name="xml-model">
-            href="SCHEMA" type="application/relax-ng-compact-syntax"
+            href="file:/Users/florian/Documents/zim/DiDip/transformation/CEI2TEI/schema/tei_cei/rng/tei2cei.rnc" type="application/relax-ng-compact-syntax"
         </xsl:processing-instruction>
         
 
@@ -63,11 +65,13 @@
                     <sourceDesc>
                         <!-- CHECK ELEMENT ORDER OF MODEL -->
                         <msDesc>
-                            <xsl:apply-templates select="//cei:text/cei:body/cei:idno"
+                            <xsl:apply-templates select="//cei:witnessOrig//cei:idno"
                                 mode="msDescId"/>
                             <xsl:apply-templates select="//*[local-name() = 'physicalDesc']"/>
-                            <xsl:apply-templates select="//*[local-name() = 'issued']"
-                                mode="issuedHistory"/>
+                            <diploDesc>
+                            <xsl:apply-templates select="//*[local-name() = 'issued'] | //*[local-name() = 'traditioForm']"
+                                />
+                            </diploDesc>
                         </msDesc>
                     </sourceDesc>
                 </fileDesc>
@@ -98,10 +102,11 @@
     <!-- END: TEI TITLE -->
 
     <!-- START: msDESC Identifier -->
-    <xsl:template match="cei:idno" mode="msDescId">
+    <xsl:template match="//cei:idno" mode="msDescId">
         <xsl:choose>
             <xsl:when test="./@id and ./text()">
                 <msIdentifier>
+                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                     <idno>
                         <xsl:attribute name="xml:id">
                             <xsl:value-of select="./@id"/>
@@ -112,6 +117,7 @@
             </xsl:when>
             <xsl:when test="./text() != ''">
                 <msIdentifier>
+                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                     <idno>
                         <xsl:value-of select="."/>
                     </idno>
@@ -122,36 +128,52 @@
                     <idno>
                         <xsl:value-of select="./@id"/>
                     </idno>
+                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                 </msIdentifier>
+
             </xsl:when>
             <xsl:otherwise>
                 <msIdentifier>
+                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                     <idno>
                         <xsl:value-of select="./text()"/>
                     </idno>
+                    <altIdentifier>
+                        <idno>
+                            <xsl:value-of select="./@id"/>
+                        </idno>
+                    </altIdentifier>
+
                 </msIdentifier>
-                <altIdentifier>
-                    <idno>
-                        <xsl:value-of select="./@id"/>
-                    </idno>
-                </altIdentifier>
+
+
             </xsl:otherwise>
         </xsl:choose>
+
     </xsl:template>
     <!-- END: msDESC Identifier -->
 
-    <!-- START: msDESC issued -->
-    <xsl:template match="cei:issued" mode="issuedHistory">
-        <xsl:if test="./cei:date">
-            <history>
-                <origin xml:id="issued">
+    <!-- START: diploDesc issued -->
+    <xsl:template match="cei:issued" mode="issuedDiploDesc">
+                <issued>
                     <xsl:apply-templates/>
-                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
-                </origin>
-            </history>
-        </xsl:if>
+                </issued>
     </xsl:template>
-    <!-- END: msDESC issued -->
+    <!-- END: diploDesc issued -->
+    <!-- START: copyStatus -->
+    <xsl:template match="cei:traditioForm" mode="copyStatusDiploDesc">
+        <copyStatus>
+            <xsl:if test="./@*">
+                <xsl:attribute name="n">
+                    <xsl:value-of select="@*"/>"
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:value-of select="."/>
+        </copyStatus>
+    </xsl:template>
+
+
+    <!-- END: copyStatus -->
 
     <!-- START: date -->
     <xsl:template match="cei:date">
@@ -239,39 +261,54 @@
 
     <!-- START: witnessOrig -->
     <xsl:template match="cei:witnessOrig">
-        <bibl type="witnessOrig">
-            <xsl:apply-templates select="cei:traditioForm | cei:archIdentifier"/>
-        </bibl>
+            <xsl:apply-templates select="cei:archIdentifier"/>
     </xsl:template>
     <!-- END: witnessOrig -->
 
     <!-- START: traditioForm -->
     <xsl:template match="cei:traditioForm">
-        <orig>
+        <copyStatus>
             <xsl:apply-templates/>
-        </orig>
+        </copyStatus>
     </xsl:template>
     <!-- END: traditioForm -->
 
     <!-- START: archIdentifier -->
     <xsl:template match="cei:archIdentifier">
+        <xsl:if test="./cei:country">
+            <country>
+                <xsl:value-of select="./cei:country"/>
+            </country>
+        </xsl:if>
+        <xsl:if test="./cei:region">
+            <region>
+                <xsl:value-of select="./cei:region"/>
+            </region>
+        </xsl:if>
+        <xsl:if test="./cei:geogName">
+
+        </xsl:if>
         <xsl:if test="./cei:settlement">
-            <placeName>
+            <settlement>
                 <xsl:value-of select="./cei:settlement"/>
-            </placeName>
+            </settlement>
+        </xsl:if>
+        <xsl:if test="./cei:repository">
+            <repository>
+                <xsl:value-of select="./cei:repository"/>
+            </repository>
         </xsl:if>
 
         <xsl:if test="./cei:arch">
-            <orgName>
+            <institution>
                 <xsl:value-of select="./cei:arch"/>
-            </orgName>
+            </institution>
         </xsl:if>
-        <xsl:if test="./cei:idno">
-            <idno>
-                <xsl:value-of select="./cei:idno"/>
-            </idno>
+        <xsl:if test="./cei:archFond">
+            <collection>
+                <xsl:value-of select="./cei:archFond"/>
+            </collection>
         </xsl:if>
-
     </xsl:template>
     <!-- END: archIdentifier -->
 
