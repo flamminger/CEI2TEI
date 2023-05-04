@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--<atom:entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.w3.org/2005/Atom ../../../cei.xsd"
+<atom:entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.w3.org/2005/Atom"
  xmlns:bf="http://betterform.sourceforge.net/xforms" xmlns:atom="http://www.w3.org/2005/Atom">
    <atom:id>tag:www.monasterium.net,2011:/charter/Fontenay/Fontenay_2694660298</atom:id>
    <atom:title></atom:title>
@@ -12,9 +12,9 @@
    <app:control xmlns:app="http://www.w3.org/2007/app">
       <app:draft>no</app:draft>
    </app:control>
-   <atom:content type="application/xml">-->
+   <atom:content type="application/xml">
 <cei:text xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.monasterium.net/NS/cei file:/Users/florian/Documents/zim/DiDip/transformation/cei.xsd"
+   xsi:schemaLocation="http://www.monasterium.net/NS/cei https://raw.githubusercontent.com/icaruseu/mom-ca/639dd9c04481bae90ce3fe2b542030bc62c32fc9/my/XRX/src/mom/app/cei/xsd/cei.xsd"
  xmlns:cei="http://www.monasterium.net/NS/cei" type="charter">
          <cei:front></cei:front>
          <cei:body>
@@ -484,5 +484,5 @@
             </cei:tenor>
          </cei:body>
       </cei:text>
-<!--   </atom:content>
-</atom:entry>-->
+   </atom:content>
+</atom:entry>
