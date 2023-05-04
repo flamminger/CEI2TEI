@@ -389,11 +389,28 @@
     </xsl:template>
     <!-- END: abstract -->
 
-    <!-- START: lang_MOM TODO normalize language SEE workflow.xsl -->
+    <!-- START: lang_MOM -->
     <xsl:template match="cei:lang_MOM" mode="abstract">
-        <langUsage>
-            <language ident="{.}"><xsl:value-of select="."/></language>
-        </langUsage>
+        <xsl:variable name="langmom" select="."/>
+        <xsl:if test="$langmom = ''">
+            <langUsage>
+                <language ident="und">
+                    <xsl:value-of select="$langmom"/>
+                </language>
+            </langUsage>
+        </xsl:if>
+        <xsl:for-each select="document('lang_MOM.xml')//lang_MOM_entry">
+            <xsl:if test="lang_mom[text() = $langmom]">
+                <langUsage>
+                    <xsl:for-each select="lang_iso">
+                        <xsl:variable name="token" select="normalize-space(.)"/>
+                        <language ident="{$token}">
+                            <xsl:value-of select="$langmom"/>
+                        </language>
+                    </xsl:for-each>
+                </langUsage>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
 
     <!-- END: lang_MOM -->

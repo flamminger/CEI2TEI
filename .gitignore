@@ -9,3 +9,5 @@ Poster_dh2019
 /id_transform.xsl
 /exampleCharters/
 /out/
+/exampleCharters/*.xml
+/tei_out/
