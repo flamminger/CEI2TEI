@@ -89,7 +89,8 @@
                                                      mode="copyStatusDiploDesc"/>
                                 <xsl:apply-templates select="//*[local-name() = 'rubrum']"/>
                                 <xsl:apply-templates select="//*[local-name() = 'listBibl']" mode="diploListBibl"/>
-                                <xsl:apply-templates select="//*[local-name() = 'diplomaticAnalysis']" mode="diplomaticAnalysis"/>
+                                <xsl:apply-templates select="//*[local-name() = 'diplomaticAnalysis']"
+                                                     mode="diplomaticAnalysis"/>
                             </diploDesc>
                             <xsl:if test="//*[local-name() = 'auth']">
                                 <xsl:apply-templates select="//*[local-name() = 'auth']" mode="auth"/>
@@ -103,7 +104,8 @@
                     </sourceDesc>
                 </fileDesc>
                 <profileDesc>
-                    <xsl:apply-templates select="//*[local-name() = 'abstract'] | //*[local-name() = 'lang_MOM']" mode="abstract"/>
+                    <xsl:apply-templates select="//*[local-name() = 'abstract'] | //*[local-name() = 'lang_MOM']"
+                                         mode="abstract"/>
                 </profileDesc>
                 <revisionDesc>
                     <change>
@@ -115,11 +117,13 @@
                     </change>
                 </revisionDesc>
             </teiHeader>
-            <facsimile>
-                <!-- TODO FIX SURFACE -->
-                <xsl:apply-templates select="//*[local-name() = 'figure']" mode="facsimile"/>
-            </facsimile>
-
+            <xsl:if test="cei:figure">
+                <facsimile>
+                    <!-- TODO FIX SURFACE -->
+                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
+                                         mode="facsimile"/>
+                </facsimile>
+            </xsl:if>
             <text>
                 <front>
 
@@ -129,6 +133,9 @@
                         <xsl:apply-templates select="//*[local-name() = 'tenor']"/>
                     </div>
                 </body>
+                <back>
+                    <xsl:apply-templates select="//*[local-name() = 'back']" mode="back"/>
+                </back>
             </text>
         </TEI>
     </xsl:template>
@@ -613,7 +620,7 @@
     <!-- END: rubrum -->
 
     <!-- START: surfaceGrp graphic -->
-    <xsl:template match="cei:witnessOrig/cei:figure" mode="facsimile">
+    <xsl:template match="cei:figure" mode="facsimile">
         <xsl:if test="./cei:zone">
             <surfaceGrp>
                 <xsl:for-each select="cei:zone">
@@ -637,6 +644,17 @@
                         <xsl:value-of select="./@n"/>
                     </xsl:attribute>
                 </xsl:if>
+                <!-- to preserve <cei:graphic> element content -->
+                <!--                <xsl:choose>-->
+                <!--                    <xsl:when test="./cei:graphic/text()">-->
+                <!--                        <desc>-->
+                <!--                            <xsl:value-of select="./cei:graphic/text()"/>-->
+                <!--                        </desc>-->
+                <!--                    </xsl:when>-->
+                <!--                    <xsl:otherwise>-->
+                <!--                        <xsl:apply-templates select="./cei:figDesc" mode="facsimile"/>-->
+                <!--                    </xsl:otherwise>-->
+                <!--                </xsl:choose>-->
                 <xsl:apply-templates select="./cei:figDesc" mode="facsimile"/>
             </graphic>
         </xsl:if>
@@ -646,7 +664,7 @@
     <!-- START: figDesc -->
     <xsl:template match="cei:figDesc" mode="facsimile">
         <desc>
-            <xsl:apply-templates/>
+            <xsl:apply-templates mode="facsimile"/>
         </desc>
     </xsl:template>
     <!-- END: figureDesc -->
@@ -678,10 +696,12 @@
     </xsl:template>
     <!-- END: witness -->
 
-    <!-- START: tenor -->
-    <!--    <xsl:template match="cei:tenor">-->
-    <!--            <xsl:apply-templates/>-->
-    <!--    </xsl:template>-->
+    <!--     START: tenor -->
+    <xsl:template match="cei:tenor">
+        <p>
+            <xsl:apply-templates mode="tenor"/>
+        </p>
+    </xsl:template>
 
     <xsl:template match="cei:pTenor">
         <xsl:apply-templates mode="tenor"/>
@@ -1648,9 +1668,33 @@
             </xsl:if>
             <xsl:apply-templates mode="tenor"/>
         </note>
-
     </xsl:template>
     <!-- END: zone -->
+
+    <!-- START: sup -->
+    <xsl:template match="cei:sup" mode="tenor">
+        <num type="ordinal">
+            <xsl:apply-templates mode="tenor"/>
+        </num>
+    </xsl:template>
+    <!-- END: sup -->
+
+    <!-- START: note -->
+    <xsl:template match="cei:note" mode="tenor">
+        <note>
+            <xsl:apply-templates mode="tenor"/>
+        </note>
+    </xsl:template>
+    <!-- END: note -->
+
+    <!-- START: quote -->
+    <xsl:template match="cei:quote" mode="tenor">
+        <q>
+            <xsl:apply-templates mode="tenor"/>
+        </q>
+    </xsl:template>
+    <!-- END: quote -->
+
     <!-- END: tenor -->
 
     <!-- START: ABSTRACT MARK UP -->
@@ -1793,9 +1837,12 @@
                     </xsl:attribute>
                 </xsl:if>
             </xsl:if>
-            <xsl:apply-templates select="cei:p" mode="auth"/>
+            <xsl:if test="./text()">
+                <xsl:apply-templates select="cei:p" mode="auth"/>
+            </xsl:if>
+            <xsl:apply-templates mode="auth"/>
         </decoNote>
-        <xsl:apply-templates select="cei:seal" mode="auth"/>
+        <xsl:apply-templates mode="auth"/>
     </xsl:template>
     <!-- END: sealDesc -->
 
@@ -1983,22 +2030,40 @@
     <!-- START: sourceDesc -->
     <xsl:template match="cei:sourceDesc" mode="sourceRegest">
         <accMat>
-            <xsl:apply-templates mode="sourceRegest"/>
+            <xsl:apply-templates select="*" mode="sourceRegest"/>
         </accMat>
     </xsl:template>
     <!-- END: sourceDesc -->
 
     <!-- START: sourceRegest -->
-    <xsl:template match="cei:sourceDescRegest" mode="sourceRegest">
-    <listBibl>
-        <xsl:apply-templates mode="sourceRegest"/>
-    </listBibl>
+    <xsl:template match="cei:sourceDesc[descendant::child]" mode="sourceRegest">
+        <listBibl>
+            <xsl:apply-templates mode="sourceRegest"/>
+        </listBibl>
     </xsl:template>
     <!-- END: sourceRegest -->
 
+    <!-- START: sourceVolltext -->
+    <!--    <xsl:template match="cei:sourceDescVolltext" mode="sourceRegest">-->
+    <!--        <listBibl type="text">-->
+    <!--            <xsl:apply-templates mode="sourceRegest"/>-->
+    <!--        </listBibl>-->
+    <!--    </xsl:template>-->
+    <!-- END: sourceVolltext -->
+
     <!-- START: sourceRegest bibl -->
     <xsl:template match="cei:bibl" mode="sourceRegest">
-        <bibl type="regest">
+        <bibl>
+            <xsl:if test="ancestor::cei:sourceDescVolltext">
+                <xsl:attribute name="type">
+                    <xsl:text>text</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="ancestor::cei:sourceDescRegest">
+                <xsl:attribute name="type">
+                    <xsl:text>regest</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:value-of select="."/>
         </bibl>
     </xsl:template>
@@ -2031,4 +2096,23 @@
         </bibl>
     </xsl:template>
     <!-- END: bibl -->
+
+    <!-- START: diplomaticAnalysis quoteDate -->
+    <xsl:template match="cei:quoteOriginaldatierung" mode="diplomaticAnalysis">
+        <origDate>
+            <q>
+                <xsl:apply-templates mode="diplomaticAnalysis"/>
+            </q>
+        </origDate>
+    </xsl:template>
+    <!-- END: diplomaticAnalysis quoteDate -->
+    <!-- START: back -->
+    <!-- START: divNotes -->
+    <xsl:template match="cei:divNotes" mode="back">
+        <div>
+            <xsl:apply-templates mode="tenor"/>
+        </div>
+    </xsl:template>
+    <!-- END: divNotes -->
+    <!-- END: back -->
 </xsl:stylesheet>

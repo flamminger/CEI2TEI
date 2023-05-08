@@ -11,3 +11,7 @@ Poster_dh2019
 /out/
 /exampleCharters/*.xml
 /tei_out/
+/test.xml
+/schema/ms/xsd/document.xsd
+/schema/ms/rnc/tei_ms.rnc
+/schema/ms/xsd/xml.xsd
