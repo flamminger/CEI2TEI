@@ -40,8 +40,6 @@
         <xsl:processing-instruction name="xml-model">
             href="https://raw.githubusercontent.com/flamminger/CEI2TEI/develop/schema/tei_cei/rng/tei2cei.rnc"
         </xsl:processing-instruction>
-
-
         <TEI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:bf="http://betterform.sourceforge.net/xforms"
              xmlns:cei="http://www.monasterium.net/NS/cei" xmlns:xalan="http://xml.apache.org/xslt"
@@ -82,11 +80,12 @@
                             <xsl:apply-templates
                                     select="//*[local-name() = 'body']/*[local-name() = 'idno']"
                                     mode="msDescId"/>
-                            <xsl:apply-templates select="//*[local-name() = 'physicalDesc']"/>
+                            <xsl:apply-templates select="//*[local-name() = 'physicalDesc']" mode="msDescPhysical"/>
                             <diploDesc>
                                 <xsl:apply-templates select="//*[local-name() = 'issued']" mode="issuedDiploDesc"/>
-                                <xsl:apply-templates select="//*[local-name() = 'traditioForm']"
-                                                     mode="copyStatusDiploDesc"/>
+                                <xsl:apply-templates
+                                        select="//*[local-name() = 'witnessOrig']//*[local-name() = 'traditioForm']"
+                                        mode="copyStatusDiploDesc"/>
                                 <xsl:apply-templates select="//*[local-name() = 'rubrum']"/>
                                 <xsl:apply-templates select="//*[local-name() = 'listBibl']" mode="diploListBibl"/>
                                 <xsl:apply-templates select="//*[local-name() = 'diplomaticAnalysis']"
@@ -96,10 +95,9 @@
                                 <xsl:apply-templates select="//*[local-name() = 'auth']" mode="auth"/>
                             </xsl:if>
                         </msDesc>
-                        <xsl:if test="//*[local-name() = 'witness']">
-                            <listWit>
-                                <xsl:apply-templates select="//*[local-name() = 'witness']"/>
-                            </listWit>
+                        <xsl:if test="//*[local-name() = 'witListPar']">
+                            <xsl:apply-templates select="//*[local-name() = 'witListPar']"
+                                                 mode="listWit"/>
                         </xsl:if>
                     </sourceDesc>
                 </fileDesc>
@@ -117,7 +115,7 @@
                     </change>
                 </revisionDesc>
             </teiHeader>
-            <xsl:if test="cei:figure">
+            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']">
                 <facsimile>
                     <!-- TODO FIX SURFACE -->
                     <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
@@ -428,14 +426,6 @@
     </xsl:template>
     <!-- END: witnessOrig -->
 
-    <!-- START: traditioForm -->
-    <xsl:template match="cei:traditioForm">
-        <copyStatus>
-            <xsl:apply-templates/>
-        </copyStatus>
-    </xsl:template>
-    <!-- END: traditioForm -->
-
     <!-- START: archIdentifier -->
     <xsl:template match="cei:archIdentifier">
         <xsl:if test="./cei:country">
@@ -472,11 +462,17 @@
                 <xsl:value-of select="./cei:archFond"/>
             </collection>
         </xsl:if>
+        <xsl:if test="./cei:altIdentifier">
+            <collection>
+                <xsl:value-of select="./cei:altIdentifier"/>
+            </collection>
+        </xsl:if>
+
     </xsl:template>
     <!-- END: archIdentifier -->
 
     <!-- START: physicalDesc -->
-    <xsl:template match="cei:physicalDesc">
+    <xsl:template match="cei:physicalDesc" mode="msDescPhysical">
         <physDesc>
             <objectDesc>
                 <supportDesc>
@@ -669,8 +665,27 @@
     </xsl:template>
     <!-- END: figureDesc -->
 
+    <!-- START: witnessList -->
+
+    <!-- START: witListpar -->
+    <xsl:template match="cei:witListPar" mode="listWit">
+        <listWit>
+            <xsl:apply-templates select="cei:witness/cei:traditioForm" mode="listWit"/>
+            <xsl:apply-templates mode="listWit"/>
+        </listWit>
+    </xsl:template>
+    <!-- END: witnessListPar -->
+
+    <!-- START: traditioForm -->
+    <xsl:template match="cei:witness/cei:traditioForm" mode="listWit">
+        <copyStatus>
+            <xsl:apply-templates/>
+        </copyStatus>
+    </xsl:template>
+    <!-- END: traditioForm -->
+
     <!-- START: witness -->
-    <xsl:template match="cei:witness">
+    <xsl:template match="cei:witness" mode="listWit">
         <witness>
             <xsl:if test="./@*">
                 <xsl:if test="./@id">
@@ -689,12 +704,42 @@
                     </xsl:attribute>
                 </xsl:if>
             </xsl:if>
-            <bibl>
-                <xsl:value-of select="."/>
-            </bibl>
+            <xsl:apply-templates mode="witness"/>
         </witness>
     </xsl:template>
     <!-- END: witness -->
+
+    <!-- START: witness archIdentifier -->
+    <xsl:template match="cei:archIdentifier" mode="witness">
+        <idno>
+            <xsl:apply-templates/>
+        </idno>
+    </xsl:template>
+    <!-- END: witness archIdentifier -->
+
+    <!-- START: witness figure -->
+    <xsl:template match="cei:figure" mode="witness">
+        <bibl type="graphic">
+            <figure>
+                <graphic url="./cei:graphic/@url">
+                    <xsl:if test="./@id">
+                        <xsl:attribute name="corresp">
+                            <xsl:value-of select="./@id"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="./@n">
+                        <xsl:attribute name="n">
+                            <xsl:value-of select="./@n"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                </graphic>
+            </figure>
+        </bibl>
+    </xsl:template>
+    <!-- END: witness figure -->
+
+    <!-- END: witnessList -->
+
 
     <!--     START: tenor -->
     <xsl:template match="cei:tenor">
@@ -1762,7 +1807,6 @@
                     <xsl:apply-templates mode="abstract"/>
                 </xsl:otherwise>
             </xsl:choose>
-
         </persName>
     </xsl:template>
     <!-- END: ABSTRACT MARK UP -->
@@ -2089,6 +2133,14 @@
     </xsl:template>
     <!-- END: diplomaticAnalysis listBiblErw -->
 
+    <!-- START: diplomaticAnalysis p -->
+    <xsl:template match="cei:p" mode="diplomaticAnalysis">
+        <p>
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+    <!-- END: diplomaticAnalysis p -->
+
     <!-- START: bibl -->
     <xsl:template match="cei:bibl" mode="diplomaticAnalysis">
         <bibl>
@@ -2114,5 +2166,47 @@
         </div>
     </xsl:template>
     <!-- END: divNotes -->
+
+    <!-- START: persName List check -->
+    <xsl:template match="cei:persName" mode="back">
+        <xsl:if test="following-sibling::cei:persName and not(preceding-sibling::cei:persName)">
+            <listPerson>
+                <xsl:for-each select=". | following-sibling::cei:persName">
+                    <person>
+                        <persName>
+                            <xsl:apply-templates/>
+                        </persName>
+                    </person>
+                </xsl:for-each>
+                <!--                <xsl:apply-templates mode="back"/>-->
+            </listPerson>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: persName List check -->
+
+    <!-- START: persName  -->
+    <!--    <xsl:template match="cei:persName" mode="back">-->
+    <!--        <person>-->
+    <!--            <persName>-->
+    <!--                <xsl:apply-templates/>-->
+    <!--            </persName>-->
+    <!--        </person>-->
+    <!--    </xsl:template>-->
+    <!-- END: persName  -->
+
+
     <!-- END: back -->
+
+    <!-- START: global elements -->
+    <!-- START: foreign -->
+    <xsl:template match="cei:foreign">
+        <foreign>
+            <xsl:apply-templates/>
+        </foreign>
+    </xsl:template>
+    <!-- END: foreign -->
+
+
+    <!-- END: global elements -->
+
 </xsl:stylesheet>
