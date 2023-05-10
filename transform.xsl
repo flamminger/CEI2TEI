@@ -2,7 +2,6 @@
 <?xml-model
         href="SCHEMA" type="application/relax-ng-compact-syntax"
         ?>
-<!--suppress ALL -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:atom="http://www.w3.org/2005/Atom"
                 xmlns="http://www.tei-c.org/ns/1.0" xmlns:cei="http://www.monasterium.net/NS/cei"
@@ -15,7 +14,10 @@
 
     <!--  START: ATOM VARIABLES  -->
     <xsl:variable name="atomId">
-        <xsl:value-of select="substring-after(//atom:id, 'tag:www.monasterium.net,2011:/charter/')"
+        <xsl:value-of select="//atom:id"/>
+    </xsl:variable>
+    <xsl:variable name="atomPath">
+        <xsl:value-of select="substring-after($atomId, 'tag:www.monasterium.net,2011:/charter/')"
         />
     </xsl:variable>
     <xsl:variable name="atom_published" select="/atom:entry/atom:published"/>
@@ -67,6 +69,13 @@
                         </publisher>
                         <distributor>
                             <orgName ref="monasterium.net">Monasterium</orgName>
+                            <orig corresp="https://www.monasterium.net/mom/{$atomPath}/charter">
+                                Transformed to CEI:
+                                <xsl:value-of select="$atomPath"/>
+                            </orig>
+                            <idno type="atom">
+                                <xsl:value-of select="$atomId"/>
+                            </idno>
                         </distributor>
                         <date when-iso="{$atom_published}">
                             <xsl:call-template name="convertTimestamp">
@@ -95,7 +104,7 @@
                                 <xsl:apply-templates select="//*[local-name() = 'auth']" mode="auth"/>
                             </xsl:if>
                         </msDesc>
-                        <xsl:if test="//*[local-name() = 'witListPar']">
+                        <xsl:if test="//*[local-name() = 'witListPar']/* != ''">
                             <xsl:apply-templates select="//*[local-name() = 'witListPar']"
                                                  mode="listWit"/>
                         </xsl:if>
@@ -104,6 +113,7 @@
                 <profileDesc>
                     <xsl:apply-templates select="//*[local-name() = 'abstract'] | //*[local-name() = 'lang_MOM']"
                                          mode="abstract"/>
+                    <xsl:apply-templates select="//*[local-name() = 'text']" mode="textAttributes"/>
                 </profileDesc>
                 <revisionDesc>
                     <change>
@@ -124,7 +134,9 @@
             </xsl:if>
             <text>
                 <front>
-
+                    <xsl:if test="//*[local-name() = 'sourceDesc']">
+                        <xsl:apply-templates select="//*[local-name() = 'sourceDesc']" mode="sourceRegest"/>
+                    </xsl:if>
                 </front>
                 <body>
                     <div type="tenor">
@@ -467,34 +479,41 @@
                 <xsl:value-of select="./cei:altIdentifier"/>
             </collection>
         </xsl:if>
+        <xsl:if test="normalize-space(.) and not(*)">
+            <institution>
+                <xsl:value-of select="."/>
+            </institution>
+        </xsl:if>
 
     </xsl:template>
     <!-- END: archIdentifier -->
 
     <!-- START: physicalDesc -->
     <xsl:template match="cei:physicalDesc" mode="msDescPhysical">
-        <physDesc>
-            <objectDesc>
-                <supportDesc>
-                    <support>
-                        <xsl:apply-templates select="cei:material | cei:dimensions"/>
-                    </support>
-                </supportDesc>
-                <xsl:if test="//cei:p[@type = 'layout']">
-                    <layoutDesc>
-                        <xsl:apply-templates select="//cei:p[@type = 'layout']" mode="pLayout"/>
-                    </layoutDesc>
+        <xsl:if test="normalize-space(.) != ''">
+            <physDesc>
+                <objectDesc>
+                    <supportDesc>
+                        <support>
+                            <xsl:apply-templates select="cei:material | cei:dimensions"/>
+                        </support>
+                    </supportDesc>
+                    <xsl:if test="//cei:p[@type = 'layout']">
+                        <layoutDesc>
+                            <xsl:apply-templates select="//cei:p[@type = 'layout']" mode="pLayout"/>
+                        </layoutDesc>
+                    </xsl:if>
+                </objectDesc>
+                <!--            <xsl:if test="//*[local-name() = 'sourceDesc']">-->
+                <!--                <xsl:apply-templates select="//*[local-name() = 'sourceDesc']" mode="sourceRegest"/>-->
+                <!--            </xsl:if>-->
+                <xsl:if test="//cei:p[@type = 'handDesc']">
+                    <handDesc>
+                        <xsl:apply-templates select="//cei:p[@type = 'handDesc']" mode="pHanddesc"/>
+                    </handDesc>
                 </xsl:if>
-            </objectDesc>
-            <xsl:if test="//*[local-name() = 'sourceDesc']">
-                <xsl:apply-templates select="//*[local-name() = 'sourceDesc']" mode="sourceRegest"/>
-            </xsl:if>
-            <xsl:if test="//cei:p[@type = 'handDesc']">
-                <handDesc>
-                    <xsl:apply-templates select="//cei:p[@type = 'handDesc']" mode="pHanddesc"/>
-                </handDesc>
-            </xsl:if>
-        </physDesc>
+            </physDesc>
+        </xsl:if>
     </xsl:template>
     <!-- END: physicalDesc -->
 
@@ -670,22 +689,21 @@
     <!-- START: witListpar -->
     <xsl:template match="cei:witListPar" mode="listWit">
         <listWit>
-            <xsl:apply-templates select="cei:witness/cei:traditioForm" mode="listWit"/>
-            <xsl:apply-templates mode="listWit"/>
+            <xsl:apply-templates mode="witness"/>
         </listWit>
     </xsl:template>
     <!-- END: witnessListPar -->
 
     <!-- START: traditioForm -->
-    <xsl:template match="cei:witness/cei:traditioForm" mode="listWit">
-        <copyStatus>
+    <xsl:template match="cei:traditioForm" mode="witness">
+        <distinct type="copyStatus">
             <xsl:apply-templates/>
-        </copyStatus>
+        </distinct>
     </xsl:template>
     <!-- END: traditioForm -->
 
     <!-- START: witness -->
-    <xsl:template match="cei:witness" mode="listWit">
+    <xsl:template match="cei:witness" mode="witness">
         <witness>
             <xsl:if test="./@*">
                 <xsl:if test="./@id">
@@ -721,7 +739,7 @@
     <xsl:template match="cei:figure" mode="witness">
         <bibl type="graphic">
             <figure>
-                <graphic url="./cei:graphic/@url">
+                <graphic url="{./cei:graphic/@url}">
                     <xsl:if test="./@id">
                         <xsl:attribute name="corresp">
                             <xsl:value-of select="./@id"/>
@@ -743,13 +761,13 @@
 
     <!--     START: tenor -->
     <xsl:template match="cei:tenor">
+        <xsl:apply-templates mode="tenor"/>
+    </xsl:template>
+
+    <xsl:template match="cei:pTenor" mode="tenor">
         <p>
             <xsl:apply-templates mode="tenor"/>
         </p>
-    </xsl:template>
-
-    <xsl:template match="cei:pTenor">
-        <xsl:apply-templates mode="tenor"/>
     </xsl:template>
 
     <!-- START: pb -->
@@ -2071,16 +2089,16 @@
     <!-- END: sigillant -->
     <!--END: AUTH -->
 
-    <!-- START: sourceDesc -->
-    <xsl:template match="cei:sourceDesc" mode="sourceRegest">
-        <accMat>
-            <xsl:apply-templates select="*" mode="sourceRegest"/>
-        </accMat>
-    </xsl:template>
+    <!-- START: sourceDesc template for <physcDesc>-->
+    <!--    <xsl:template match="cei:sourceDesc" mode="sourceRegest">-->
+    <!--        <accMat>-->
+    <!--            <xsl:apply-templates select="*" mode="sourceRegest"/>-->
+    <!--        </accMat>-->
+    <!--    </xsl:template>-->
     <!-- END: sourceDesc -->
 
     <!-- START: sourceRegest -->
-    <xsl:template match="cei:sourceDesc[descendant::child]" mode="sourceRegest">
+    <xsl:template match="cei:sourceDesc" mode="sourceRegest">
         <listBibl>
             <xsl:apply-templates mode="sourceRegest"/>
         </listBibl>
@@ -2196,6 +2214,32 @@
 
 
     <!-- END: back -->
+
+    <!-- START: cei:text attributes -->
+    <xsl:template match="cei:text" mode="textAttributes">
+        <settingDesc>
+            <setting>
+                <xsl:if test="./@id">
+                    <xsl:attribute name="corresp">
+                        <xsl:value-of select="./@id"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@b_name">
+                    <name type="bestand">
+                        <xsl:value-of select="./@b_name"/>
+                    </name>
+                </xsl:if>
+                <xsl:if test="./@n">
+                    <locale>
+                        <xsl:value-of select="./@n"/>
+                    </locale>
+                </xsl:if>
+            </setting>
+        </settingDesc>
+    </xsl:template>
+
+
+    <!-- START: cei:text attributes -->
 
     <!-- START: global elements -->
     <!-- START: foreign -->
