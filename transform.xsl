@@ -87,7 +87,7 @@
                         <!-- CHECK ELEMENT ORDER OF MODEL -->
                         <msDesc>
                             <xsl:apply-templates
-                                    select="//*[local-name() = 'body']/*[local-name() = 'idno']"
+                                    select="//*[local-name() = 'witnessOrig']"
                                     mode="msDescId"/>
                             <xsl:apply-templates select="//*[local-name() = 'physicalDesc']" mode="msDescPhysical"/>
                             <diploDesc>
@@ -100,8 +100,10 @@
                                 <xsl:apply-templates select="//*[local-name() = 'diplomaticAnalysis']"
                                                      mode="diplomaticAnalysis"/>
                             </diploDesc>
-                            <xsl:if test="//*[local-name() = 'auth']">
-                                <xsl:apply-templates select="//*[local-name() = 'auth']" mode="auth"/>
+                            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'auth']">
+                                <xsl:apply-templates
+                                        select="//*[local-name() = 'witnessOrig']//*[local-name() = 'auth']"
+                                        mode="auth"/>
                             </xsl:if>
                         </msDesc>
                         <xsl:if test="//*[local-name() = 'witListPar']/* != ''">
@@ -168,7 +170,7 @@
     <xsl:template match="cei:idno" mode="teiTitle">
         <xsl:choose>
             <xsl:when test=". != ''">
-                <xsl:value-of select="."/>
+                <xsl:value-of select="normalize-space(.)"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="./@id"/>
@@ -178,11 +180,9 @@
     <!-- END: TEI TITLE -->
 
     <!-- START: msDESC Identifier -->
-    <xsl:template match="cei:idno" mode="msDescId">
+    <xsl:template match="cei:idno" mode="msCharterId">
         <xsl:choose>
             <xsl:when test="./@id and ./@old and ./text()">
-                <msIdentifier>
-                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                     <idno>
                         <xsl:attribute name="source">
                             <xsl:value-of select="./@id"/>
@@ -190,49 +190,31 @@
                         <xsl:attribute name="prev">
                             <xsl:value-of select="./@old"/>
                         </xsl:attribute>
-                        <xsl:value-of select="./text()"/>
+                        <xsl:value-of select="normalize-space(./text())"/>
                     </idno>
-                </msIdentifier>
             </xsl:when>
             <xsl:when test="./@id and ./text()">
-                <msIdentifier>
-                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                     <idno>
                         <xsl:attribute name="source">
                             <xsl:value-of select="./@id"/>
                         </xsl:attribute>
-                        <xsl:value-of select="./text()"/>
+                        <xsl:value-of select="normalize-space(./text())"/>
                     </idno>
-                </msIdentifier>
             </xsl:when>
             <xsl:when test="./text() != ''">
-                <msIdentifier>
-                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                     <idno>
-                        <xsl:value-of select="."/>
+                        <xsl:value-of select="normalize-space(./text())"/>
                     </idno>
-                </msIdentifier>
             </xsl:when>
             <xsl:when test="./@id and ./text() = ''">
-                <msIdentifier>
                     <idno>
                         <xsl:value-of select="./@id"/>
                     </idno>
-                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
-                </msIdentifier>
             </xsl:when>
             <xsl:otherwise>
-                <msIdentifier>
-                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"/>
                     <idno>
-                        <xsl:value-of select="./text()"/>
+                        <xsl:value-of select="normalize-space(./text())"/>
                     </idno>
-                    <altIdentifier>
-                        <idno>
-                            <xsl:value-of select="./@id"/>
-                        </idno>
-                    </altIdentifier>
-                </msIdentifier>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -433,13 +415,14 @@
     <!-- END: lang_MOM -->
 
     <!-- START: witnessOrig -->
-    <xsl:template match="cei:witnessOrig">
+    <xsl:template match="cei:witnessOrig" mode="msDescId">
         <xsl:apply-templates select="cei:archIdentifier"/>
     </xsl:template>
     <!-- END: witnessOrig -->
 
     <!-- START: archIdentifier -->
     <xsl:template match="cei:archIdentifier">
+        <msIdentifier>
         <xsl:if test="./cei:country">
             <country>
                 <xsl:value-of select="./cei:country"/>
@@ -479,12 +462,20 @@
                 <xsl:value-of select="./cei:altIdentifier"/>
             </collection>
         </xsl:if>
+        <xsl:apply-templates select="//*[local-name() = 'body']/*[local-name() = 'idno']" mode="msCharterId"/>
+        <xsl:if test="./cei:idno">
+            <altIdentifier>
+                <idno>
+                    <xsl:value-of select="./cei:idno"/>
+                </idno>
+            </altIdentifier>
+        </xsl:if>
         <xsl:if test="normalize-space(.) and not(*)">
             <institution>
                 <xsl:value-of select="."/>
             </institution>
         </xsl:if>
-
+        </msIdentifier>
     </xsl:template>
     <!-- END: archIdentifier -->
 
