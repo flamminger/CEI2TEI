@@ -23,18 +23,6 @@
     <xsl:variable name="atom_published" select="/atom:entry/atom:published"/>
     <xsl:variable name="atom_updated" select="/atom:entry/atom:updated"/>
     <xsl:variable name="atom_email" select="/atom:entry/atom:author/atom:email"/>
-    <!--    <xsl:variable name="atom-rest">-->
-    <!--        <xsl:value-of select="substring-after(atom:entry/atom:id, 'charter/')"/>-->
-    <!--    </xsl:variable>-->
-    <!--    <xsl:variable name="atom-last">-->
-    <!--        <xsl:value-of select="concat('/', tokenize($atom-rest, '/')[last()])"/>-->
-    <!--    </xsl:variable>-->
-    <!--    <xsl:variable name="collection" select="substring-before($atom-rest, $atom-last)"/>-->
-    <!--    <xsl:variable name="contextname">-->
-    <!--        <xsl:value-of-->
-    <!--                select="concat('context:cord.', lower-case(replace(substring-before($atom-rest, $atom-last), '/', '.')))"-->
-    <!--        />-->
-    <!--    </xsl:variable>-->
     <!--  END: ATOM VARIABLES  -->
 
     <!-- START: ROOT DOCUMENT -->
@@ -96,7 +84,6 @@
                                         select="//*[local-name() = 'witnessOrig']//*[local-name() = 'traditioForm']"
                                         mode="copyStatusDiploDesc"/>
                                 <xsl:apply-templates select="//*[local-name() = 'rubrum']"/>
-                                <xsl:apply-templates select="//*[local-name() = 'listBibl']" mode="diploListBibl"/>
                                 <xsl:apply-templates select="//*[local-name() = 'diplomaticAnalysis']"
                                                      mode="diplomaticAnalysis"/>
                             </diploDesc>
@@ -183,38 +170,38 @@
     <xsl:template match="cei:idno" mode="msCharterId">
         <xsl:choose>
             <xsl:when test="./@id and ./@old and ./text()">
-                    <idno>
-                        <xsl:attribute name="source">
-                            <xsl:value-of select="./@id"/>
-                        </xsl:attribute>
-                        <xsl:attribute name="prev">
-                            <xsl:value-of select="./@old"/>
-                        </xsl:attribute>
-                        <xsl:value-of select="normalize-space(./text())"/>
-                    </idno>
+                <idno>
+                    <xsl:attribute name="source">
+                        <xsl:value-of select="./@id"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="prev">
+                        <xsl:value-of select="./@old"/>
+                    </xsl:attribute>
+                    <xsl:value-of select="normalize-space(./text())"/>
+                </idno>
             </xsl:when>
             <xsl:when test="./@id and ./text()">
-                    <idno>
-                        <xsl:attribute name="source">
-                            <xsl:value-of select="./@id"/>
-                        </xsl:attribute>
-                        <xsl:value-of select="normalize-space(./text())"/>
-                    </idno>
+                <idno>
+                    <xsl:attribute name="source">
+                        <xsl:value-of select="./@id"/>
+                    </xsl:attribute>
+                    <xsl:value-of select="normalize-space(./text())"/>
+                </idno>
             </xsl:when>
             <xsl:when test="./text() != ''">
-                    <idno>
-                        <xsl:value-of select="normalize-space(./text())"/>
-                    </idno>
+                <idno>
+                    <xsl:value-of select="normalize-space(./text())"/>
+                </idno>
             </xsl:when>
             <xsl:when test="./@id and ./text() = ''">
-                    <idno>
-                        <xsl:value-of select="./@id"/>
-                    </idno>
+                <idno>
+                    <xsl:value-of select="./@id"/>
+                </idno>
             </xsl:when>
             <xsl:otherwise>
-                    <idno>
-                        <xsl:value-of select="normalize-space(./text())"/>
-                    </idno>
+                <idno>
+                    <xsl:value-of select="normalize-space(./text())"/>
+                </idno>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -229,8 +216,8 @@
     <!-- END: diploDesc issued -->
 
     <!-- START: diploDesc bibl -->
-    <xsl:template match="cei:listBibl" mode="diploListBibl">
-        <listBibl>
+    <xsl:template match="cei:listBibl" mode="diplomaticAnalysis">
+        <listBibl type="analysis">
             <xsl:apply-templates/>
         </listBibl>
     </xsl:template>
@@ -284,10 +271,21 @@
                     </xsl:attribute>
                 </xsl:if>
             </xsl:if>
+
+            <xsl:value-of select="."/>
+            <xsl:if test="./cei:ref">
+                <ref>
+                    <xsl:if test="./cei:ref/@target">
+                        <xsl:attribute name="target">
+                            <xsl:value-of select="./cei:ref/@target"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="./cei:ref"/>
+                </ref>
+            </xsl:if>
             <xsl:value-of select="."/>
         </bibl>
     </xsl:template>
-
     <!-- END: diploDesc bibl -->
 
 
@@ -348,30 +346,32 @@
     <!-- START: placeName -->
     <xsl:template match="cei:placeName" mode="issuedDiploDesc">
         <placeName>
-            <xsl:if test="./@id">
-                <xsl:attribute name="corresp">
-                    <xsl:value-of select="./@id"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./@n">
-                <xsl:attribute name="n">
-                    <xsl:value-of select="./@n"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./@lang">
-                <xsl:attribute name="xml:lang">
-                    <xsl:value-of select="./@lang"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./@reg">
-                <choice>
-                    <orig>
-                        <xsl:value-of select="."/>
-                    </orig>
-                    <reg>
-                        <xsl:value-of select="./@reg"/>
-                    </reg>
-                </choice>
+            <xsl:if test="./@*">
+                <xsl:if test="./@id">
+                    <xsl:attribute name="corresp">
+                        <xsl:value-of select="./@id"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@n">
+                    <xsl:attribute name="n">
+                        <xsl:value-of select="./@n"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@lang">
+                    <xsl:attribute name="xml:lang">
+                        <xsl:value-of select="./@lang"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@reg">
+                    <choice>
+                        <orig>
+                            <xsl:value-of select="."/>
+                        </orig>
+                        <reg>
+                            <xsl:value-of select="./@reg"/>
+                        </reg>
+                    </choice>
+                </xsl:if>
             </xsl:if>
             <xsl:apply-templates/>
         </placeName>
@@ -423,58 +423,58 @@
     <!-- START: archIdentifier -->
     <xsl:template match="cei:archIdentifier">
         <msIdentifier>
-        <xsl:if test="./cei:country">
-            <country>
-                <xsl:value-of select="./cei:country"/>
-            </country>
-        </xsl:if>
-        <xsl:if test="./cei:region">
-            <region>
-                <xsl:value-of select="./cei:region"/>
-            </region>
-        </xsl:if>
-        <xsl:if test="./cei:geogName">
+            <xsl:if test="./cei:country">
+                <country>
+                    <xsl:value-of select="./cei:country"/>
+                </country>
+            </xsl:if>
+            <xsl:if test="./cei:region">
+                <region>
+                    <xsl:value-of select="./cei:region"/>
+                </region>
+            </xsl:if>
+            <xsl:if test="./cei:geogName">
 
-        </xsl:if>
-        <xsl:if test="./cei:settlement">
-            <settlement>
-                <xsl:value-of select="./cei:settlement"/>
-            </settlement>
-        </xsl:if>
-        <xsl:if test="./cei:repository">
-            <repository>
-                <xsl:value-of select="./cei:repository"/>
-            </repository>
-        </xsl:if>
+            </xsl:if>
+            <xsl:if test="./cei:settlement">
+                <settlement>
+                    <xsl:value-of select="./cei:settlement"/>
+                </settlement>
+            </xsl:if>
+            <xsl:if test="./cei:repository">
+                <repository>
+                    <xsl:value-of select="./cei:repository"/>
+                </repository>
+            </xsl:if>
 
-        <xsl:if test="./cei:arch">
-            <institution>
-                <xsl:value-of select="./cei:arch"/>
-            </institution>
-        </xsl:if>
-        <xsl:if test="./cei:archFond">
-            <collection>
-                <xsl:value-of select="./cei:archFond"/>
-            </collection>
-        </xsl:if>
-        <xsl:if test="./cei:altIdentifier">
-            <collection>
-                <xsl:value-of select="./cei:altIdentifier"/>
-            </collection>
-        </xsl:if>
-        <xsl:apply-templates select="//*[local-name() = 'body']/*[local-name() = 'idno']" mode="msCharterId"/>
-        <xsl:if test="./cei:idno">
-            <altIdentifier>
-                <idno>
-                    <xsl:value-of select="./cei:idno"/>
-                </idno>
-            </altIdentifier>
-        </xsl:if>
-        <xsl:if test="normalize-space(.) and not(*)">
-            <institution>
-                <xsl:value-of select="."/>
-            </institution>
-        </xsl:if>
+            <xsl:if test="./cei:arch">
+                <institution>
+                    <xsl:value-of select="./cei:arch"/>
+                </institution>
+            </xsl:if>
+            <xsl:if test="./cei:archFond">
+                <collection>
+                    <xsl:value-of select="./cei:archFond"/>
+                </collection>
+            </xsl:if>
+            <xsl:if test="./cei:altIdentifier">
+                <collection>
+                    <xsl:value-of select="./cei:altIdentifier"/>
+                </collection>
+            </xsl:if>
+            <xsl:apply-templates select="//*[local-name() = 'body']/*[local-name() = 'idno']" mode="msCharterId"/>
+            <xsl:if test="./cei:idno">
+                <altIdentifier>
+                    <idno>
+                        <xsl:value-of select="./cei:idno"/>
+                    </idno>
+                </altIdentifier>
+            </xsl:if>
+            <xsl:if test="normalize-space(.) and not(*)">
+                <institution>
+                    <xsl:value-of select="."/>
+                </institution>
+            </xsl:if>
         </msIdentifier>
     </xsl:template>
     <!-- END: archIdentifier -->
@@ -495,9 +495,6 @@
                         </layoutDesc>
                     </xsl:if>
                 </objectDesc>
-                <!--            <xsl:if test="//*[local-name() = 'sourceDesc']">-->
-                <!--                <xsl:apply-templates select="//*[local-name() = 'sourceDesc']" mode="sourceRegest"/>-->
-                <!--            </xsl:if>-->
                 <xsl:if test="//cei:p[@type = 'handDesc']">
                     <handDesc>
                         <xsl:apply-templates select="//cei:p[@type = 'handDesc']" mode="pHanddesc"/>
@@ -619,9 +616,11 @@
 
     <!-- START: rubrum -->
     <xsl:template match="cei:rubrum">
-        <p sameAs="rubrum">
-            <xsl:apply-templates/>
-        </p>
+        <xsl:if test="normalize-space(.) != ''">
+            <p sameAs="rubrum">
+                <xsl:apply-templates/>
+            </p>
+        </xsl:if>
     </xsl:template>
     <!-- END: rubrum -->
 
@@ -746,9 +745,7 @@
         </bibl>
     </xsl:template>
     <!-- END: witness figure -->
-
     <!-- END: witnessList -->
-
 
     <!--     START: tenor -->
     <xsl:template match="cei:tenor">
@@ -2096,16 +2093,9 @@
     </xsl:template>
     <!-- END: sourceRegest -->
 
-    <!-- START: sourceVolltext -->
-    <!--    <xsl:template match="cei:sourceDescVolltext" mode="sourceRegest">-->
-    <!--        <listBibl type="text">-->
-    <!--            <xsl:apply-templates mode="sourceRegest"/>-->
-    <!--        </listBibl>-->
-    <!--    </xsl:template>-->
-    <!-- END: sourceVolltext -->
-
     <!-- START: sourceRegest bibl -->
     <xsl:template match="cei:bibl" mode="sourceRegest">
+        <xsl:if test="normalize-space(.) != ''">
         <bibl>
             <xsl:if test="ancestor::cei:sourceDescVolltext">
                 <xsl:attribute name="type">
@@ -2119,95 +2109,219 @@
             </xsl:if>
             <xsl:value-of select="."/>
         </bibl>
+        </xsl:if>
     </xsl:template>
     <!-- END: sourceRegest bibl -->
 
     <!-- START: diplomaticAnalysis listBiblEdition -->
     <xsl:template match="cei:diplomaticAnalysis/cei:listBiblEdition" mode="diplomaticAnalysis">
-        <additional n="edition">
-            <listBibl>
-                <xsl:apply-templates mode="diplomaticAnalysis"/>
-            </listBibl>
-        </additional>
+        <xsl:if test="normalize-space(.) != ''">
+            <additional n="edition">
+                <listBibl>
+                    <xsl:apply-templates/>
+                </listBibl>
+            </additional>
+        </xsl:if>
     </xsl:template>
     <!-- END: diplomaticAnalysis listBiblEdition -->
 
     <!-- START: diplomaticAnalysis listBiblErw -->
     <xsl:template match="cei:diplomaticAnalysis/cei:listBiblErw" mode="diplomaticAnalysis">
-        <additional n="extension">
-            <listBibl>
-                <xsl:apply-templates mode="diplomaticAnalysis"/>
-            </listBibl>
-        </additional>
+        <xsl:if test="normalize-space(.) != ''">
+            <additional n="extension">
+                <listBibl>
+                    <xsl:apply-templates/>
+                </listBibl>
+            </additional>
+        </xsl:if>
     </xsl:template>
     <!-- END: diplomaticAnalysis listBiblErw -->
 
     <!-- START: diplomaticAnalysis p -->
     <xsl:template match="cei:p" mode="diplomaticAnalysis">
-        <p>
-            <xsl:apply-templates/>
-        </p>
+        <xsl:if test="normalize-space(.) != ''">
+            <p>
+                <xsl:apply-templates/>
+            </p>
+        </xsl:if>
     </xsl:template>
     <!-- END: diplomaticAnalysis p -->
 
-    <!-- START: bibl -->
-    <xsl:template match="cei:bibl" mode="diplomaticAnalysis">
-        <bibl>
-            <xsl:value-of select="."/>
-        </bibl>
-    </xsl:template>
-    <!-- END: bibl -->
-
     <!-- START: diplomaticAnalysis quoteDate -->
     <xsl:template match="cei:quoteOriginaldatierung" mode="diplomaticAnalysis">
-        <origDate>
-            <q>
-                <xsl:apply-templates mode="diplomaticAnalysis"/>
-            </q>
-        </origDate>
+        <xsl:if test="normalize-space(.) != ''">
+            <origDate>
+                <q>
+                    <xsl:apply-templates mode="diplomaticAnalysis"/>
+                </q>
+            </origDate>
+        </xsl:if>
     </xsl:template>
     <!-- END: diplomaticAnalysis quoteDate -->
     <!-- START: back -->
     <!-- START: divNotes -->
     <xsl:template match="cei:divNotes" mode="back">
-        <div>
-            <xsl:apply-templates mode="tenor"/>
-        </div>
+        <xsl:if test="normalize-space(.) != ''">
+            <div>
+                <xsl:apply-templates mode="tenor"/>
+            </div>
+        </xsl:if>
     </xsl:template>
     <!-- END: divNotes -->
 
-    <!-- START: persName List check -->
-    <xsl:template match="cei:persName" mode="back">
-        <xsl:if test="following-sibling::cei:persName and not(preceding-sibling::cei:persName)">
-            <listPerson>
-                <xsl:for-each select=". | following-sibling::cei:persName">
-                    <person>
-                        <persName>
-                            <xsl:apply-templates/>
-                        </persName>
-                    </person>
+    <!--     START: persName-->
+    <xsl:template match="//*[local-name() = 'back']" mode="back">
+        <xsl:if test="cei:placeName and normalize-space(cei:placeName) != ''">
+            <listPlace>
+                <xsl:for-each select="cei:placeName">
+                    <place>
+                        <placeName>
+                            <xsl:if test="./@*">
+                                <xsl:if test="./@type">
+                                    <xsl:attribute name="type">
+                                        <xsl:value-of select="./@type"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="./@id">
+                                    <xsl:attribute name="corresp">
+                                        <xsl:value-of select="./@id"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="./@n">
+                                    <xsl:attribute name="n">
+                                        <xsl:value-of select="./@n"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="./@lang">
+                                    <xsl:attribute name="xml:lang">
+                                        <xsl:value-of select="./@lang"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="./@reg">
+                                    <choice>
+                                        <orig>
+                                            <xsl:value-of select="."/>
+                                        </orig>
+                                        <reg>
+                                            <xsl:value-of select="./@reg"/>
+                                        </reg>
+                                    </choice>
+                                </xsl:if>
+                            </xsl:if>
+                            <xsl:value-of select="."/>
+                        </placeName>
+                    </place>
                 </xsl:for-each>
-                <!--                <xsl:apply-templates mode="back"/>-->
-            </listPerson>
+            </listPlace>
+        </xsl:if>
+        <xsl:if test="cei:persName">
+            <xsl:if test="cei:persName and normalize-space(cei:persName) != ''">
+                <listPerson>
+                    <xsl:for-each select="cei:persName">
+                        <person>
+                            <persName>
+                                <xsl:if test="./@*">
+                                    <xsl:if test="./@id">
+                                        <xsl:attribute name="corresp">
+                                            <xsl:value-of select="./@id"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@facs">
+                                        <xsl:attribute name="facs">
+                                            <xsl:value-of select="./@facs"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@n">
+                                        <xsl:attribute name="n">
+                                            <xsl:value-of select="./@n"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@rend">
+                                        <xsl:attribute name="rend">
+                                            <xsl:value-of select="./@rend"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@resp">
+                                        <xsl:attribute name="resp">
+                                            <xsl:value-of select="./@resp"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@type">
+                                        <xsl:attribute name="type">
+                                            <xsl:value-of select="./@type"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@key">
+                                        <xsl:attribute name="key">
+                                            <xsl:value-of select="./@key"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@lang">
+                                        <xsl:attribute name="xml:lang">
+                                            <xsl:value-of select="./@lang"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@certainty">
+                                        <xsl:attribute name="cert">
+                                            <xsl:value-of select="./@certainty"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="./@reg">
+                                        <choice>
+                                            <orig>
+                                                <xsl:value-of select="."/>
+                                            </orig>
+                                            <reg>
+                                                <xsl:value-of select="./@reg"/>
+                                            </reg>
+                                        </choice>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="."/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </persName>
+                        </person>
+                    </xsl:for-each>
+                </listPerson>
+            </xsl:if>
+        </xsl:if>
+        <xsl:if test="cei:index">
+            <xsl:if test="cei:index and normalize-space(cei:index) != ''">
+                <list type="index">
+                    <xsl:for-each select="cei:index">
+                        <item>
+                            <index>
+                                <xsl:if test="./@*">
+                                    <xsl:if test="./@indexName">
+                                        <xsl:attribute name="indexName">
+                                            <xsl:value-of select="./@indexName"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="./@lemma">
+                                        <xsl:attribute name="n">
+                                            <xsl:value-of select="./@lemma"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                </xsl:if>
+                                <term>
+                                    <xsl:value-of select="."/>
+                                </term>
+                            </index>
+                        </item>
+                    </xsl:for-each>
+                </list>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
-    <!-- END: persName List check -->
-
-    <!-- START: persName  -->
-    <!--    <xsl:template match="cei:persName" mode="back">-->
-    <!--        <person>-->
-    <!--            <persName>-->
-    <!--                <xsl:apply-templates/>-->
-    <!--            </persName>-->
-    <!--        </person>-->
-    <!--    </xsl:template>-->
-    <!-- END: persName  -->
-
-
+    <!--     END: persName-->
     <!-- END: back -->
 
     <!-- START: cei:text attributes -->
     <xsl:template match="cei:text" mode="textAttributes">
+        <xsl:if test="./@id | ./@b_name | ./@n">
         <settingDesc>
             <setting>
                 <xsl:if test="./@id">
@@ -2227,10 +2341,9 @@
                 </xsl:if>
             </setting>
         </settingDesc>
+        </xsl:if>
     </xsl:template>
-
-
-    <!-- START: cei:text attributes -->
+    <!-- END: cei:text attributes -->
 
     <!-- START: global elements -->
     <!-- START: foreign -->
