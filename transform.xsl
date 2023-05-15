@@ -454,6 +454,7 @@
                         <support>
                             <xsl:apply-templates select="cei:material | cei:dimensions"/>
                         </support>
+                        <xsl:apply-templates select="cei:condition"/>
                     </supportDesc>
                     <xsl:if test="//cei:p[@type = 'layout']">
                         <layoutDesc>
@@ -479,6 +480,38 @@
     <!-- START: material -->
     <xsl:template match="cei:material">
         <material>
+            <xsl:if test="./@*">
+                <xsl:if test="./@facs">
+                    <xsl:attribute name="facs">
+                        <xsl:value-of select="./@facs"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@id">
+                    <xsl:attribute name="corresp">
+                        <xsl:value-of select="./@id"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@lang">
+                    <xsl:attribute name="xml:lang">
+                        <xsl:value-of select="./@lang"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@n">
+                    <xsl:attribute name="n">
+                        <xsl:value-of select="./@n"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@rend">
+                    <xsl:attribute name="rend">
+                        <xsl:value-of select="./@rend"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@resp">
+                    <xsl:attribute name="resp">
+                        <xsl:value-of select="./@resp"/>
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:if>
             <xsl:value-of select="."/>
         </material>
     </xsl:template>
@@ -489,20 +522,94 @@
         <xsl:choose>
             <xsl:when test="./text()">
                 <measure>
+                    <xsl:if test="./@*">
+                        <xsl:if test="./@facs">
+                            <xsl:attribute name="facs">
+                                <xsl:value-of select="./@facs"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@id">
+                            <xsl:attribute name="corresp">
+                                <xsl:value-of select="./@id"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@lang">
+                            <xsl:attribute name="xml:lang">
+                                <xsl:value-of select="./@lang"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@n">
+                            <xsl:attribute name="n">
+                                <xsl:value-of select="./@n"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@rend">
+                            <xsl:attribute name="rend">
+                                <xsl:value-of select="./@rend"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@resp">
+                            <xsl:attribute name="resp">
+                                <xsl:value-of select="./@resp"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@type">
+                            <xsl:attribute name="type">
+                                <xsl:value-of select="./@type"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@unit">
+                            <xsl:attribute name="unit">
+                                <xsl:value-of select="./@unit"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </xsl:if>
                     <xsl:value-of select="./text()"/>
                 </measure>
             </xsl:when>
             <xsl:otherwise>
                 <dimensions>
-                    <xsl:if test="./@type">
-                        <xsl:attribute name="type">
-                            <xsl:value-of select="./@type"/>
-                        </xsl:attribute>
-                    </xsl:if>
-                    <xsl:if test="./@unit">
-                        <xsl:attribute name="unit">
-                            <xsl:value-of select="./@unit"/>
-                        </xsl:attribute>
+                    <xsl:if test="./@*">
+                        <xsl:if test="./@facs">
+                            <xsl:attribute name="facs">
+                                <xsl:value-of select="./@facs"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@id">
+                            <xsl:attribute name="corresp">
+                                <xsl:value-of select="./@id"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@lang">
+                            <xsl:attribute name="xml:lang">
+                                <xsl:value-of select="./@lang"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@n">
+                            <xsl:attribute name="n">
+                                <xsl:value-of select="./@n"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@rend">
+                            <xsl:attribute name="rend">
+                                <xsl:value-of select="./@rend"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@resp">
+                            <xsl:attribute name="resp">
+                                <xsl:value-of select="./@resp"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@type">
+                            <xsl:attribute name="type">
+                                <xsl:value-of select="./@type"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="./@unit">
+                            <xsl:attribute name="unit">
+                                <xsl:value-of select="./@unit"/>
+                            </xsl:attribute>
+                        </xsl:if>
                     </xsl:if>
                     <xsl:apply-templates select="node()[text()]"/>
                 </dimensions>
@@ -534,6 +641,46 @@
         </plica>
     </xsl:template>
     <!-- END: plica -->
+
+    <!-- START: condition -->
+    <xsl:template match="cei:condition">
+        <condition>
+            <xsl:if test="./@*">
+                <xsl:if test="./@facs">
+                    <xsl:attribute name="facs">
+                        <xsl:value-of select="./@facs"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@id">
+                    <xsl:attribute name="corresp">
+                        <xsl:value-of select="./@id"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@lang">
+                    <xsl:attribute name="xml:lang">
+                        <xsl:value-of select="./@lang"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@n">
+                    <xsl:attribute name="n">
+                        <xsl:value-of select="./@n"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@rend">
+                    <xsl:attribute name="rend">
+                        <xsl:value-of select="./@rend"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="./@resp">
+                    <xsl:attribute name="resp">
+                        <xsl:value-of select="./@resp"/>
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </condition>
+    </xsl:template>
+    <!-- END: conidition -->
 
     <!-- START: p -->
     <xsl:template match="cei:p">
