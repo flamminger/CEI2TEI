@@ -731,7 +731,7 @@
     <xsl:template name="pHanddesc" match="cei:p[@type = 'handDesc']" mode="pHanddesc">
         <xsl:for-each select=".">
             <p>
-                <xsl:value-of select="../cei:p/text()"/>
+                <xsl:value-of select="./text()"/>
             </p>
         </xsl:for-each>
     </xsl:template>
