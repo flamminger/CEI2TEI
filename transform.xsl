@@ -82,7 +82,7 @@
                                             mode="msDescId"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <!-- IF NO WITNESS ORIG EXISTS, USE IDNO AS MANDATORY <msIdentifier> ID-->
+                                    <!-- IF NO WITNESS ORIG EXISTS, USE BODY/IDNO AS MANDATORY <msIdentifier> ID-->
                                     <msIdentifier>
                                         <idno>
                                             <xsl:apply-templates select="//cei:text/cei:body/cei:idno"
@@ -428,7 +428,7 @@
                     <xsl:value-of select="./cei:altIdentifier"/>
                 </collection>
             </xsl:if>
-            <xsl:apply-templates select="//*[local-name() = 'body']//*[local-name() = 'idno']" mode="msCharterId"/>
+            <xsl:apply-templates select="//*[local-name() = 'body']/*[local-name() = 'idno']" mode="msCharterId"/>
             <xsl:if test="./cei:idno">
                 <altIdentifier>
                     <idno type="local">
