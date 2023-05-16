@@ -317,7 +317,9 @@
                         <xsl:value-of select="./@type"/>
                     </xsl:attribute>
                 </xsl:if>
-                <xsl:if test="./@reg">
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="./@reg">
                     <choice>
                         <orig>
                             <xsl:value-of select="."/>
@@ -326,9 +328,11 @@
                             <xsl:value-of select="./@reg"/>
                         </reg>
                     </choice>
-                </xsl:if>
-            </xsl:if>
-            <xsl:apply-templates/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </placeName>
     </xsl:template>
     <!-- END: placeName -->
@@ -2168,7 +2172,7 @@
                             <xsl:value-of select="."/>
                         </orig>
                         <reg>
-                            <xsl:value-of select="./@reg"/>
+                            <xsl:apply-templates/>
                         </reg>
                     </choice>
                 </xsl:when>
@@ -2577,7 +2581,7 @@
                     <xsl:value-of select="./@notAfter"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:value-of select="."/>
+            <xsl:apply-templates/>
         </origDate>
     </xsl:template>
     <!-- END: date -->
@@ -2595,7 +2599,7 @@
                     <xsl:value-of select="./@to"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:value-of select="."/>
+            <xsl:apply-templates/>
         </origDate>
     </xsl:template>
     <!-- END: dateRange -->
@@ -2846,7 +2850,6 @@
                     <xsl:apply-templates/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:apply-templates/>
         </geogName>
     </xsl:template>
     <!-- END: geogName -->
@@ -2905,7 +2908,6 @@
                         <xsl:value-of select="./@n"/>
                     </xsl:attribute>
                 </xsl:if>
-
                 <xsl:if test="./@rend">
                     <xsl:attribute name="rend">
                         <xsl:value-of select="./@rend"/>
