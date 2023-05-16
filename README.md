@@ -4,7 +4,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 
 ### Changes and Missing Elements
 `<rubrum>` Element in msDesc/diploDesc, for now moved to `<p sameAs="rubrum">`
-- Element für dispositives Verb? Anregung von Jaqueline
+- Element für dispositives Verb? Anregung von Jaqueline (?)
 - `<idno>` element attribute @id moved to @source, @old moved to @prev
 - @rend and @rendition attributes?
 - currently no `<w>` element. For now, moved to `<span>` with type word
@@ -22,10 +22,9 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<orgName>` is missing @reg, @type
     - @type moved to @role
     - @reg --> `<choice><reg><orig>`
-- in `<body>` the `<pc>` element is missing. For now, moved to `<span>` with @type pc
 - in `<body>` the `<seg>` element is missing. For now, moved to `<span>` with @inst seg
     - seg attribute @part moved to @n, @part is availaible @ tei:seg
-- in `<body>` the `<date>` elements have to be nested within a `<span>` element, like `<placeName>` etc.
+- in `<body>` the `<c>` element cannot contain `<choice>´ elements, moved to `<span type="char">`
 - in `<body>/<figure>` a replacement for `<cei:rights>` (child of `<figure>`) is missing. For now, moved to `<byline>`
 - in `<body>/<figure>` a substitute for `<cei:zone>` is missing. For now, moved to `<note>` with `@sameAs="zone"`
 - `<figure><graphic>` nesting is not possible. TEI construction --> `<facsimile><graphic>`, Attributes moved to `<graphic>`
@@ -48,7 +47,11 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:witness><cei:figure>` construct not possible in the new schema. For now, moved to `<witness><bibl type="graphic"><graphic>`
 - `<cei:witness><cei:traditioForm>` equivalent is missing. `CopyStatus` is only possible once in the `<listWit>` element. For now, moved to `<witness><distinct>` with attribute `@type="copyStatus"`
 - `<cei:text>` attributes moved to `<profileDesc><settingDesc><setting>`
-- should all files with no date or `99999999` be unified with a certain notation?
 - Filter or keep optional / empty elements?
 - grouped all `persName`, `placeName`, `index` list
     - there is no dedicated list for `<index>` elements. For now, moved to `<list type="index"><item><index
+
+
+## ToDos
+- [ ] automated test of larger file sample
+- [ ] update schema
