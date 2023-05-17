@@ -1582,6 +1582,7 @@
                 </xsl:if>
             </xsl:if>
             <xsl:apply-templates mode="auth"/>
+            <xsl:apply-templates select="//*[local-name() = 'seal']" mode="auth"/>
         </authDesc>
     </xsl:template>
 
@@ -1615,10 +1616,7 @@
                     </xsl:attribute>
                 </xsl:if>
             </xsl:if>
-            <xsl:if test="./text()">
-                <xsl:apply-templates select="cei:p" mode="auth"/>
-            </xsl:if>
-            <xsl:apply-templates mode="auth"/>
+            <xsl:apply-templates select="cei:p" mode="auth"/>
         </decoNote>
     </xsl:template>
     <!-- END: sealDesc -->
