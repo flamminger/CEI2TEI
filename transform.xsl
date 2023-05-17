@@ -84,10 +84,8 @@
                                 <xsl:otherwise>
                                     <!-- IF NO WITNESS ORIG EXISTS, USE BODY/IDNO AS MANDATORY <msIdentifier> ID-->
                                     <msIdentifier>
-                                        <idno>
-                                            <xsl:apply-templates select="//cei:text/cei:body/cei:idno"
-                                                                 mode="msCharterId"/>
-                                        </idno>
+                                        <xsl:apply-templates select="//cei:text/cei:body/cei:idno"
+                                                             mode="msCharterId"/>
                                     </msIdentifier>
                                 </xsl:otherwise>
                             </xsl:choose>
