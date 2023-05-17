@@ -1900,9 +1900,9 @@
 
     <!--     START: persName-->
     <xsl:template match="//*[local-name() = 'back']" mode="back">
-        <xsl:if test="cei:placeName and normalize-space(cei:placeName) != ''">
+        <xsl:if test="cei:placeName[normalize-space(.) != '']">
             <listPlace>
-                <xsl:for-each select="cei:placeName">
+                <xsl:for-each select="cei:placeName[normalize-space(.) != '']">
                     <place>
                         <placeName>
                             <xsl:if test="./@*">
@@ -1929,7 +1929,7 @@
                                 <xsl:if test="./@reg">
                                     <choice>
                                         <orig>
-                                            <xsl:value-of select="."/>
+                                            <xsl:value-of select="normalize-space(.)"/>
                                         </orig>
                                         <reg>
                                             <xsl:value-of select="./@reg"/>
@@ -1937,16 +1937,16 @@
                                     </choice>
                                 </xsl:if>
                             </xsl:if>
-                            <xsl:value-of select="."/>
+                            <xsl:value-of select="normalize-space(.)"/>
                         </placeName>
                     </place>
                 </xsl:for-each>
             </listPlace>
         </xsl:if>
         <xsl:if test="cei:persName">
-            <xsl:if test="cei:persName and normalize-space(cei:persName) != ''">
+            <xsl:if test="cei:persName[normalize-space(.) != '']">
                 <listPerson>
-                    <xsl:for-each select="cei:persName">
+                    <xsl:for-each select="cei:persName[normalize-space(.) != '']">
                         <person>
                             <persName>
                                 <xsl:if test="./@*">
@@ -2000,7 +2000,7 @@
                                     <xsl:when test="./@reg">
                                         <choice>
                                             <orig>
-                                                <xsl:value-of select="."/>
+                                                <xsl:value-of select="normalize-space(.)"/>
                                             </orig>
                                             <reg>
                                                 <xsl:value-of select="./@reg"/>
@@ -2008,7 +2008,7 @@
                                         </choice>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:value-of select="."/>
+                                        <xsl:value-of select="normalize-space(.)"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </persName>
@@ -2018,9 +2018,9 @@
             </xsl:if>
         </xsl:if>
         <xsl:if test="cei:index">
-            <xsl:if test="cei:index and normalize-space(cei:index) != ''">
+            <xsl:if test="cei:index[normalize-space(.) != '']">
                 <list type="index">
-                    <xsl:for-each select="cei:index">
+                    <xsl:for-each select="cei:index[normalize-space(.) != '']">
                         <item>
                             <index>
                                 <xsl:if test="./@*">
@@ -2036,7 +2036,7 @@
                                     </xsl:if>
                                 </xsl:if>
                                 <term>
-                                    <xsl:value-of select="."/>
+                                    <xsl:value-of select="normalize-space(.)"/>
                                 </term>
                             </index>
                         </item>

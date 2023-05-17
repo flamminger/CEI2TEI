@@ -54,5 +54,6 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 
 ## ToDos
 - [ ] refactor templates
+- [ ] automated test of small file sample
 - [ ] automated test of larger file sample
 - [ ] update schema
