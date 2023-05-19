@@ -50,6 +50,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - Filter or keep optional / empty elements?
 - grouped all `persName`, `placeName`, `index` list
     - there is no dedicated list for `<index>` elements. For now, moved to `<list type="index"><item><index
+- `<cei:langMOM>` moved to `<language>`, which requires the attribute ident, for now set to "und"
 
 
 ## ToDos
