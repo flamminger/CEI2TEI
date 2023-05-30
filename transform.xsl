@@ -647,9 +647,7 @@
     </xsl:template>
 
     <xsl:template match="cei:pTenor">
-        <p>
             <xsl:apply-templates/>
-        </p>
     </xsl:template>
 
     <!-- START: pb -->
