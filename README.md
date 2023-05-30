@@ -53,6 +53,10 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:langMOM>` moved to `<language>`, which requires the attribute ident, for now set to "und"
 - `cei:@certainty` and `tei:@cert` are not supporting the same content. CEI = free text, TEI four different options
 - `cei:@type` remove whitespace when transforming to `tei:@type`
+- mixed content elements within text content is an issue. E.g., `<cei:dimensions><cei:height>450</cei:height> x <cei:width>290-300</cei:width> mm</cei:dimensions>`
+
+
+
 ## ToDos
 - [ ] refactor templates (in progress)
 - [ ] automated test of small file sample (in progress)

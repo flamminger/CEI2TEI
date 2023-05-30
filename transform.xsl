@@ -424,7 +424,7 @@
     <!-- START: dimensions -->
     <xsl:template match="cei:dimensions">
         <xsl:choose>
-            <xsl:when test="./text()">
+            <xsl:when test="./text() and not(*)">
                 <measure>
                     <xsl:call-template name="measureDimensions"/>
                     <xsl:value-of select="./text()"/>
@@ -639,24 +639,26 @@
 
     <!-- START: witness figure -->
     <xsl:template match="cei:figure" mode="witness">
-        <bibl type="graphic">
-            <figure>
-                <graphic url="{./cei:graphic/@url}">
-                    <xsl:choose>
-                        <xsl:when test="./@id">
-                            <xsl:attribute name="corresp">
-                                <xsl:value-of select="./@id"/>
-                            </xsl:attribute>
-                        </xsl:when>
-                        <xsl:when test="./@n">
-                            <xsl:attribute name="n">
-                                <xsl:value-of select="./@n"/>
-                            </xsl:attribute>
-                        </xsl:when>
-                    </xsl:choose>
-                </graphic>
-            </figure>
-        </bibl>
+        <xsl:if test="./cei:figure != ''">
+            <bibl type="graphic">
+                <figure>
+                    <graphic url="{./cei:graphic/@url}">
+                        <xsl:choose>
+                            <xsl:when test="./@id">
+                                <xsl:attribute name="corresp">
+                                    <xsl:value-of select="./@id"/>
+                                </xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="./@n">
+                                <xsl:attribute name="n">
+                                    <xsl:value-of select="./@n"/>
+                                </xsl:attribute>
+                            </xsl:when>
+                        </xsl:choose>
+                    </graphic>
+                </figure>
+            </bibl>
+        </xsl:if>
     </xsl:template>
     <!-- END: witness figure -->
     <!-- END: witnessList -->
@@ -1088,6 +1090,30 @@
         </xsl:if>
     </xsl:template>
     <!-- END: diplomaticAnalysis listBiblEdition -->
+
+    <!-- START: diplomaticAnalysis listBiblRegest -->
+    <xsl:template match="cei:diplomaticAnalysis/cei:listBiblRegest" mode="diplomaticAnalysis">
+        <xsl:if test="normalize-space(.) != ''">
+            <additional n="regest">
+                <listBibl>
+                    <xsl:apply-templates/>
+                </listBibl>
+            </additional>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: diplomaticAnalysis listBiblRegest -->
+
+    <!-- START: diplomaticAnalysis listBiblFaksimile -->
+    <xsl:template match="cei:diplomaticAnalysis/cei:listBiblFaksimile" mode="diplomaticAnalysis">
+        <xsl:if test="normalize-space(.) != ''">
+            <additional n="facs">
+                <listBibl>
+                    <xsl:apply-templates/>
+                </listBibl>
+            </additional>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: diplomaticAnalysis listBiblFaksimile -->
 
     <!-- START: diplomaticAnalysis listBiblErw -->
     <xsl:template match="cei:diplomaticAnalysis/cei:listBiblErw" mode="diplomaticAnalysis">
@@ -1978,6 +2004,11 @@
                 <xsl:value-of select="./@notAfter"/>
             </xsl:attribute>
         </xsl:if>
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="./@certainty"/>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
     <!-- END: attribute date -->
 
@@ -2518,12 +2549,18 @@
                 <xsl:value-of select="translate(./@type, ' ', '')"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@unit">
-            <xsl:attribute name="unit">
-                <xsl:value-of select="./@unit"/>
-            </xsl:attribute>
-        </xsl:if>
-
+        <xsl:choose>
+            <xsl:when test="./@unit">
+                <xsl:attribute name="unit">
+                    <xsl:value-of select="./@unit"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="contains(., 'mm')">
+                <xsl:attribute name="unit">
+                    <xsl:text>mm</xsl:text>
+                </xsl:attribute>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!-- END: attributes measure dimensions -->
 
