@@ -339,11 +339,16 @@
                     <xsl:value-of select="./cei:repository"/>
                 </repository>
             </xsl:if>
-            <xsl:if test="./cei:arch">
-                <institution>
-                    <xsl:value-of select="./cei:arch"/>
-                </institution>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="./cei:arch">
+                    <institution>
+                        <xsl:value-of select="./cei:arch"/>
+                    </institution>
+                </xsl:when>
+                <xsl:when test="./text()">
+                    <institution><xsl:value-of select="./text()"/></institution>
+                </xsl:when>
+            </xsl:choose>
             <xsl:if test="./cei:archFond">
                 <collection>
                     <xsl:value-of select="./cei:archFond"/>
@@ -1940,41 +1945,37 @@
 
     <!-- START: attribute date -->
     <xsl:template name="date">
-        <xsl:choose>
-            <xsl:when test="./@value">
+            <xsl:if test="./@value">
                 <xsl:attribute name="when">
                     <xsl:value-of select="./@value"/>
                 </xsl:attribute>
-            </xsl:when>
-            <xsl:when test="./@notBefore">
+            </xsl:if>
+            <xsl:if test="./@notBefore">
                 <xsl:attribute name="notBefore">
                     <xsl:value-of select="./@notBefore"/>
                 </xsl:attribute>
-            </xsl:when>
-            <xsl:when test="./@notAfter">
+            </xsl:if>
+            <xsl:if test="./@notAfter">
                 <xsl:attribute name="notAfter">
                     <xsl:value-of select="./@notAfter"/>
                 </xsl:attribute>
-            </xsl:when>
-        </xsl:choose>
+            </xsl:if>
     </xsl:template>
     <!-- END: attribute date -->
 
 
     <!-- START: attribute dateRange -->
     <xsl:template name="dateRange">
-        <xsl:choose>
-            <xsl:when test="./@from">
+            <xsl:if test="./@from">
                 <xsl:attribute name="from">
                     <xsl:value-of select="./@from"/>
                 </xsl:attribute>
-            </xsl:when>
-            <xsl:when test="./@to">
+            </xsl:if>
+            <xsl:if test="./@to">
                 <xsl:attribute name="to">
                     <xsl:value-of select="./@to"/>
                 </xsl:attribute>
-            </xsl:when>
-        </xsl:choose>
+            </xsl:if>
     </xsl:template>
     <!-- END: attribute dateRange -->
 
