@@ -346,7 +346,9 @@
                     </institution>
                 </xsl:when>
                 <xsl:when test="./text()">
-                    <institution><xsl:value-of select="./text()"/></institution>
+                    <institution>
+                        <xsl:value-of select="./text()"/>
+                    </institution>
                 </xsl:when>
             </xsl:choose>
             <xsl:if test="./cei:archFond">
@@ -479,6 +481,15 @@
         </num>
     </xsl:template>
     <!-- END: num -->
+
+    <!-- START: measure -->
+    <xsl:template match="cei:measure">
+        <measure>
+            <xsl:call-template name="measure"/>
+            <xsl:apply-templates/>
+        </measure>
+    </xsl:template>
+    <!-- END: measure -->
 
     <!-- START: p -->
     <xsl:template match="cei:p">
@@ -656,7 +667,7 @@
     </xsl:template>
 
     <xsl:template match="cei:pTenor">
-            <xsl:apply-templates/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- START: pb -->
@@ -1952,37 +1963,37 @@
 
     <!-- START: attribute date -->
     <xsl:template name="date">
-            <xsl:if test="./@value">
-                <xsl:attribute name="when">
-                    <xsl:value-of select="./@value"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./@notBefore">
-                <xsl:attribute name="notBefore">
-                    <xsl:value-of select="./@notBefore"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./@notAfter">
-                <xsl:attribute name="notAfter">
-                    <xsl:value-of select="./@notAfter"/>
-                </xsl:attribute>
-            </xsl:if>
+        <xsl:if test="./@value">
+            <xsl:attribute name="when">
+                <xsl:value-of select="./@value"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@notBefore">
+            <xsl:attribute name="notBefore">
+                <xsl:value-of select="./@notBefore"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@notAfter">
+            <xsl:attribute name="notAfter">
+                <xsl:value-of select="./@notAfter"/>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
     <!-- END: attribute date -->
 
 
     <!-- START: attribute dateRange -->
     <xsl:template name="dateRange">
-            <xsl:if test="./@from">
-                <xsl:attribute name="from">
-                    <xsl:value-of select="./@from"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:if test="./@to">
-                <xsl:attribute name="to">
-                    <xsl:value-of select="./@to"/>
-                </xsl:attribute>
-            </xsl:if>
+        <xsl:if test="./@from">
+            <xsl:attribute name="from">
+                <xsl:value-of select="./@from"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@to">
+            <xsl:attribute name="to">
+                <xsl:value-of select="./@to"/>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
     <!-- END: attribute dateRange -->
 
@@ -2558,6 +2569,47 @@
             </xsl:attribute>
         </xsl:if>
     </xsl:template>
+    <!-- END: attributes num -->
+
+    <!-- START: attributes measure -->
+    <xsl:template name="measure">
+        <xsl:if test="./@id">
+            <xsl:attribute name="xml:id">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@type">
+            <xsl:attribute name="type">
+                <xsl:value-of select="translate(./@type, ' ', '')"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@lang">
+            <xsl:attribute name="xml:lang">
+                <xsl:value-of select="./@lang"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attributes measure -->
 
     <!-- END: attribute templates -->
 
