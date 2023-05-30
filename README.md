@@ -52,7 +52,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
     - there is no dedicated list for `<index>` elements. For now, moved to `<list type="index"><item><index
 - `<cei:langMOM>` moved to `<language>`, which requires the attribute ident, for now set to "und"
 - `cei:@certainty` and `tei:@cert` are not supporting the same content. CEI = free text, TEI four different options
-
+- `cei:@type` remove whitespace when transforming to `tei:@type`
 ## ToDos
 - [ ] refactor templates (in progress)
 - [ ] automated test of small file sample (in progress)
