@@ -123,7 +123,7 @@
                     </change>
                 </revisionDesc>
             </teiHeader>
-            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']">
+            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure'] != ''">
                 <facsimile>
                     <!-- TODO FIX SURFACE -->
                     <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
@@ -395,18 +395,16 @@
                         </layoutDesc>
                     </xsl:if>
                 </objectDesc>
-                <xsl:choose>
-                    <xsl:when test="./cei:decoDesc">
+                    <xsl:if test="./cei:decoDesc">
                         <decoDesc>
                             <xsl:apply-templates select="./cei:decoDesc"/>
                         </decoDesc>
-                    </xsl:when>
-                    <xsl:when test="//cei:p[@type = 'handDesc']">
+                    </xsl:if>
+                    <xsl:if test="//cei:p[@type = 'handDesc']">
                         <handDesc>
                             <xsl:apply-templates select="//cei:p[@type = 'handDesc']" mode="pHanddesc"/>
                         </handDesc>
-                    </xsl:when>
-                </xsl:choose>
+                    </xsl:if>
             </physDesc>
         </xsl:if>
     </xsl:template>
@@ -943,16 +941,17 @@
     <xsl:template match="cei:sealDesc" mode="auth">
         <decoNote>
             <xsl:call-template name="sealDescConc"/>
-            <xsl:apply-templates select="cei:p" mode="auth"/>
+            <xsl:choose>
+                <xsl:when test="text() and not(*)">
+                    <p>
+                        <xsl:value-of select="."/>
+                    </p>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </decoNote>
-    </xsl:template>
-    <!-- END: sealDesc -->
-
-    <!-- START: sealDesc -->
-    <xsl:template match="cei:p" mode="auth">
-        <p>
-            <xsl:apply-templates mode="auth"/>
-        </p>
     </xsl:template>
     <!-- END: sealDesc -->
 
