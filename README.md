@@ -40,7 +40,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:language_MOM>` moved to `<profileDesc>/<langUsage>/<language>`
 - how are we handling none valid charters, like `AUR_1587_VII_07.cei.xml`?
 - `<cei:quoteOriginaldatierung>` moved to `diploDesc <origDate><q>`
-- `<cei:back><cei:divNotes>` moved to `<back><div>`
+- `<cei:back><cei:divNotes>` moved to `<back><div type="divNotes">`
+- `<cei:back><cei:deprecatedNote>` moved to `<back><div type="deprecatedNotes">`
 - `<cei:altIdentifier>` in `<cei:msIdentifier>`, for now, moved to `<msIdentifier><repository>`
 - `<cei:pTenor>` we won't be able to catch everything. E.g., `UrkBremen/2c1824a6-9910-46cc-9d2c-cc8dc8bd2efe.cei.xml` --> mixed content
 - `<cei:witness><cei:archIdentifier>` equivalent is missing. For now, moved to `<witness><idno>`
@@ -54,7 +55,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `cei:@certainty` and `tei:@cert` are not supporting the same content. CEI = free text, TEI four different options
 - `cei:@type` remove whitespace when transforming to `tei:@type`
 - mixed content elements within text content is an issue. E.g., `<cei:dimensions><cei:height>450</cei:height> x <cei:width>290-300</cei:width> mm</cei:dimensions>`
-
+- ´<cei:class>` is used in different ways. Eg, to encode `<cei:class>Urkunde</cei:class>` or `<cei:class>Erzbischof von Messina</cei:class><cei:persName>Rainaldus</cei:persName>`. For now moved to `<textClass><keywords><term>` 
 
 
 ## ToDos

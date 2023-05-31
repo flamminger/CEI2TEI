@@ -114,6 +114,7 @@
                     <xsl:apply-templates select="//*[local-name() = 'abstract'] | //*[local-name() = 'lang_MOM']"
                                          mode="abstract"/>
                     <xsl:apply-templates select="//*[local-name() = 'text']" mode="textAttributes"/>
+                    <xsl:apply-templates select="//*[local-name() = 'back']//*[local-name() = 'class']" mode="class"/>
                 </profileDesc>
                 <revisionDesc>
                     <change>
@@ -145,7 +146,7 @@
                 </body>
                 <back>
                     <xsl:apply-templates select="//*[local-name() = 'back']" mode="indices"/>
-                    <xsl:apply-templates select="//*[local-name() = 'back']//*[local-name() = 'divNotes']" mode="back"/>
+                    <xsl:apply-templates select="//*[local-name() = 'back']" mode="back"/>
                 </back>
             </text>
         </TEI>
@@ -396,16 +397,16 @@
                         </layoutDesc>
                     </xsl:if>
                 </objectDesc>
-                    <xsl:if test="./cei:decoDesc">
-                        <decoDesc>
-                            <xsl:apply-templates select="./cei:decoDesc"/>
-                        </decoDesc>
-                    </xsl:if>
-                    <xsl:if test="//cei:p[@type = 'handDesc']">
-                        <handDesc>
-                            <xsl:apply-templates select="//cei:p[@type = 'handDesc']" mode="pHanddesc"/>
-                        </handDesc>
-                    </xsl:if>
+                <xsl:if test="./cei:decoDesc">
+                    <decoDesc>
+                        <xsl:apply-templates select="./cei:decoDesc"/>
+                    </decoDesc>
+                </xsl:if>
+                <xsl:if test="//cei:p[@type = 'handDesc']">
+                    <handDesc>
+                        <xsl:apply-templates select="//cei:p[@type = 'handDesc']" mode="pHanddesc"/>
+                    </handDesc>
+                </xsl:if>
             </physDesc>
         </xsl:if>
     </xsl:template>
@@ -1140,23 +1141,39 @@
     </xsl:template>
     <!-- END: diplomaticAnalysis quoteDate -->
     <!-- START: back -->
+
     <!-- START: divNotes -->
     <xsl:template match="cei:divNotes" mode="back">
         <xsl:if test="normalize-space(.) != ''">
-            <div>
+            <div type="divNotes">
                 <xsl:apply-templates/>
             </div>
         </xsl:if>
     </xsl:template>
     <!-- END: divNotes -->
-<!--TODO REFACTOR LOOPS-->
+
+    <!-- START: deprecated notes -->
+    <xsl:template match="cei:deprecatedNote" mode="back">
+        <xsl:if test="normalize-space(.) != ''">
+            <div type="deprecatedNote">
+                <xsl:apply-templates/>
+            </div>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: deprecated notes -->
+
+    <!-- Ignore text nodes and attributes in back mode -->
+    <xsl:template match="text() | @*" mode="back">
+        <!-- Do nothing in 'back' mode -->
+    </xsl:template>
+
     <!--     START: back lists-->
     <!-- START: back placeName -->
 
     <xsl:template match="cei:back" mode="indices">
-        <xsl:variable name="placeNames" select=".//cei:placeName[normalize-space(.) != '']"/>
-        <xsl:variable name="persNames" select=".//cei:persName[normalize-space(.) != '']"/>
-        <xsl:variable name="terms" select=".//cei:index[normalize-space(.) != '']"/>
+        <xsl:variable name="placeNames" select="./cei:placeName[normalize-space(.) != '']"/>
+        <xsl:variable name="persNames" select="./cei:persName[normalize-space(.) != '']"/>
+        <xsl:variable name="terms" select="./cei:index[normalize-space(.) != '']"/>
         <xsl:if test="$placeNames">
             <listPlace>
                 <xsl:apply-templates select="$placeNames" mode="indices"/>
@@ -1236,6 +1253,27 @@
         </item>
     </xsl:template>
     <!-- END: index item -->
+
+    <xsl:template match="cei:class" mode="class">
+        <xsl:if test="normalize-space(.) != ''">
+            <textClass>
+                <keywords>
+                    <term>
+                    <xsl:choose>
+                        <xsl:when test="./@type">
+                            <xsl:value-of select="."/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    </term>
+                </keywords>
+            </textClass>
+        </xsl:if>
+    </xsl:template>
+
+
     <!-- END: back -->
 
     <!-- START: cei:text attributes -->
