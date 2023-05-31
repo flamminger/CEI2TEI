@@ -764,19 +764,10 @@
     </xsl:template>
     <!-- END: expan -->
 
-    <!-- START: foreign -->
-    <xsl:template match="cei:foreign">
-        <foreign>
-            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureAppForeign"/>
-            <xsl:apply-templates/>
-        </foreign>
-    </xsl:template>
-    <!-- END: foreign -->
-
     <!-- START: app -->
     <xsl:template match="cei:app">
         <app>
-            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureAppForeign"/>
+            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates/>
         </app>
     </xsl:template>
@@ -887,7 +878,7 @@
     <!-- START: figure -->
     <xsl:template match="cei:figure">
         <figure>
-            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureAppForeign"/>
+            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates/>
         </figure>
     </xsl:template>
@@ -896,7 +887,7 @@
     <!-- START: figDesc -->
     <xsl:template match="cei:figDesc">
         <figDesc>
-            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureAppForeign"/>
+            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates/>
         </figDesc>
     </xsl:template>
@@ -913,7 +904,7 @@
     <!-- START: byline / rights -->
     <xsl:template match="cei:rights">
         <byline>
-            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureAppForeign"/>
+            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates/>
         </byline>
     </xsl:template>
@@ -922,7 +913,7 @@
     <!-- START: zone -->
     <xsl:template match="cei:zone">
         <note sameAs="zone">
-            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureAppForeign"/>
+            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates/>
         </note>
     </xsl:template>
@@ -1007,7 +998,7 @@
     <!-- START: sealDimensions -->
     <xsl:template match="cei:sealDimensions" mode="auth">
         <measure>
-            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureAppForeign"/>
+            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates mode="auth"/>
         </measure>
     </xsl:template>
@@ -1369,7 +1360,7 @@
     <!-- START: hi -->
     <xsl:template match="cei:hi">
         <hi>
-            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureAppForeign"/>
+            <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates/>
         </hi>
     </xsl:template>
@@ -1922,7 +1913,7 @@
     <!-- END: attribute orgname -->
 
     <!-- START: attribute hi sealDim zone rights figDesc figure app foreign -->
-    <xsl:template name="hiSealdimZoneRightsFigdescFigureAppForeign">
+    <xsl:template name="hiSealdimZoneRightsFigdescFigureApp">
 
         <xsl:if test="./@id">
             <xsl:attribute name="corresp">
