@@ -144,7 +144,8 @@
                     </div>
                 </body>
                 <back>
-                    <xsl:apply-templates select="//*[local-name() = 'back']" mode="back"/>
+                    <xsl:apply-templates select="//*[local-name() = 'back']" mode="indices"/>
+                    <xsl:apply-templates select="//*[local-name() = 'back']//*[local-name() = 'divNotes']" mode="back"/>
                 </back>
             </text>
         </TEI>
@@ -1148,81 +1149,93 @@
         </xsl:if>
     </xsl:template>
     <!-- END: divNotes -->
+<!--TODO REFACTOR LOOPS-->
+    <!--     START: back lists-->
+    <!-- START: back placeName -->
 
-    <!--     START: persName-->
-    <xsl:template match="//*[local-name() = 'back']" mode="back">
-        <xsl:if test="cei:placeName[normalize-space(.) != '']">
+    <xsl:template match="cei:back" mode="indices">
+        <xsl:variable name="placeNames" select=".//cei:placeName[normalize-space(.) != '']"/>
+        <xsl:variable name="persNames" select=".//cei:persName[normalize-space(.) != '']"/>
+        <xsl:variable name="terms" select=".//cei:index[normalize-space(.) != '']"/>
+        <xsl:if test="$placeNames">
             <listPlace>
-                <xsl:for-each select="cei:placeName[normalize-space(.) != '']">
-                    <place>
-                        <placeName>
-                            <xsl:call-template name="placenameGeogName"/>
-                            <xsl:choose>
-                                <xsl:when test="./@reg">
-                                    <choice>
-                                        <reg>
-                                            <xsl:value-of select="./@reg"/>
-                                        </reg>
-                                        <orig>
-                                            <xsl:apply-templates/>
-                                        </orig>
-                                    </choice>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:apply-templates/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </placeName>
-                    </place>
-                </xsl:for-each>
+                <xsl:apply-templates select="$placeNames" mode="indices"/>
             </listPlace>
         </xsl:if>
-        <xsl:if test="cei:persName">
-            <xsl:if test="cei:persName[normalize-space(.) != '']">
-                <listPerson>
-                    <xsl:for-each select="cei:persName[normalize-space(.) != '']">
-                        <person>
-                            <persName>
-                                <xsl:call-template name="persname"/>
-                                <xsl:choose>
-                                    <xsl:when test="./@reg">
-                                        <choice>
-                                            <orig>
-                                                <xsl:value-of select="normalize-space(.)"/>
-                                            </orig>
-                                            <reg>
-                                                <xsl:value-of select="./@reg"/>
-                                            </reg>
-                                        </choice>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="normalize-space(.)"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </persName>
-                        </person>
-                    </xsl:for-each>
-                </listPerson>
-            </xsl:if>
+        <xsl:if test="$persNames">
+            <listPerson>
+                <xsl:apply-templates select="$persNames" mode="indices"/>
+            </listPerson>
         </xsl:if>
-        <xsl:if test="cei:index">
-            <xsl:if test="cei:index[normalize-space(.) != '']">
-                <list type="index">
-                    <xsl:for-each select="cei:index[normalize-space(.) != '']">
-                        <item>
-                            <index>
-                                <xsl:call-template name="listIndex"/>
-                                <term>
-                                    <xsl:value-of select="normalize-space(.)"/>
-                                </term>
-                            </index>
-                        </item>
-                    </xsl:for-each>
-                </list>
-            </xsl:if>
+        <xsl:if test="$terms">
+            <list>
+                <xsl:apply-templates select="$terms" mode="indices"/>
+            </list>
         </xsl:if>
     </xsl:template>
-    <!--     END: persName-->
+
+    <!-- START: placeName item -->
+    <xsl:template match="cei:placeName" mode="indices">
+        <place>
+            <placeName>
+                <xsl:call-template name="placenameGeogName"/>
+                <xsl:choose>
+                    <xsl:when test="./@reg">
+                        <choice>
+                            <reg>
+                                <xsl:value-of select="./@reg"/>
+                            </reg>
+                            <orig>
+                                <xsl:apply-templates/>
+                            </orig>
+                        </choice>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </placeName>
+        </place>
+    </xsl:template>
+    <!--     END: placeName item -->
+
+    <!-- START: persName item -->
+    <xsl:template match="cei:persName" mode="indices">
+        <person>
+            <persName>
+                <xsl:call-template name="persname"/>
+                <xsl:choose>
+                    <xsl:when test="./@reg">
+                        <choice>
+                            <orig>
+                                <xsl:value-of select="normalize-space(.)"/>
+                            </orig>
+                            <reg>
+                                <xsl:value-of select="./@reg"/>
+                            </reg>
+                        </choice>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </persName>
+        </person>
+    </xsl:template>
+    <!-- END: persName item -->
+
+    <!-- START: index item -->
+    <xsl:template match="cei:index" mode="indices">
+        <item>
+            <index>
+                <xsl:call-template name="listIndex"/>
+                <term>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </term>
+            </index>
+        </item>
+    </xsl:template>
+    <!-- END: index item -->
     <!-- END: back -->
 
     <!-- START: cei:text attributes -->
