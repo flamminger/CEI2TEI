@@ -342,12 +342,13 @@
                         <xsl:value-of select="./cei:arch"/>
                     </institution>
                 </xsl:when>
-                <xsl:when test="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]">
-                    <institution>
-                        <xsl:value-of
-                                select="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]"/>
-                    </institution>
-                </xsl:when>
+                <!-- TODO fix Regex-->
+<!--                <xsl:when test="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]">-->
+<!--                    <institution>-->
+<!--                        <xsl:value-of-->
+<!--                                select="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]"/>-->
+<!--                    </institution>-->
+<!--                </xsl:when>-->
             </xsl:choose>
             <xsl:if test="./cei:repository">
                 <repository>
@@ -1318,6 +1319,14 @@
     </xsl:template>
     <!-- START: del -->
 
+    <!-- START: unclear -->
+    <xsl:template match="cei:unclear">
+        <unclear>
+            <xsl:call-template name="unclear"/>
+            <xsl:apply-templates/>
+        </unclear>
+    </xsl:template>
+    <!-- END: unclear -->
 
     <!-- START: foreign -->
     <xsl:template match="cei:foreign">
@@ -1600,9 +1609,63 @@
 
     <!-- START: attribute templates -->
 
+    <!-- START: attrubte unclear -->
+    <xsl:template name="unclear">
+        <xsl:if test="./@agent">
+            <xsl:attribute name="agent">
+                <xsl:value-of select="./@agent"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="./@certainty"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@confidence">
+            <xsl:attribute name="degree">
+                <xsl:value-of select="./@confidence"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@extent">
+            <xsl:attribute name="extent">
+                <xsl:value-of select="./@extent"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@id">
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@reason">
+            <xsl:attribute name="reason">
+                <xsl:value-of select="./@reason"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute unclear -->
+
     <!-- START: attributes lem -->
     <xsl:template name="lem">
-
         <xsl:if test="./@id">
             <xsl:attribute name="corresp">
                 <xsl:value-of select="./@id"/>
@@ -2024,7 +2087,6 @@
 
     </xsl:template>
     <!-- END: attribute hi sealDim zone rights figDesc figure app fireign -->
-
 
     <!-- START: attribute anchor -->
     <xsl:template name="anchor">
