@@ -336,23 +336,23 @@
                     <xsl:value-of select="./cei:settlement"/>
                 </settlement>
             </xsl:if>
-            <xsl:if test="./cei:repository">
-                <repository>
-                    <xsl:value-of select="./cei:repository"/>
-                </repository>
-            </xsl:if>
             <xsl:choose>
                 <xsl:when test="./cei:arch">
                     <institution>
                         <xsl:value-of select="./cei:arch"/>
                     </institution>
                 </xsl:when>
-                <xsl:when test="./text()">
+                <xsl:when test="normalize-space(./text()) != '' and normalize-space(./text()) != ','">
                     <institution>
                         <xsl:value-of select="./text()"/>
                     </institution>
                 </xsl:when>
             </xsl:choose>
+            <xsl:if test="./cei:repository">
+                <repository>
+                    <xsl:value-of select="./cei:repository"/>
+                </repository>
+            </xsl:if>
             <xsl:if test="./cei:archFond">
                 <collection>
                     <xsl:value-of select="./cei:archFond"/>
@@ -495,7 +495,7 @@
     <xsl:template match="cei:p">
         <p>
             <xsl:call-template name="paragraph"/>
-            <xsl:value-of select="."/>
+            <xsl:apply-templates/>
         </p>
     </xsl:template>
     <!-- END: p -->
@@ -1259,14 +1259,14 @@
             <textClass>
                 <keywords>
                     <term>
-                    <xsl:choose>
-                        <xsl:when test="./@type">
-                            <xsl:value-of select="."/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="."/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="./@type">
+                                <xsl:value-of select="."/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="."/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </term>
                 </keywords>
             </textClass>
@@ -1303,6 +1303,16 @@
     <!-- END: cei:text attributes -->
 
     <!-- START: global elements -->
+
+    <!-- START: del -->
+    <xsl:template match="cei:del">
+        <del>
+            <xsl:apply-templates/>
+        </del>
+    </xsl:template>
+    <!-- START: del -->
+
+
     <!-- START: foreign -->
     <xsl:template match="cei:foreign">
         <foreign>
@@ -1570,6 +1580,15 @@
     </xsl:template>
     <!-- END: cei:ref -->
     <!-- END: global elements -->
+
+    <!-- START: cei:a -->
+    <xsl:template match="cei:a">
+        <ref>
+            <xsl:call-template name="refAttributes"/>
+            <xsl:apply-templates/>
+        </ref>
+    </xsl:template>
+    <!-- END: cei:a -->
 
     <!-- START: attribute templates -->
 
