@@ -342,9 +342,10 @@
                         <xsl:value-of select="./cei:arch"/>
                     </institution>
                 </xsl:when>
-                <xsl:when test="normalize-space(./text()) != '' and normalize-space(./text()) != ','">
+                <xsl:when test="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]">
                     <institution>
-                        <xsl:value-of select="./text()"/>
+                        <xsl:value-of
+                                select="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]"/>
                     </institution>
                 </xsl:when>
             </xsl:choose>
@@ -1247,6 +1248,11 @@
             <index>
                 <xsl:call-template name="listIndex"/>
                 <term>
+                    <xsl:if test="./@type">
+                        <xsl:attribute name="next">
+                            <xsl:value-of select="./@type"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:value-of select="normalize-space(.)"/>
                 </term>
             </index>
@@ -1523,10 +1529,12 @@
 
     <!-- START: bibl -->
     <xsl:template match="cei:bibl">
-        <bibl>
-            <xsl:call-template name="bibl"/>
-            <xsl:apply-templates/>
-        </bibl>
+        <xsl:if test="normalize-space(.) != ''">
+            <bibl>
+                <xsl:call-template name="bibl"/>
+                <xsl:apply-templates/>
+            </bibl>
+        </xsl:if>
     </xsl:template>
     <!-- END: bibl -->
 
@@ -1816,7 +1824,6 @@
 
     <!-- START: attribute list index -->
     <xsl:template name="listIndex">
-
         <xsl:if test="./@indexName">
             <xsl:attribute name="indexName">
                 <xsl:value-of select="./@indexName"/>
@@ -1827,7 +1834,11 @@
                 <xsl:value-of select="./@lemma"/>
             </xsl:attribute>
         </xsl:if>
-
+        <xsl:if test="./@sublemma">
+            <xsl:attribute name="next">
+                <xsl:value-of select="./@sublemma"/>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
     <!-- END: attribute list index -->
 

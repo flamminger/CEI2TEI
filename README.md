@@ -56,7 +56,10 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `cei:@type` remove whitespace when transforming to `tei:@type`
 - mixed content elements within text content is an issue. E.g., `<cei:dimensions><cei:height>450</cei:height> x <cei:width>290-300</cei:width> mm</cei:dimensions>`
 - `<cei:class>` is used in different ways. Eg, to encode `<cei:class>Urkunde</cei:class>` or `<cei:class>Erzbischof von Messina</cei:class><cei:persName>Rainaldus</cei:persName>`. For now moved to `<textClass><keywords><term>`
-
+- `<cei:a>` move to `<ref>` 
+- removed `<cei:index>` elements without text
+- `<cei:back><cei:index>` moved to `<back><list><item><term>` attributes @sublemma, @lemma, are missing for now moved to @n and @next
+  - @type moved to `<term>`
 
 ## ToDos
 - [ ] refactor templates (in progress)
