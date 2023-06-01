@@ -55,7 +55,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `cei:@certainty` and `tei:@cert` are not supporting the same content. CEI = free text, TEI four different options
 - `cei:@type` remove whitespace when transforming to `tei:@type`
 - mixed content elements within text content is an issue. E.g., `<cei:dimensions><cei:height>450</cei:height> x <cei:width>290-300</cei:width> mm</cei:dimensions>`
-- ´<cei:class>` is used in different ways. Eg, to encode `<cei:class>Urkunde</cei:class>` or `<cei:class>Erzbischof von Messina</cei:class><cei:persName>Rainaldus</cei:persName>`. For now moved to `<textClass><keywords><term>` 
+- `<cei:class>` is used in different ways. Eg, to encode `<cei:class>Urkunde</cei:class>` or `<cei:class>Erzbischof von Messina</cei:class><cei:persName>Rainaldus</cei:persName>`. For now moved to `<textClass><keywords><term>`
 
 
 ## ToDos
