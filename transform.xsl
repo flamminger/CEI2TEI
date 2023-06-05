@@ -342,13 +342,12 @@
                         <xsl:value-of select="./cei:arch"/>
                     </institution>
                 </xsl:when>
-                <!-- TODO fix Regex-->
-<!--                <xsl:when test="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]">-->
-<!--                    <institution>-->
-<!--                        <xsl:value-of-->
-<!--                                select="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]"/>-->
-<!--                    </institution>-->
-<!--                </xsl:when>-->
+                <xsl:when test="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]">
+                    <institution>
+                        <xsl:value-of
+                                select="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]"/>
+                    </institution>
+                </xsl:when>
             </xsl:choose>
             <xsl:if test="./cei:repository">
                 <repository>
