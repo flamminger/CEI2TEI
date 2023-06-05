@@ -1315,6 +1315,13 @@
 
     <!-- START: global elements -->
 
+    <xsl:template match="cei:corr">
+        <corr>
+            <xsl:call-template name="corr"/>
+            <xsl:apply-templates/>
+        </corr>
+    </xsl:template>
+
     <!-- START: cei:damage -->
     <xsl:template match="cei:damage">
         <damage>
@@ -1653,6 +1660,61 @@
     <!-- END: cei:a -->
 
     <!-- START: attribute templates -->
+
+    <!-- START: attribute corr -->
+    <xsl:template name="corr">
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="./@certainty"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@hand">
+            <xsl:attribute name="rendition">
+                <xsl:value-of select="./@hand"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@id">
+            <xsl:attribute name="coressp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@lang">
+            <xsl:attribute name="xml:lang">
+                <xsl:value-of select="./@lang"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@sic">
+            <xsl:attribute name="source">
+                <xsl:value-of select="./@sic"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@type">
+            <xsl:attribute name="type">
+                <xsl:value-of select="./@type"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute corr -->
 
     <!-- START: attribute damage -->
     <xsl:template name="damage">

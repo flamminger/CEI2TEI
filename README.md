@@ -63,6 +63,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - @type moved to `<term>`
 - `<cei:nota>` equivalent is missing. For now, moved to `<history copyOf="nota"><summary>`
   - see template for moved attributes
+- `<cei:corr>` moved to `corr`, attributes @hand and @sic are missing, moved to @rendition, @source
 
 ## ToDos
 - [ ] refactor templates (in progress)
