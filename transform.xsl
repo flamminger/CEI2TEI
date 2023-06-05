@@ -1049,9 +1049,11 @@
 
     <!-- START: sourceRegest -->
     <xsl:template match="cei:sourceDesc" mode="sourceRegest">
+        <xsl:if test="normalize-space(.) != ''">
         <listBibl>
             <xsl:apply-templates mode="sourceRegest"/>
         </listBibl>
+        </xsl:if>
     </xsl:template>
     <!-- END: sourceRegest -->
 
@@ -1314,6 +1316,13 @@
     <!-- END: cei:text attributes -->
 
     <!-- START: global elements -->
+
+    <xsl:template match="cei:author">
+        <author>
+            <xsl:call-template name="author"/>
+            <xsl:apply-templates/>
+        </author>
+    </xsl:template>
 
     <xsl:template match="cei:corr">
         <corr>
@@ -1660,6 +1669,36 @@
     <!-- END: cei:a -->
 
     <!-- START: attribute templates -->
+
+    <!-- START: attribute author -->
+    <xsl:template name="author">
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@id">
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute author -->
 
     <!-- START: attribute corr -->
     <xsl:template name="corr">
