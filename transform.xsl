@@ -630,7 +630,7 @@
                     </xsl:attribute>
                 </xsl:when>
             </xsl:choose>
-            <xsl:apply-templates mode="witness"/>
+            <xsl:apply-templates/>
         </witness>
     </xsl:template>
     <!-- END: witness -->
@@ -1050,9 +1050,9 @@
     <!-- START: sourceRegest -->
     <xsl:template match="cei:sourceDesc" mode="sourceRegest">
         <xsl:if test="normalize-space(.) != ''">
-        <listBibl>
-            <xsl:apply-templates mode="sourceRegest"/>
-        </listBibl>
+            <listBibl>
+                <xsl:apply-templates mode="sourceRegest"/>
+            </listBibl>
         </xsl:if>
     </xsl:template>
     <!-- END: sourceRegest -->
@@ -1317,9 +1317,57 @@
 
     <!-- START: global elements -->
 
+    <xsl:template match="cei:scope">
+        <biblScope>
+            <xsl:call-template name="imprintAuthor"/>
+            <xsl:apply-templates/>
+        </biblScope>
+    </xsl:template>
+
+    <xsl:template match="cei:surname">
+        <surname>
+            <xsl:call-template name="name"/>
+            <xsl:apply-templates/>
+        </surname>
+    </xsl:template>
+
+    <xsl:template match="cei:forename">
+        <forename>
+            <xsl:call-template name="name"/>
+            <xsl:apply-templates/>
+        </forename>
+    </xsl:template>
+
+    <xsl:template match="cei:publisher">
+        <publisher>
+            <xsl:apply-templates/>
+        </publisher>
+    </xsl:template>
+
+    <xsl:template match="cei:pubPlace">
+        <pubPlace>
+            <xsl:call-template name="imprintAuthor"/>
+            <xsl:apply-templates/>
+        </pubPlace>
+    </xsl:template>
+
+    <xsl:template match="cei:title">
+        <title>
+            <xsl:call-template name="imprintAuthor"/>
+            <xsl:apply-templates/>
+        </title>
+    </xsl:template>
+
+    <xsl:template match="cei:imprint">
+        <imprint>
+            <xsl:call-template name="imprintAuthor"/>
+            <xsl:apply-templates/>
+        </imprint>
+    </xsl:template>
+
     <xsl:template match="cei:author">
         <author>
-            <xsl:call-template name="author"/>
+            <xsl:call-template name="imprintAuthor"/>
             <xsl:apply-templates/>
         </author>
     </xsl:template>
@@ -1522,10 +1570,10 @@
 
     <!-- START: date -->
     <xsl:template match="cei:date">
-        <origDate>
+        <date>
             <xsl:call-template name="date"/>
             <xsl:apply-templates/>
-        </origDate>
+        </date>
     </xsl:template>
     <!-- END: date -->
 
@@ -1599,12 +1647,22 @@
 
     <!-- START: bibl -->
     <xsl:template match="cei:bibl">
-        <xsl:if test="normalize-space(.) != ''">
-            <bibl>
-                <xsl:call-template name="bibl"/>
-                <xsl:apply-templates/>
-            </bibl>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="node() and normalize-space(.) != ''">
+                <biblStruct>
+                    <monogr>
+                        <xsl:call-template name="bibl"/>
+                        <xsl:apply-templates select="*[node()]"/>
+                    </monogr>
+                </biblStruct>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) != ''">
+                <bibl>
+                    <xsl:call-template name="bibl"/>
+                    <xsl:apply-templates/>
+                </bibl>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!-- END: bibl -->
 
@@ -1671,7 +1729,7 @@
     <!-- START: attribute templates -->
 
     <!-- START: attribute author -->
-    <xsl:template name="author">
+    <xsl:template name="imprintAuthor">
         <xsl:if test="./@resp">
             <xsl:attribute name="resp">
                 <xsl:value-of select="./@resp"/>
