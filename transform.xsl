@@ -6,7 +6,7 @@
                 xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:atom="http://www.w3.org/2005/Atom"
                 xmlns="http://www.tei-c.org/ns/1.0" xmlns:cei="http://www.monasterium.net/NS/cei"
                 xmlns:bf="http://betterform.sourceforge.net/xforms" xmlns:xalan="http://xml.apache.org/xslt"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:csl="http://www.w3.org/1999/XSL/Transform"
                 exclude-result-prefixes="xs" version="3.0">
 
     <xsl:output method="xml" indent="yes" xalan:indent-amount="4"/>
@@ -97,6 +97,8 @@
                                 <xsl:apply-templates select="//*[local-name() = 'rubrum']"/>
                                 <xsl:apply-templates select="//*[local-name() = 'diplomaticAnalysis']"
                                                      mode="diplomaticAnalysis"/>
+                                <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"
+                                                     mode="nota"/>
                             </diploDesc>
                             <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'auth']">
                                 <xsl:apply-templates
@@ -1323,18 +1325,35 @@
     <!-- END: cei:damage -->
 
     <!-- START: cei:nota -->
-    <xsl:template match="cei:nota" mode="diplomaticAnalysis">
-        <xsl:if test="normalize-space(.) != ''">
+    <xsl:template match="cei:witnessOrig" mode="nota">
+        <xsl:variable name="nota" select="./cei:nota[normalize-space(.) != '']"/>
+        <xsl:if test="$nota">
             <history copyOf="nota">
                 <summary>
-                    <p>
-                        <xsl:call-template name="nota"/>
-                        <xsl:apply-templates/>
-                    </p>
+                    <xsl:apply-templates select="$nota"/>
                 </summary>
             </history>
         </xsl:if>
     </xsl:template>
+
+    <xsl:template match="cei:diplomaticAnalysis" mode="diplomaticAnalysis">
+        <xsl:variable name="nota" select="./cei:nota[normalize-space(.) != '']"/>
+        <xsl:if test="$nota">
+            <history copyOf="nota">
+                <summary>
+                    <xsl:apply-templates select="$nota"/>
+                </summary>
+            </history>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="cei:nota">
+        <p>
+            <xsl:call-template name="nota"/>
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+
     <!-- END: cei:nota -->
 
     <!-- START: del -->
