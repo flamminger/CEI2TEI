@@ -4,6 +4,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 
 ### Changes and Missing Elements
 `<rubrum>` Element in msDesc/diploDesc, for now moved to `<p sameAs="rubrum">`
+  - attributes @type, @position, @facs moved to @n, @handNote, @facs
 - Element für dispositives Verb? Anregung von Jaqueline (?)
 - `<idno>` element attribute @id moved to @source, @old moved to @prev
 - @rend and @rendition attributes?

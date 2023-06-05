@@ -529,6 +529,7 @@
     <xsl:template match="cei:rubrum">
         <xsl:if test="normalize-space(.) != ''">
             <p sameAs="rubrum">
+                <xsl:call-template name="rubrum"/>
                 <xsl:apply-templates/>
             </p>
         </xsl:if>
@@ -1615,6 +1616,26 @@
     <!-- END: cei:a -->
 
     <!-- START: attribute templates -->
+
+    <!-- START: attribute rubrum -->
+    <xsl:template name="rubrum">
+        <xsl:if test="./@type">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@type"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@position">
+            <xsl:attribute name="handnote">
+                <xsl:value-of select="./@position"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute rubrum -->
 
     <!-- START: attrubte unclear -->
     <xsl:template name="unclear">
