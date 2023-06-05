@@ -220,9 +220,11 @@
 
     <!-- START: diploDesc bibl -->
     <xsl:template match="cei:listBibl" mode="diplomaticAnalysis">
-        <listBibl type="analysis">
-            <xsl:apply-templates/>
-        </listBibl>
+        <xsl:if test="normalize-space(.) != ''">
+            <listBibl type="analysis">
+                <xsl:apply-templates select="cei:bibl" mode="diplomaticAnalysis"/>
+            </listBibl>
+        </xsl:if>
     </xsl:template>
     <!-- END: diploDesc bibl -->
 
@@ -1309,6 +1311,12 @@
     <!-- END: cei:text attributes -->
 
     <!-- START: global elements -->
+
+    <!-- START: cei:damage -->
+    <xsl:template match="cei:damage">
+
+    </xsl:template>
+    <!-- END: cei:damage -->
 
     <!-- START: del -->
     <xsl:template match="cei:del">
