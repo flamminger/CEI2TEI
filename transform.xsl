@@ -1315,9 +1315,27 @@
 
     <!-- START: cei:damage -->
     <xsl:template match="cei:damage">
-
+        <damage>
+            <xsl:call-template name="damage"/>
+            <xsl:apply-templates/>
+        </damage>
     </xsl:template>
     <!-- END: cei:damage -->
+
+    <!-- START: cei:nota -->
+    <xsl:template match="cei:nota" mode="diplomaticAnalysis">
+        <xsl:if test="normalize-space(.) != ''">
+            <history copyOf="nota">
+                <summary>
+                    <p>
+                        <xsl:call-template name="nota"/>
+                        <xsl:apply-templates/>
+                    </p>
+                </summary>
+            </history>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: cei:nota -->
 
     <!-- START: del -->
     <xsl:template match="cei:del">
@@ -1617,6 +1635,91 @@
 
     <!-- START: attribute templates -->
 
+    <!-- START: attribute damage -->
+    <xsl:template name="damage">
+        <xsl:if test="./@agent and normalize-space(./@agent) != ''">
+            <xsl:attribute name="agent">
+                <xsl:value-of select="translate(./@agent, ' ', '')"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@extent">
+            <xsl:attribute name="extent">
+                <xsl:value-of select="translate(./@extent, ' ', '')"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@degree">
+            <xsl:attribute name="degree">
+                <xsl:value-of select="./@degree"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@id">
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute damage -->
+
+    <!-- START: attribute nota -->
+    <xsl:template name="nota">
+        <xsl:if test="./@id">
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@type">
+            <xsl:attribute name="prev">
+                <xsl:value-of select="./@type"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@position">
+            <xsl:attribute name="rendition">
+                <xsl:value-of select="./@position"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute nota -->
+
     <!-- START: attribute rubrum -->
     <xsl:template name="rubrum">
         <xsl:if test="./@type">
@@ -1625,7 +1728,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@position">
-            <xsl:attribute name="handnote">
+            <xsl:attribute name="style">
                 <xsl:value-of select="./@position"/>
             </xsl:attribute>
         </xsl:if>

@@ -4,7 +4,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 
 ### Changes and Missing Elements
 `<rubrum>` Element in msDesc/diploDesc, for now moved to `<p sameAs="rubrum">`
-  - attributes @type, @position, @facs moved to @n, @handNote, @facs
+  - attributes @type, @position, @facs moved to @n, @style, @facs
 - Element für dispositives Verb? Anregung von Jaqueline (?)
 - `<idno>` element attribute @id moved to @source, @old moved to @prev
 - @rend and @rendition attributes?
@@ -61,6 +61,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - removed `<cei:index>` elements without text
 - `<cei:back><cei:index>` moved to `<back><list><item><term>` attributes @sublemma, @lemma, are missing for now moved to @n and @next
   - @type moved to `<term>`
+- `<cei:nota>` equivalent is missing. For now, moved to `<history copyOf="nota"><summary>`
+  - see template for moved attributes
 
 ## ToDos
 - [ ] refactor templates (in progress)
