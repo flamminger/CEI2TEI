@@ -932,32 +932,39 @@
         <authDesc>
             <xsl:call-template name="authAttb"/>
             <xsl:apply-templates mode="auth"/>
-            <xsl:apply-templates select="//*[local-name() = 'seal']" mode="auth"/>
+<!--            <xsl:apply-templates select="//*[local-name() = 'seal']" mode="auth"/>-->
         </authDesc>
     </xsl:template>
+    <!-- START: notariusDesc -->
+    <xsl:template match="cei:notariusDesc" mode="auth">
+        <p copyOf="notariusDesc">
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+    <!-- END: notariusDesc -->
 
     <!-- START: sealDesc -->
     <xsl:template match="cei:sealDesc" mode="auth">
         <decoNote>
             <xsl:call-template name="sealDescConc"/>
             <xsl:choose>
+                <xsl:when test="node() and normalize-space(.) != ''">
+                    <xsl:apply-templates mode="auth"/>
+                </xsl:when>
                 <xsl:when test="text() and not(*)">
                     <p>
-                        <xsl:value-of select="."/>
+                        <xsl:value-of select="./text()"/>
                     </p>
                 </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates/>
-                </xsl:otherwise>
+
             </xsl:choose>
         </decoNote>
     </xsl:template>
     <!-- END: sealDesc -->
 
-    <!-- START: seal -->
+    <!-- START: seal TODO RECHECK -->
     <xsl:template match="cei:seal" mode="auth">
         <seal>
-            <xsl:if test="./@*">
                 <xsl:if test="./@id">
                     <xsl:attribute name="corresp">
                         <xsl:value-of select="./@id"/>
@@ -988,8 +995,17 @@
                         <xsl:value-of select="./@facs"/>
                     </xsl:attribute>
                 </xsl:if>
-            </xsl:if>
-            <xsl:apply-templates mode="auth"/>
+            <xsl:choose>
+                <xsl:when test="cei:seal/text() and cei:seal/*">
+                    <xsl:apply-templates mode="auth"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <p>
+                        <xsl:apply-templates/>
+                    </p>
+                </xsl:otherwise>
+            </xsl:choose>
+
         </seal>
     </xsl:template>
     <!-- END: seal -->

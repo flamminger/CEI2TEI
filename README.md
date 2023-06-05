@@ -65,6 +65,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - see template for moved attributes
 - `<cei:corr>` moved to `corr`, attributes @hand and @sic are missing, moved to @rendition, @source
 - `<cei:imprint>` in `<cei:bibl>`elements have been moved to `<biblStruct>` content outside of child elements has been removed
+- not existing `<cei:i>` element removed, text content preserved in parent element
 
 ## ToDos
 - [ ] refactor templates (in progress)
