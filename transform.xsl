@@ -931,40 +931,45 @@
     <xsl:template match="cei:auth" mode="auth">
         <authDesc>
             <xsl:call-template name="authAttb"/>
-            <xsl:apply-templates mode="auth"/>
-<!--            <xsl:apply-templates select="//*[local-name() = 'seal']" mode="auth"/>-->
+            <xsl:apply-templates/>
+            <!--            <xsl:apply-templates select="//*[local-name() = 'seal']" mode="auth"/>-->
         </authDesc>
     </xsl:template>
     <!-- START: notariusDesc -->
-    <xsl:template match="cei:notariusDesc" mode="auth">
-        <p copyOf="notariusDesc">
-            <xsl:apply-templates/>
-        </p>
+    <xsl:template match="cei:notariusDesc">
+        <xsl:if test="normalize-space(.) != ''">
+            <p copyOf="notariusDesc">
+                <xsl:apply-templates/>
+            </p>
+        </xsl:if>
     </xsl:template>
     <!-- END: notariusDesc -->
 
     <!-- START: sealDesc -->
-    <xsl:template match="cei:sealDesc" mode="auth">
-        <decoNote>
-            <xsl:call-template name="sealDescConc"/>
-            <xsl:choose>
-                <xsl:when test="node() and normalize-space(.) != ''">
-                    <xsl:apply-templates mode="auth"/>
-                </xsl:when>
-                <xsl:when test="text() and not(*)">
-                    <p>
-                        <xsl:value-of select="./text()"/>
-                    </p>
-                </xsl:when>
-
-            </xsl:choose>
-        </decoNote>
+    <xsl:template match="cei:sealDesc">
+        <xsl:if test="normalize-space(.) != ''">
+            <decoNote>
+                <xsl:call-template name="sealDescConc"/>
+                <xsl:choose>
+                    <xsl:when test="./node() and normalize-space(.) != ''">
+                        <xsl:apply-templates select="*[not(self::cei:seal)]"/>
+                    </xsl:when>
+                    <xsl:when test="text()">
+                        <p>
+                            <xsl:value-of select="./text()"/>
+                        </p>
+                    </xsl:when>
+                </xsl:choose>
+            </decoNote>
+            <xsl:apply-templates select="cei:seal"/>
+        </xsl:if>
     </xsl:template>
     <!-- END: sealDesc -->
 
-    <!-- START: seal TODO RECHECK -->
-    <xsl:template match="cei:seal" mode="auth">
-        <seal>
+    <!-- START: seal -->
+    <xsl:template match="cei:seal">
+        <xsl:if test="normalize-space(.) != ''">
+            <seal>
                 <xsl:if test="./@id">
                     <xsl:attribute name="corresp">
                         <xsl:value-of select="./@id"/>
@@ -995,59 +1000,60 @@
                         <xsl:value-of select="./@facs"/>
                     </xsl:attribute>
                 </xsl:if>
-            <xsl:choose>
-                <xsl:when test="cei:seal/text() and cei:seal/*">
-                    <xsl:apply-templates mode="auth"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <p>
+                <xsl:choose>
+                    <xsl:when test="./node() and normalize-space(.) != ''">
                         <xsl:apply-templates/>
-                    </p>
-                </xsl:otherwise>
-            </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <p>
+                            <xsl:apply-templates/>
+                        </p>
+                    </xsl:otherwise>
+                </xsl:choose>
 
-        </seal>
+            </seal>
+        </xsl:if>
     </xsl:template>
     <!-- END: seal -->
 
     <!-- START: sealCondition -->
-    <xsl:template match="cei:sealCondition" mode="auth">
+    <xsl:template match="cei:sealCondition">
         <condition>
             <xsl:call-template name="sealDescConc"/>
-            <xsl:apply-templates mode="auth"/>
+            <xsl:apply-templates/>
         </condition>
     </xsl:template>
     <!-- END: sealCondition -->
 
     <!-- START: sealDimensions -->
-    <xsl:template match="cei:sealDimensions" mode="auth">
+    <xsl:template match="cei:sealDimensions">
         <measure>
             <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
-            <xsl:apply-templates mode="auth"/>
+            <xsl:apply-templates/>
         </measure>
     </xsl:template>
     <!-- END: sealDimensions -->
 
     <!-- START: sealMaterial -->
-    <xsl:template match="cei:sealMaterial" mode="auth">
+    <xsl:template match="cei:sealMaterial">
         <material>
-            <xsl:apply-templates mode="auth"/>
+            <xsl:apply-templates/>
         </material>
     </xsl:template>
     <!-- END: sealMaterial -->
 
     <!-- START: seal legend -->
-    <xsl:template match="cei:legend" mode="auth">
+    <xsl:template match="cei:legend">
         <legend>
             <xsl:call-template name="legend"/>
-            <xsl:apply-templates mode="auth"/>
+            <xsl:apply-templates/>
         </legend>
 
     </xsl:template>
     <!-- END: seal legend -->
 
     <!-- START: sigillant -->
-    <xsl:template match="cei:sigillant" mode="auth">
+    <xsl:template match="cei:sigillant">
         <legalActor type="sigillant">
             <xsl:apply-templates select="cei:persName" mode="abstract"/>
         </legalActor>
