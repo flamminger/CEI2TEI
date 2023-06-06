@@ -97,6 +97,8 @@
                                 <xsl:apply-templates select="//*[local-name() = 'rubrum']"/>
                                 <xsl:apply-templates select="//*[local-name() = 'diplomaticAnalysis']"
                                                      mode="diplomaticAnalysis"/>
+                                <xsl:apply-templates select="//*[local-name() = 'diplomaticAnalysis']"
+                                                     mode="diplomaticAnalysisNota"/>
                                 <xsl:apply-templates select="//*[local-name() = 'witnessOrig']"
                                                      mode="nota"/>
                             </diploDesc>
@@ -219,17 +221,6 @@
         </issued>
     </xsl:template>
     <!-- END: diploDesc issued -->
-
-    <!-- START: diploDesc bibl -->
-    <xsl:template match="cei:listBibl" mode="diplomaticAnalysis">
-        <xsl:if test="normalize-space(.) != ''">
-            <listBibl type="analysis">
-                <xsl:apply-templates select="cei:bibl" mode="diplomaticAnalysis"/>
-            </listBibl>
-        </xsl:if>
-    </xsl:template>
-    <!-- END: diploDesc bibl -->
-
 
     <!-- START: copyStatus -->
     <xsl:template match="cei:traditioForm" mode="copyStatusDiploDesc">
@@ -577,9 +568,7 @@
                 </surfaceGrp>
             </xsl:when>
             <xsl:otherwise>
-                <figure>
-                    <xsl:apply-templates/>
-                </figure>
+                <xsl:apply-templates mode="facsimile"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -631,7 +620,7 @@
                     </xsl:attribute>
                 </xsl:when>
             </xsl:choose>
-            <xsl:apply-templates/>
+            <xsl:apply-templates mode="witness"/>
         </witness>
     </xsl:template>
     <!-- END: witness -->
@@ -1160,6 +1149,16 @@
     </xsl:template>
     <!-- END: diplomaticAnalysis listBiblErw -->
 
+    <!-- START: diploDesc bibl -->
+    <!--    <xsl:template match="cei:listBibl" mode="diplomaticAnalysis">-->
+    <!--        <xsl:if test="normalize-space(.) != ''">-->
+    <!--            <listBibl type="analysis">-->
+    <!--                <xsl:apply-templates select="cei:bibl" mode="diplomaticAnalysis"/>-->
+    <!--            </listBibl>-->
+    <!--        </xsl:if>-->
+    <!--    </xsl:template>-->
+    <!-- END: diploDesc bibl -->
+
     <!-- START: diplomaticAnalysis p -->
     <xsl:template match="cei:p" mode="diplomaticAnalysis">
         <xsl:if test="normalize-space(.) != ''">
@@ -1588,7 +1587,7 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="cei:diplomaticAnalysis" mode="diplomaticAnalysis">
+    <xsl:template match="cei:diplomaticAnalysis" mode="diplomaticAnalysisNota">
         <xsl:variable name="nota" select="./cei:nota[normalize-space(.) != '']"/>
         <xsl:if test="$nota">
             <history copyOf="nota">
@@ -1836,7 +1835,7 @@
     <!-- START: bibl -->
     <xsl:template match="cei:bibl">
         <xsl:choose>
-            <xsl:when test="node() and normalize-space(.) != ''">
+            <xsl:when test="./* and normalize-space(.) != ''">
                 <biblStruct>
                     <monogr>
                         <xsl:call-template name="bibl"/>
