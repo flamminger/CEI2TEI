@@ -603,6 +603,7 @@
     <!-- START: traditioForm -->
     <xsl:template match="cei:traditioForm" mode="witness">
         <distinct type="copyStatus">
+            <xsl:call-template name="rolenameDistinct"/>
             <xsl:apply-templates/>
         </distinct>
     </xsl:template>
@@ -1357,6 +1358,14 @@
 
     <!-- START: global elements -->
 
+    <!-- START: cei:setPhrase -->
+    <xsl:template match="cei:setPhrase">
+        <distinct>
+            <xsl:apply-templates/>
+        </distinct>
+    </xsl:template>
+    <!-- END: cei:setPhrase -->
+
     <!-- START: cei:subscriptio -->
     <xsl:template match="cei:subscriptio">
         <span type="subscriptio">
@@ -1699,7 +1708,7 @@
     <!-- START: roleName -->
     <xsl:template match="cei:rolename">
         <roleName>
-            <xsl:call-template name="rolename"/>
+            <xsl:call-template name="rolenameDistinct"/>
             <xsl:apply-templates/>
         </roleName>
     </xsl:template>
@@ -2530,7 +2539,7 @@
     <!-- END: attribute persname -->
 
     <!-- START: attribute rolename -->
-    <xsl:template name="rolename">
+    <xsl:template name="rolenameDistinct">
 
         <xsl:if test="./@id">
             <xsl:attribute name="xml:id">
