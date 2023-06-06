@@ -1339,67 +1339,101 @@
 
     <!-- START: global elements -->
 
+    <!-- START: cei:pict -->
+    <xsl:template match="cei:pict">
+        <xsl:if test="normalize-space(.) != ''">
+            <figure>
+                <xsl:if test="./@URL">
+                    <graphic url="{./@URL}"/>
+                </xsl:if>
+                <desc>
+                    <xsl:call-template name="pict"/>
+                    <xsl:value-of select="."/>
+                </desc>
+            </figure>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: cei:pict -->
+
+    <!-- START: cei:scope -->
     <xsl:template match="cei:scope">
         <biblScope>
             <xsl:call-template name="imprintAuthor"/>
             <xsl:apply-templates/>
         </biblScope>
     </xsl:template>
+    <!-- END: cei:scope -->
 
+    <!-- START: cei:surname -->
     <xsl:template match="cei:surname">
         <surname>
             <xsl:call-template name="name"/>
             <xsl:apply-templates/>
         </surname>
     </xsl:template>
+    <!-- END: cei:surname -->
 
+    <!-- START: cei:forename -->
     <xsl:template match="cei:forename">
         <forename>
             <xsl:call-template name="name"/>
             <xsl:apply-templates/>
         </forename>
     </xsl:template>
+    <!-- END: cei:forename -->
 
+    <!-- START: cei:publisher -->
     <xsl:template match="cei:publisher">
         <publisher>
             <xsl:apply-templates/>
         </publisher>
     </xsl:template>
+    <!-- END: cei:publisher -->
 
+    <!-- START: cei:pubPlace -->
     <xsl:template match="cei:pubPlace">
         <pubPlace>
             <xsl:call-template name="imprintAuthor"/>
             <xsl:apply-templates/>
         </pubPlace>
     </xsl:template>
+    <!-- END: cei:pubPlace -->
 
+    <!-- START: cei:title -->
     <xsl:template match="cei:title">
         <title>
             <xsl:call-template name="imprintAuthor"/>
             <xsl:apply-templates/>
         </title>
     </xsl:template>
+    <!-- END: cei:title -->
 
+    <!-- START: cei:imprint -->
     <xsl:template match="cei:imprint">
         <imprint>
             <xsl:call-template name="imprintAuthor"/>
             <xsl:apply-templates/>
         </imprint>
     </xsl:template>
+    <!-- END: cei:imprint -->
 
+    <!-- START: cei:author -->
     <xsl:template match="cei:author">
         <author>
             <xsl:call-template name="imprintAuthor"/>
             <xsl:apply-templates/>
         </author>
     </xsl:template>
+    <!-- END: cei:author -->
 
+    <!-- START: cei:corr -->
     <xsl:template match="cei:corr">
         <corr>
             <xsl:call-template name="corr"/>
             <xsl:apply-templates/>
         </corr>
     </xsl:template>
+    <!-- END: cei:corr -->
 
     <!-- START: cei:damage -->
     <xsl:template match="cei:damage">
@@ -1748,7 +1782,57 @@
     </xsl:template>
     <!-- END: cei:a -->
 
-    <!-- START: attribute templates -->
+    <!-- START: global attribute templates -->
+
+    <!-- START: attribute pict -->
+    <xsl:template name="pict">
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="./@certainty"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="./@certainty"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@hand">
+            <xsl:attribute name="change">
+                <xsl:value-of select="./@hand"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@id">
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@type">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@type"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute pict -->
 
     <!-- START: attribute author -->
     <xsl:template name="imprintAuthor">
