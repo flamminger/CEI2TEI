@@ -70,7 +70,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - @hand moved to @change for now
 - `<cei:sic>` attribute @corr moved to @rendition
 - `<cei:notariusDesc>` and `<cei:notariusSub>` have no corresponding element, moved to `<p sameAs="ceiElementName">`
-
+- not existing`<Elongata>` moved to `<p style="elongata">`
 ## ToDos
 - [ ] refactor templates (in progress)
 - [ ] automated test of small file sample (in progress)

@@ -1350,6 +1350,12 @@
 
     <!-- START: global elements -->
 
+    <xsl:template match="Elongata">
+        <p style="elongata">
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+
     <!-- START: cei:dateR -->
     <xsl:template match="cei:dateR">
         <origDate>
