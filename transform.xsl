@@ -215,6 +215,7 @@
     <xsl:template match="cei:issued" mode="issuedDiploDesc">
         <issued>
             <xsl:apply-templates mode="issuedDiploDesc"/>
+            <xsl:apply-templates select="../cei:issuedPlace" mode="issuedDiploDesc"/>
         </issued>
     </xsl:template>
     <!-- END: diploDesc issued -->
@@ -257,8 +258,14 @@
     </xsl:template>
     <!-- END: dateRange -->
 
+    <!-- START: issuedPlace -->
+    <xsl:template match="cei:issuedPlace" mode="issuedDiploDesc" >
+       <xsl:call-template name="issuedPlace"/>
+    </xsl:template>
+    <!-- END: issuedPlace -->
+
     <!-- START: placeName -->
-    <xsl:template match="cei:placeName" mode="issuedDiploDesc">
+    <xsl:template match="cei:placeName" mode="issuedDiploDesc" name="issuedPlace">
         <placeName>
             <xsl:call-template name="placenameGeogName"/>
             <xsl:choose>
