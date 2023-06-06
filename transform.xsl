@@ -939,18 +939,28 @@
     </xsl:template>
     <!-- END: notariusDesc -->
 
+    <!-- START: notariusDesc -->
+    <xsl:template match="cei:notariusSub">
+        <xsl:if test="normalize-space(.) != ''">
+            <p copyOf="notariusSub">
+                <xsl:apply-templates/>
+            </p>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: notariusDesc -->
+
     <!-- START: sealDesc -->
     <xsl:template match="cei:sealDesc">
         <xsl:if test="normalize-space(.) != ''">
             <decoNote>
                 <xsl:call-template name="sealDescConc"/>
                 <xsl:choose>
-                    <xsl:when test="./node() and normalize-space(.) != ''">
+                    <xsl:when test="./*">
                         <xsl:apply-templates select="*[not(self::cei:seal)]"/>
                     </xsl:when>
-                    <xsl:when test="text()">
+                    <xsl:when test="./text()">
                         <p>
-                            <xsl:value-of select="./text()"/>
+                            <xsl:value-of select="."/>
                         </p>
                     </xsl:when>
                 </xsl:choose>
@@ -1449,7 +1459,7 @@
 
     <!-- START: cei:nota -->
     <xsl:template match="cei:witnessOrig" mode="nota">
-        <xsl:variable name="nota" select="./cei:nota[normalize-space(.) != '']"/>
+        <xsl:variable name="nota" select=".//cei:nota[normalize-space(.) != '']"/>
         <xsl:if test="$nota">
             <history copyOf="nota">
                 <summary>
