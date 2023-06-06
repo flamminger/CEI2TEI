@@ -1326,6 +1326,15 @@
 
     <!-- START: global elements -->
 
+    <!-- START: cei:dateR -->
+    <xsl:template match="cei:dateR">
+        <origDate>
+            <xsl:call-template name="date"/>
+            <xsl:value-of select="."/>
+        </origDate>
+    </xsl:template>
+    <!-- END: cei:dateR -->
+
     <!-- START: cei:pict -->
     <xsl:template match="cei:pict">
         <xsl:if test="normalize-space(.) != ''">
