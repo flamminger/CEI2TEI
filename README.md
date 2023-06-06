@@ -68,6 +68,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - not existing `<cei:i>` element removed, text content preserved in parent element
 - `<cei:pict>` has no corresponding element in TEI, moved to `<figure><graphic>`
   - @hand moved to @change for now
+- `<cei:sic>` attribute @corr moved to @rendition
 
 ## ToDos
 - [ ] refactor templates (in progress)

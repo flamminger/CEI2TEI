@@ -1769,6 +1769,19 @@
     <!-- END: cei:ref -->
     <!-- END: global elements -->
 
+    <!-- START: cei:sic -->
+    <xsl:template match="cei:sic">
+        <sic>
+            <xsl:if test="./@corr">
+                <xsl:attribute name="rendition">
+                    <xsl:value-of select="./@corr"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </sic>
+    </xsl:template>
+    <!-- END: cei:sic -->
+
     <!-- START: cei:a -->
     <xsl:template match="cei:a">
         <ref>
