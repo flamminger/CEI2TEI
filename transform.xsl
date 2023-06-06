@@ -238,6 +238,13 @@
             <xsl:value-of select="."/>
         </copyStatus>
     </xsl:template>
+
+    <xsl:template match="cei:traditioFor" mode="copyStatusDiploDesc">
+        <copyStatus>
+            <xsl:call-template name="traditioForm"/>
+            <xsl:value-of select="."/>
+        </copyStatus>
+    </xsl:template>
     <!-- END: copyStatus -->
 
     <!-- START: date -->
