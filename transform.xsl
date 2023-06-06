@@ -1374,6 +1374,15 @@
 
     <!-- START: global elements -->
 
+    <!-- START: cei:add -->
+    <xsl:template match="cei:add">
+        <add>
+            <xsl:call-template name="pictAdd"/>
+            <xsl:apply-templates/>
+        </add>
+    </xsl:template>
+    <!-- END: cei:add -->
+
     <!-- START: cei:setPhrase -->
     <xsl:template match="cei:setPhrase">
         <distinct>
@@ -1511,7 +1520,7 @@
                     <graphic url="{./@URL}"/>
                 </xsl:if>
                 <desc>
-                    <xsl:call-template name="pict"/>
+                    <xsl:call-template name="pictAdd"/>
                     <xsl:value-of select="."/>
                 </desc>
             </figure>
@@ -1962,7 +1971,7 @@
     <!-- START: global attribute templates -->
 
     <!-- START: attribute pict -->
-    <xsl:template name="pict">
+    <xsl:template name="pictAdd">
         <xsl:if test="./@certainty">
             <xsl:attribute name="cert">
                 <xsl:value-of select="./@certainty"/>
