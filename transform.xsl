@@ -128,12 +128,12 @@
                     </change>
                 </revisionDesc>
             </teiHeader>
-            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']/*">
-                <facsimile>
-                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
-                                         mode="facsimile"/>
-                </facsimile>
-            </xsl:if>
+
+            <facsimile>
+                <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
+                                     mode="facsimile"/>
+            </facsimile>
+
             <text>
                 <front>
                     <xsl:if test="//*[local-name() = 'sourceDesc']">
@@ -581,6 +581,14 @@
         </desc>
     </xsl:template>
     <!-- END: figureDesc -->
+
+    <!-- START: graphic -->
+    <xsl:template match="cei:graphic" mode="facsimile">
+        <graphic url="{./@url}">
+            <xsl:call-template name="graphic"/>
+        </graphic>
+    </xsl:template>
+    <!-- END: graphic -->
 
     <!-- START: witnessList -->
 
