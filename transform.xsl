@@ -266,8 +266,8 @@
     <!-- END: dateRange -->
 
     <!-- START: issuedPlace -->
-    <xsl:template match="cei:issuedPlace" mode="issuedDiploDesc" >
-       <xsl:call-template name="issuedPlace"/>
+    <xsl:template match="cei:issuedPlace" mode="issuedDiploDesc">
+        <xsl:call-template name="issuedPlace"/>
     </xsl:template>
     <!-- END: issuedPlace -->
 
@@ -567,7 +567,7 @@
                 <surfaceGrp>
                     <xsl:apply-templates select="*[not(self::cei:graphic)]"/>
                     <figure>
-                    <xsl:apply-templates select="cei:graphic"/>
+                        <xsl:apply-templates select="cei:graphic"/>
                     </figure>
                 </surfaceGrp>
             </xsl:when>
@@ -1350,11 +1350,117 @@
 
     <!-- START: global elements -->
 
+    <!-- START: cei:subscriptio -->
+    <xsl:template match="cei:subscriptio">
+        <span type="subscriptio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:subscriptio -->
+
+    <!-- START: cei:sanctio -->
+    <xsl:template match="cei:sanctio">
+        <span type="sanctio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:sanctio -->
+
+    <!-- START: cei:rogatio -->
+    <xsl:template match="cei:rogatio">
+        <span type="rogatio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:rogatio -->
+
+    <!-- START: cei:publicatio -->
+    <xsl:template match="cei:publicatio">
+        <span type="publicatio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:publicatio -->
+
+    <!-- START: cei:narratio -->
+    <xsl:template match="cei:narratio">
+        <span type="narratio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:narratio -->
+
+    <!-- START: cei:invocatio -->
+    <xsl:template match="cei:invocatio">
+        <span type="invocatio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:invocatio -->
+
+    <!-- START: cei:intitulatio -->
+    <xsl:template match="cei:intitulatio">
+        <span type="intitulatio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:intitulatio -->
+
+    <!-- START: cei:intercessio -->
+    <xsl:template match="cei:intercessio">
+        <span type="intercessio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:intercessio -->
+
+    <!-- START: cei:inscriptio -->
+    <xsl:template match="cei:inscriptio">
+        <span type="inscriptio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:inscriptio -->
+
+    <!-- START: cei:datatio -->
+    <xsl:template match="cei:datatio">
+        <span type="datatio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:datatio -->
+
+    <!-- START: cei:dispositio -->
+    <xsl:template match="cei:dispositio">
+        <span type="dispositio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:dispositio -->
+
+    <!-- START: cei:corroboratio -->
+    <xsl:template match="cei:corroboratio">
+        <span type="corroboratio">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:corroboratio -->
+
+    <!-- START: cei:arenga -->
+    <xsl:template match="cei:arenga">
+        <span type="arenga">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!-- END: cei:arenga -->
+
+    <!-- START: elongata -->
     <xsl:template match="Elongata">
         <p style="elongata">
             <xsl:apply-templates/>
         </p>
     </xsl:template>
+    <!-- END: elongata -->
 
     <!-- START: cei:dateR -->
     <xsl:template match="cei:dateR">

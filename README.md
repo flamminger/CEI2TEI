@@ -71,6 +71,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:sic>` attribute @corr moved to @rendition
 - `<cei:notariusDesc>` and `<cei:notariusSub>` have no corresponding element, moved to `<p sameAs="ceiElementName">`
 - not existing`<Elongata>` moved to `<p style="elongata">`
+- elements for charter form, like dispositio, are missing, for now moved to `<span type="formularName">`
 ## ToDos
 - [ ] refactor templates (in progress)
 - [ ] automated test of small file sample (in progress)
