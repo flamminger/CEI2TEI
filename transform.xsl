@@ -143,7 +143,7 @@
                 <body>
                     <xsl:if test="//*[local-name() = 'tenor']/cei:head">
                         <head>
-                            <xsl:value-of select="//*[local-name() = 'tenor']/cei:head"/>
+                            <xsl:apply-templates select="//*[local-name() = 'tenor']/cei:head" mode="head"/>
                         </head>
                     </xsl:if>
                     <div type="tenor">
@@ -682,8 +682,15 @@
         <xsl:apply-templates/>
     </xsl:template>
 
+    <!--     START: head -->
+    <!-- Skip in tenor-->
     <xsl:template match="cei:head">
     </xsl:template>
+
+    <xsl:template match="cei:head" mode="head">
+        <xsl:apply-templates/>
+    </xsl:template>
+
     <!--     END: tenor -->
 
     <!-- START: pb -->
