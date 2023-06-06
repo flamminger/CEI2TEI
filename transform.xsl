@@ -126,9 +126,8 @@
                     </change>
                 </revisionDesc>
             </teiHeader>
-            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure'] != ''">
+            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']/*">
                 <facsimile>
-                    <!-- TODO FIX SURFACE -->
                     <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
                                          mode="facsimile"/>
                 </facsimile>
@@ -538,48 +537,36 @@
     </xsl:template>
     <!-- END: rubrum -->
 
+    <!-- START: cei:zone -->
+    <xsl:template match="cei:figure/cei:zone">
+        <surface>
+            <xsl:call-template name="graphic"/>
+            <xsl:apply-templates/>
+        </surface>
+    </xsl:template>
+    <!-- END: cei:zone -->
+
     <!-- START: surfaceGrp graphic -->
     <xsl:template match="cei:figure" mode="facsimile">
         <xsl:choose>
-            <xsl:when test="./cei:zone">
+            <xsl:when test="./cei:graphic and ./cei:zone">
                 <surfaceGrp>
-                    <xsl:for-each select="cei:zone">
-                        <surface>
-                            <xsl:attribute name="xml:id">
-                                <xsl:value-of select="./@id"/>
-                            </xsl:attribute>
-                        </surface>
-                    </xsl:for-each>
+                    <xsl:apply-templates select="*[not(self::cei:graphic)]"/>
+                    <figure>
+                    <xsl:apply-templates select="cei:graphic"/>
+                    </figure>
                 </surfaceGrp>
             </xsl:when>
-            <xsl:when test="./cei:graphic">
-                <graphic url="{./cei:graphic/@url}">
-                    <xsl:choose>
-                        <xsl:when test="./@id">
-                            <xsl:attribute name="corresp">
-                                <xsl:value-of select="./@id"/>
-                            </xsl:attribute>
-                        </xsl:when>
-                        <xsl:when test="./@n">
-                            <xsl:attribute name="n">
-                                <xsl:value-of select="./@n"/>
-                            </xsl:attribute>
-                        </xsl:when>
-                    </xsl:choose>
-                    <!-- to preserve <cei:graphic> element content -->
-                    <!--                <xsl:choose>-->
-                    <!--                    <xsl:when test="./cei:graphic/text()">-->
-                    <!--                        <desc>-->
-                    <!--                            <xsl:value-of select="./cei:graphic/text()"/>-->
-                    <!--                        </desc>-->
-                    <!--                    </xsl:when>-->
-                    <!--                    <xsl:otherwise>-->
-                    <!--                        <xsl:apply-templates select="./cei:figDesc" mode="facsimile"/>-->
-                    <!--                    </xsl:otherwise>-->
-                    <!--                </xsl:choose>-->
-                    <xsl:apply-templates select="./cei:figDesc" mode="facsimile"/>
-                </graphic>
+            <xsl:when test="./cei:zone">
+                <surfaceGrp>
+                    <xsl:apply-templates/>
+                </surfaceGrp>
             </xsl:when>
+            <xsl:otherwise>
+                <figure>
+                    <xsl:apply-templates/>
+                </figure>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!-- END: surfaceGrp graphic -->
