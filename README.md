@@ -73,6 +73,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - not existing`<Elongata>` moved to `<p style="elongata">`
 - elements for charter form, like dispositio, are missing, for now moved to `<span type="formularName">`
 - `<cei:setPhrase>` move to `<distinct>`
+- `<cei:mod>` moved to `<expan>`
+  - @type moved to rendition
 
 
 ## ToDos

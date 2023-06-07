@@ -147,9 +147,7 @@
                         </head>
                     </xsl:if>
                     <div type="tenor">
-                        <p>
                             <xsl:apply-templates select="//*[local-name() = 'tenor']"/>
-                        </p>
                     </div>
                 </body>
                 <back>
@@ -675,8 +673,18 @@
 
     <!--     START: tenor -->
     <xsl:template match="cei:tenor">
-        <xsl:apply-templates/>
+        <xsl:choose>
+            <xsl:when test="count(cei:p) > 0">
+                <xsl:apply-templates/>
+            </xsl:when>
+            <xsl:otherwise>
+                <p>
+                    <xsl:apply-templates/>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
+
 
     <xsl:template match="cei:pTenor">
         <xsl:apply-templates/>
@@ -775,17 +783,59 @@
 
     <!-- START: expan -->
     <xsl:template match="cei:expan">
-        <choice>
-            <abbr>
-                <xsl:value-of select="./@abbr"/>
-            </abbr>
-            <expan>
-                <xsl:call-template name="expan"/>
-                <xsl:value-of select="."/>
-            </expan>
-        </choice>
+        <xsl:if test="normalize-space(.) !=''">
+            <choice>
+                <xsl:choose>
+                    <xsl:when test="./@abbr">
+                        <abbr>
+                            <xsl:value-of select="./@abbr"/>
+                        </abbr>
+                    </xsl:when>
+                    <xsl:when test="./cei:abbr">
+                        <xsl:apply-templates select="./cei:abbr"/>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="./cei:ex">
+                        <xsl:apply-templates select="./cei:ex"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <expan>
+                            <xsl:call-template name="expan"/>
+                            <xsl:value-of select="."/>
+                        </expan>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </choice>
+        </xsl:if>
     </xsl:template>
     <!-- END: expan -->
+
+    <!-- START: cei:ex -->
+    <xsl:template match="cei:ex">
+        <ex>
+            <xsl:if test="./cei:abbr/@type">
+                <xsl:attribute name="type">
+                    <xsl:value-of select="./cei:abbr/@type"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </ex>
+    </xsl:template>
+    <!-- END: cei:ex -->
+
+    <!-- START: cei:abbr -->
+    <xsl:template match="cei:abbr">
+        <abbr>
+            <xsl:if test="./@type">
+                <xsl:attribute name="type">
+                    <xsl:value-of select="./@type"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </abbr>
+    </xsl:template>
+    <!-- END: cei:abbr -->
 
     <!-- START: app -->
     <xsl:template match="cei:app">
@@ -1175,13 +1225,13 @@
     <!-- END: diplomaticAnalysis listBiblErw -->
 
     <!-- START: diploDesc bibl -->
-    <!--    <xsl:template match="cei:listBibl" mode="diplomaticAnalysis">-->
-    <!--        <xsl:if test="normalize-space(.) != ''">-->
-    <!--            <listBibl type="analysis">-->
-    <!--                <xsl:apply-templates select="cei:bibl" mode="diplomaticAnalysis"/>-->
-    <!--            </listBibl>-->
-    <!--        </xsl:if>-->
-    <!--    </xsl:template>-->
+        <xsl:template match="cei:diplomaticAnalysis/cei:listBibl" mode="diplomaticAnalysis">
+            <xsl:if test="normalize-space(.) != ''">
+                <listBibl type="analysis">
+                    <xsl:apply-templates select="cei:bibl"/>
+                </listBibl>
+            </xsl:if>
+        </xsl:template>
     <!-- END: diploDesc bibl -->
 
     <!-- START: diplomaticAnalysis p -->
@@ -1945,6 +1995,19 @@
     </xsl:template>
     <!-- END: cei:ref -->
     <!-- END: global elements -->
+
+    <!-- START: cei:mod -->
+    <xsl:template match="cei:mod">
+        <expan>
+            <xsl:if test="./@type">
+                <xsl:attribute name="rendition">
+                    <xsl:value-of select="./@type"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </expan>
+    </xsl:template>
+    <!-- END: cei:mod -->
 
     <!-- START: cei:sic -->
     <xsl:template match="cei:sic">
