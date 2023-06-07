@@ -147,7 +147,7 @@
                         </head>
                     </xsl:if>
                     <div type="tenor">
-                            <xsl:apply-templates select="//*[local-name() = 'tenor']"/>
+                        <xsl:apply-templates select="//*[local-name() = 'tenor']"/>
                     </div>
                 </body>
                 <back>
@@ -1225,13 +1225,13 @@
     <!-- END: diplomaticAnalysis listBiblErw -->
 
     <!-- START: diploDesc bibl -->
-        <xsl:template match="cei:diplomaticAnalysis/cei:listBibl" mode="diplomaticAnalysis">
-            <xsl:if test="normalize-space(.) != ''">
-                <listBibl type="analysis">
-                    <xsl:apply-templates select="cei:bibl"/>
-                </listBibl>
-            </xsl:if>
-        </xsl:template>
+    <xsl:template match="cei:diplomaticAnalysis/cei:listBibl" mode="diplomaticAnalysis">
+        <xsl:if test="normalize-space(.) != ''">
+            <listBibl type="analysis">
+                <xsl:apply-templates select="cei:bibl"/>
+            </listBibl>
+        </xsl:if>
+    </xsl:template>
     <!-- END: diploDesc bibl -->
 
     <!-- START: diplomaticAnalysis p -->
@@ -1995,6 +1995,14 @@
     </xsl:template>
     <!-- END: cei:ref -->
     <!-- END: global elements -->
+
+    <!-- START: cei:addName -->
+    <xsl:template match="cei:addName">
+        <addName>
+            <xsl:apply-templates/>
+        </addName>
+    </xsl:template>
+    <!-- END: cei:addName -->
 
     <!-- START: cei:mod -->
     <xsl:template match="cei:mod">
