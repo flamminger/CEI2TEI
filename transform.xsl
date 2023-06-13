@@ -1424,6 +1424,23 @@
 
     <!-- START: global elements -->
 
+    <!-- START: metamark -->
+    <xsl:template match="cei:metamark">
+        <metamark>
+            <xsl:apply-templates/>
+        </metamark>
+    </xsl:template>
+    <!-- END: metamark -->
+
+    <!-- START: handShift -->
+    <xsl:template match="cei:handShift">
+        <handShift>
+            <xsl:call-template name="handShift"/>
+            <xsl:apply-templates/>
+        </handShift>
+    </xsl:template>
+    <!-- START: cei:handShift -->
+
     <!-- START: cei:add -->
     <xsl:template match="cei:add">
         <add>
@@ -1994,7 +2011,6 @@
         </ref>
     </xsl:template>
     <!-- END: cei:ref -->
-    <!-- END: global elements -->
 
     <!-- START: supplied -->
     <xsl:template match="cei:supplied">
@@ -2066,9 +2082,51 @@
     </xsl:template>
     <!-- END: cei:a -->
 
+    <!-- END: global elements -->
+
     <!-- START: global attribute templates -->
 
-    <!-- START: supplied space -->
+    <!-- START: handShift attributes -->
+    <xsl:template name="handShift">
+        <xsl:if test="./@hand">
+            <xsl:attribute name="scribe">
+                <xsl:value-of select="translate(./@hand, ' ', '')"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="./@certainty"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@id">
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- START: handShift attributes -->
+
+    <!-- START: supplied attributes -->
     <xsl:template name="supplied">
         <xsl:if test="./@certainty">
             <xsl:attribute name="cert">

@@ -77,7 +77,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - @type moved to rendition
 - `<cei:space>` attribute @hand has no corresponding attribute, moved to @source for now 
 - `<cei:supplied>` attributes @type and @lang have no corrsponding attributes, moved to @unit and @source
-
+- `<cei:handSHift` attribute @hand moved to @scribe
+  - @scribe does not allow whitespace or special characters
 
 ## ToDos
 - [ ] refactor templates (in progress)
