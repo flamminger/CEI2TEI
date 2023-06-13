@@ -80,6 +80,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:handSHift` attribute @hand moved to @scribe
   - @scribe does not allow whitespace or special characters
 - `<tei:tei>` elements within a few charters, for now removed
+- `<cei:note>` attribute @type can no longer be used freely, for now moved to @prev
 
 ## ToDos
 - [ ] refactor templates (in progress)

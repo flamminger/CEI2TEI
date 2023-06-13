@@ -1966,11 +1966,15 @@
     <!-- START: bibl -->
     <xsl:template match="cei:bibl">
         <xsl:choose>
-            <xsl:when test="./* and name(*) = 'imprint' and normalize-space(.) != ''">
+            <xsl:when test="./cei:imprint and normalize-space(.) != ''">
                 <biblStruct>
                     <monogr>
                         <xsl:call-template name="bibl"/>
-                        <xsl:apply-templates select="*[node()]"/>
+                        <xsl:apply-templates select="cei:author"/>
+                        <xsl:apply-templates select="cei:title"/>
+                        <xsl:apply-templates select="cei:note"/>
+                        <xsl:apply-templates select="cei:imprint"/>
+                        <xsl:apply-templates select="cei:scope"/>
                     </monogr>
                 </biblStruct>
             </xsl:when>
@@ -3214,7 +3218,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@type">
-            <xsl:attribute name="type">
+            <xsl:attribute name="prev">
                 <xsl:value-of select="translate(./@type, ' ', '')"/>
             </xsl:attribute>
         </xsl:if>
