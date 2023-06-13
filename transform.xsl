@@ -88,7 +88,7 @@
                                 </xsl:otherwise>
                             </xsl:choose>
 
-                            <xsl:apply-templates select="//*[local-name() = 'physicalDesc']" mode="msDescPhysical"/>
+                            <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'physicalDesc']" mode="msDescPhysical"/>
                             <diploDesc>
                                 <xsl:apply-templates select="//*[local-name() = 'issued']" mode="issuedDiploDesc"/>
                                 <xsl:apply-templates
@@ -403,9 +403,9 @@
                         </support>
                         <xsl:apply-templates select="cei:condition"/>
                     </supportDesc>
-                    <xsl:if test="//cei:p[@type = 'layout']">
+                    <xsl:if test="../cei:p[@type = 'layout']">
                         <layoutDesc>
-                            <xsl:apply-templates select="//cei:p[@type = 'layout']" mode="pLayout"/>
+                            <xsl:apply-templates select="../cei:p[@type = 'layout']" mode="pLayout"/>
                         </layoutDesc>
                     </xsl:if>
                 </objectDesc>
@@ -414,9 +414,9 @@
                         <xsl:apply-templates select="./cei:decoDesc"/>
                     </decoDesc>
                 </xsl:if>
-                <xsl:if test="//cei:p[@type = 'handDesc']">
+                <xsl:if test="../cei:p[@type = 'handDesc']">
                     <handDesc>
-                        <xsl:apply-templates select="//cei:p[@type = 'handDesc']" mode="pHanddesc"/>
+                        <xsl:apply-templates select="../cei:p[@type = 'handDesc']" mode="pHanddesc"/>
                     </handDesc>
                 </xsl:if>
             </physDesc>
@@ -526,11 +526,9 @@
 
     <!-- START: handDesc > p -->
     <xsl:template name="pHanddesc" match="cei:p[@type = 'handDesc']" mode="pHanddesc">
-        <xsl:for-each select=".">
-            <p>
-                <xsl:value-of select="./text()"/>
-            </p>
-        </xsl:for-each>
+        <p>
+            <xsl:value-of select="."/>
+        </p>
     </xsl:template>
     <!-- END: handDesc > p -->
 
@@ -632,17 +630,18 @@
                     </xsl:attribute>
                 </xsl:when>
             </xsl:choose>
-            <xsl:apply-templates mode="witness"/>
+            <xsl:apply-templates/>
+            <xsl:apply-templates select="cei:figure" mode="witness"/>
         </witness>
     </xsl:template>
     <!-- END: witness -->
 
     <!-- START: witness archIdentifier -->
-    <xsl:template match="cei:archIdentifier" mode="witness">
-        <idno>
-            <xsl:apply-templates/>
-        </idno>
-    </xsl:template>
+<!--    <xsl:template match="cei:archIdentifier" mode="witness">-->
+<!--        <idno>-->
+<!--            <xsl:apply-templates/>-->
+<!--        </idno>-->
+<!--    </xsl:template>-->
     <!-- END: witness archIdentifier -->
 
     <!-- START: witness figure -->
