@@ -76,6 +76,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:mod>` moved to `<expan>`
   - @type moved to rendition
 - `<cei:space>` attribute @hand has no corresponding attribute, moved to @source for now 
+- `<cei:supplied>` attributes @type and @lang have no corrsponding attributes, moved to @unit and @source
 
 
 ## ToDos

@@ -1996,6 +1996,15 @@
     <!-- END: cei:ref -->
     <!-- END: global elements -->
 
+    <!-- START: supplied -->
+    <xsl:template match="cei:supplied">
+        <supplied>
+            <xsl:call-template name="supplied"/>
+            <xsl:apply-templates/>
+        </supplied>
+    </xsl:template>
+    <!-- END: supplied -->
+
     <!-- START: surplus -->
     <xsl:template match="cei:surplus">
         <surplus>
@@ -2058,6 +2067,66 @@
     <!-- END: cei:a -->
 
     <!-- START: global attribute templates -->
+
+    <!-- START: supplied space -->
+    <xsl:template name="supplied">
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="./@certainty"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@reason">
+            <xsl:attribute name="reason">
+                <xsl:value-of select="./@reason"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@source">
+            <xsl:attribute name="source">
+                <xsl:value-of select="./@source"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@hand">
+            <xsl:attribute name="style">
+                <xsl:value-of select="./@hand"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@id">
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@type">
+            <xsl:attribute name="unit">
+                <xsl:value-of select="./@type"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="@lang">
+            <xsl:attribute name="xml:lang">
+                <xsl:value-of select="@lang"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute supplied -->
 
     <!-- START: attribute space -->
     <xsl:template name="space">
