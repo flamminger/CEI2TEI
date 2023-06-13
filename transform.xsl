@@ -1996,6 +1996,16 @@
     <!-- END: cei:ref -->
     <!-- END: global elements -->
 
+    <!-- START: space -->
+    <xsl:template match="cei:space">
+        <space>
+            <xsl:call-template name="space"/>
+            <xsl:apply-templates/>
+        </space>
+
+    </xsl:template>
+    <!-- END: space -->
+
     <!-- START: cei:addName -->
     <xsl:template match="cei:addName">
         <addName>
@@ -2040,6 +2050,61 @@
     <!-- END: cei:a -->
 
     <!-- START: global attribute templates -->
+
+    <!-- START: attribute space -->
+    <xsl:template name="space">
+        <xsl:if test="./@certainty">
+            <xsl:attribute name="cert">
+                <xsl:value-of select="./@certainty"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@dim">
+            <xsl:attribute name="dim">
+                <xsl:value-of select="./@dim"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@extent">
+            <xsl:attribute name="extent">
+                <xsl:value-of select="./@extent"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@facs">
+            <xsl:attribute name="facs">
+                <xsl:value-of select="./@facs"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@hand">
+            <xsl:attribute name="source">
+                <xsl:value-of select="./@hand"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@n">
+            <xsl:attribute name="n">
+                <xsl:value-of select="./@n"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@id">
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="./@id"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@type">
+            <xsl:attribute name="type">
+                <xsl:value-of select="./@type"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@resp">
+            <xsl:attribute name="resp">
+                <xsl:value-of select="./@resp"/>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="./@rend">
+            <xsl:attribute name="rend">
+                <xsl:value-of select="./@rend"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: attribute space -->
 
     <!-- START: attribute pict -->
     <xsl:template name="pictAdd">

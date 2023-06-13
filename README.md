@@ -75,6 +75,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:setPhrase>` move to `<distinct>`
 - `<cei:mod>` moved to `<expan>`
   - @type moved to rendition
+- `<cei:space>` attribute @hand has no corresponding attribute, moved to @source for now 
 
 
 ## ToDos
