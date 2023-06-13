@@ -79,6 +79,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:supplied>` attributes @type and @lang have no corrsponding attributes, moved to @unit and @source
 - `<cei:handSHift` attribute @hand moved to @scribe
   - @scribe does not allow whitespace or special characters
+- `<tei:tei>` elements within a few charters, for now removed
 
 ## ToDos
 - [ ] refactor templates (in progress)
