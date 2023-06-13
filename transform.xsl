@@ -128,12 +128,12 @@
                     </change>
                 </revisionDesc>
             </teiHeader>
-
-            <facsimile>
-                <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
-                                     mode="facsimile"/>
-            </facsimile>
-
+            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']">
+                <facsimile>
+                    <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
+                                         mode="facsimile"/>
+                </facsimile>
+            </xsl:if>
             <text>
                 <front>
                     <xsl:if test="//*[local-name() = 'sourceDesc']">
