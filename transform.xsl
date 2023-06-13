@@ -1927,7 +1927,7 @@
     <!-- START: bibl -->
     <xsl:template match="cei:bibl">
         <xsl:choose>
-            <xsl:when test="./* and normalize-space(.) != ''">
+            <xsl:when test="./* and name(*) = 'imprint' and normalize-space(.) != ''">
                 <biblStruct>
                     <monogr>
                         <xsl:call-template name="bibl"/>
