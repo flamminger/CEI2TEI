@@ -1996,6 +1996,14 @@
     <!-- END: cei:ref -->
     <!-- END: global elements -->
 
+    <!-- START: surplus -->
+    <xsl:template match="cei:surplus">
+        <surplus>
+            <xsl:apply-templates/>
+        </surplus>
+    </xsl:template>
+    <!-- END: surplus -->
+
     <!-- START: space -->
     <xsl:template match="cei:space">
         <space>
