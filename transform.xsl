@@ -658,6 +658,11 @@
                         </idno>
                     </altIdentifier>
                 </xsl:if>
+                <xsl:if test="./cei:scope">
+                    <note type="structural">
+                        <xsl:value-of select="./cei:scope"/>
+                    </note>
+                </xsl:if>
                 <xsl:if test="normalize-space(.) and not(*)">
                     <institution>
                         <xsl:value-of select="."/>
@@ -1619,10 +1624,26 @@
 
     <!-- START: cei:scope -->
     <xsl:template match="cei:scope">
-        <biblScope>
-            <xsl:call-template name="imprintAuthor"/>
-            <xsl:apply-templates/>
-        </biblScope>
+        <xsl:choose>
+            <xsl:when test="./parent::cei:bibl">
+                <biblScope>
+                    <xsl:call-template name="imprintAuthor"/>
+                    <xsl:apply-templates/>
+                </biblScope>
+            </xsl:when>
+            <xsl:when test="./parent::cei:imprint">
+                <biblScope>
+                    <xsl:call-template name="imprintAuthor"/>
+                    <xsl:apply-templates/>
+                </biblScope>
+            </xsl:when>
+            <xsl:otherwise>
+                <locus>
+                    <xsl:call-template name="imprintAuthor"/>
+                    <xsl:apply-templates/>
+                </locus>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- END: cei:scope -->
 

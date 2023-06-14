@@ -81,6 +81,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - @scribe does not allow whitespace or special characters
 - `<tei:tei>` elements within a few charters, for now removed
 - `<cei:note>` attribute @type can no longer be used freely, for now moved to @prev
+- `<cei:scope>` in `<cei:archIdentifier>` has no corresponding element, for now moved to `<note type='structural'>`
+  - `<cei:scope>` outside of `<cei:bibl>` elements moved to `<local>` 
 
 ## ToDos
 - [ ] refactor templates (in progress)
