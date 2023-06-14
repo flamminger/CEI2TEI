@@ -376,6 +376,14 @@
     </xsl:template>
     <!-- END: physicalDesc -->
 
+    <!-- START: decoDesc -->
+    <xsl:template match="cei:decoDesc/text()">
+        <p>
+            <xsl:value-of select="."/>
+        </p>
+    </xsl:template>
+    <!-- END: decoDesc -->
+
     <!-- START: material -->
     <xsl:template match="cei:material">
         <material>
