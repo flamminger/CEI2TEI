@@ -83,6 +83,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:note>` attribute @type can no longer be used freely, for now moved to @prev
 - `<cei:scope>` in `<cei:archIdentifier>` has no corresponding element, for now moved to `<note type='structural'>`
   - `<cei:scope>` outside of `<cei:bibl>` elements moved to `<local>` 
+- `<cei:archIdentifier>` sometimes contains content (punctuation, whitespace) outside of child elements, for now removed
 
 ## ToDos
 - [ ] refactor templates (in progress)

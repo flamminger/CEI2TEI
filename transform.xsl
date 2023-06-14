@@ -643,10 +643,9 @@
                         <xsl:value-of select="./cei:arch"/>
                     </institution>
                 </xsl:when>
-                <xsl:when test="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]">
+                <xsl:when test="text()[normalize-space(.) != '']">
                     <institution>
-                        <xsl:value-of
-                                select="./text()[normalize-space(.) != '' and not(matches(., '^[\s.,;:!?\\-]*$'))]"/>
+                        <xsl:value-of select="text()[normalize-space(.) != '']"/>
                     </institution>
                 </xsl:when>
             </xsl:choose>
@@ -3621,9 +3620,9 @@
                 <xsl:value-of select="./@witness"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@n">
+        <xsl:if test="normalize-space(./@n) != ''">
             <xsl:attribute name="n">
-                <xsl:value-of select="./@n"/>
+                <xsl:value-of select="translate(./@n, ' ', '')"/>
             </xsl:attribute>
         </xsl:if>
 
