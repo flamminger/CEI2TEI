@@ -84,6 +84,9 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:scope>` in `<cei:archIdentifier>` has no corresponding element, for now moved to `<note type='structural'>`
   - `<cei:scope>` outside of `<cei:bibl>` elements moved to `<local>` 
 - `<cei:archIdentifier>` sometimes contains content (punctuation, whitespace) outside of child elements, for now removed
+- the TEI DTD does not allow whitespace within many attributes, this is problematic for image URLs that contain whitspace e.g.,`"http://images.monasterium.net/illum/IllUrk/1022_AD_Alpes-Maritimes_donation-1022- pdf.jpg"`
+  - see [teidata.pointer](https://tei-c.org/release/doc/tei-p5-doc/en/html/ref-teidata.pointer.html)
+  - @type has similar issues
 
 ## ToDos
 - [ ] refactor templates (in progress)

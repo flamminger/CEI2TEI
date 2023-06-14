@@ -131,7 +131,7 @@
                     </change>
                 </revisionDesc>
             </teiHeader>
-            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']">
+            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure'] != ''">
                 <facsimile>
                     <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
                                          mode="facsimile"/>
@@ -538,9 +538,11 @@
 
     <!-- START: graphic -->
     <xsl:template match="cei:graphic" mode="facsimile">
-        <graphic url="{./@url}">
-            <xsl:call-template name="graphic"/>
-        </graphic>
+        <xsl:if test="./@url != ''">
+            <graphic url="{./@url}">
+                <xsl:call-template name="graphic"/>
+            </graphic>
+        </xsl:if>
     </xsl:template>
     <!-- END: graphic -->
 
