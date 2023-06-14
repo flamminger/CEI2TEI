@@ -2056,8 +2056,8 @@
         <xsl:choose>
             <xsl:when test="./cei:imprint and normalize-space(.) != ''">
                 <biblStruct>
+                    <xsl:call-template name="bibl"/>
                     <monogr>
-                        <xsl:call-template name="bibl"/>
                         <xsl:apply-templates select="cei:author"/>
                         <xsl:apply-templates select="cei:title"/>
                         <xsl:apply-templates select="cei:note"/>
