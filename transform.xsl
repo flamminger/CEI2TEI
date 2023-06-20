@@ -3,11 +3,11 @@
         href="SCHEMA" type="application/relax-ng-compact-syntax"
         ?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-              xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:atom="http://www.w3.org/2005/Atom"
-              xmlns="http://www.tei-c.org/ns/1.0" xmlns:cei="http://www.monasterium.net/NS/cei"
-              xmlns:bf="http://betterform.sourceforge.net/xforms" xmlns:xalan="http://xml.apache.org/xslt"
-              xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:csl="http://www.w3.org/1999/XSL/Transform"
-              exclude-result-prefixes="xs" version="3.0">
+                xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:atom="http://www.w3.org/2005/Atom"
+                xmlns="http://www.tei-c.org/ns/1.0" xmlns:cei="http://www.monasterium.net/NS/cei"
+                xmlns:bf="http://betterform.sourceforge.net/xforms" xmlns:xalan="http://xml.apache.org/xslt"
+                xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:csl="http://www.w3.org/1999/XSL/Transform"
+                exclude-result-prefixes="xs" version="3.0">
 
     <xsl:output method="xml" indent="yes" xalan:indent-amount="4"/>
     <xsl:strip-space elements="*"/>
@@ -313,7 +313,7 @@
     </xsl:template>
 
     <!-- END: lang_MOM -->
-<!-- TODO Adapt call for two archIdentifier elements -->
+    <!-- TODO Adapt call for two archIdentifier elements -->
     <!-- START: witnessOrig -->
     <xsl:template match="cei:witnessOrig" mode="msDescId">
         <xsl:choose>
@@ -608,7 +608,7 @@
     <!-- START: witness archIdentifier wrap -->
     <xsl:template match="cei:archIdentifier" mode="witness">
         <msDesc>
-                <xsl:call-template name="msIdentifier"/>
+            <xsl:call-template name="msIdentifier"/>
             <xsl:apply-templates select="../cei:physicalDesc" mode="msDescPhysical"/>
             <xsl:if test="..//cei:traditioForm or ..//*[local-name() = 'rubrum'] or ..//*[local-name() = 'p']">
                 <diploDesc>
@@ -630,91 +630,30 @@
 
     <!-- START: witness archIdentifier -->
     <xsl:template name="msIdentifier">
-        <msIdentifier>
-            <xsl:if test="./cei:country">
-                <country>
-                    <xsl:value-of select="./cei:country"/>
-                </country>
-            </xsl:if>
-            <xsl:if test="./cei:region">
-                <region>
-                    <xsl:value-of select="./cei:region"/>
-                </region>
-            </xsl:if>
-            <xsl:if test="./cei:settlement">
-                <settlement>
-                    <xsl:value-of select="./cei:settlement"/>
-                </settlement>
-            </xsl:if>
-            <xsl:choose>
-                <xsl:when test="./cei:arch">
-                    <institution>
-                        <xsl:value-of select="./cei:arch"/>
-                    </institution>
-                </xsl:when>
-                <xsl:when test="text()[normalize-space(.) != '']">
-                    <institution>
-                        <xsl:value-of select="text()[normalize-space(.) != '']"/>
-                    </institution>
-                </xsl:when>
-            </xsl:choose>
-            <xsl:if test="./cei:repository">
-                <repository>
-                    <xsl:value-of select="./cei:repository"/>
-                </repository>
-            </xsl:if>
-            <xsl:if test="./cei:archFond">
-                <collection>
-                    <xsl:value-of select="./cei:archFond"/>
-                </collection>
-            </xsl:if>
-            <xsl:choose>
-                <xsl:when test="./cei:idno">
-                    <idno>
-                        <xsl:value-of select="./cei:idno"/>
-                    </idno>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="//*[local-name() = 'body']/*[local-name() = 'idno']"
-                                         mode="msCharterId"/>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="./cei:altIdentifier">
-                <altIdentifier>
-                    <xsl:if test="./cei:altIdentifier/@type">
-                        <xsl:attribute name="type">
-                            <xsl:value-of select="./cei:altIdentifier/@type"/>
-                        </xsl:attribute>
-                    </xsl:if>
-                    <xsl:call-template name="altIdentifier"/>
-                </altIdentifier>
-            </xsl:if>
-            <xsl:if test="./following-sibling::cei:archIdentifier">
-                <altIdentifier>
-                    <xsl:if test="./cei:altIdentifier/@type">
-                        <xsl:attribute name="type">
-                            <xsl:value-of select="./cei:altIdentifier/@type"/>
-                        </xsl:attribute>
-                    </xsl:if>
-                    <xsl:call-template name="altIdentifier"/>
-                </altIdentifier>
-            </xsl:if>
-            <xsl:if test="./cei:scope">
-                <note type="structural">
-                    <xsl:value-of select="./cei:scope"/>
-                </note>
-            </xsl:if>
-            <xsl:if test="normalize-space(.) and not(*)">
-                <institution>
-                    <xsl:value-of select="."/>
-                </institution>
-            </xsl:if>
-        </msIdentifier>
+        <xsl:if test="not(preceding-sibling::cei:archIdentifier)">
+            <msIdentifier>
+                <xsl:call-template name="msIdentifierP1"/>
+                <xsl:if test="./following-sibling::cei:archIdentifier">
+                   <xsl:apply-templates select="./following-sibling::cei:archIdentifier" mode="secondArch"/>
+                </xsl:if>
+                <xsl:call-template name="msIdentifierP2"/>
+            </msIdentifier>
+        </xsl:if>
     </xsl:template>
     <!-- END: witness archIdentifier -->
 
-    <!-- START: altIdentifier -->
-    <xsl:template name="altIdentifier">
+    <!-- START: secondArchId -->
+    <xsl:template match="cei:archIdentifier" mode="secondArch">
+        <altIdentifier type="secondLoc">
+            <xsl:call-template name="msIdentifierP1"/>
+            <xsl:call-template name="msIdentifierP2"/>
+        </altIdentifier>
+    </xsl:template>
+    <!-- END: secondArchId -->
+
+    <!-- START: msIdentifier first section
+     to allow for multiple cei:archIdentifier elements -->
+    <xsl:template name="msIdentifierP1">
         <xsl:if test="./cei:country">
             <country>
                 <xsl:value-of select="./cei:country"/>
@@ -752,10 +691,89 @@
                 <xsl:value-of select="./cei:archFond"/>
             </collection>
         </xsl:if>
-        <xsl:if test="./cei:idno">
+        <xsl:choose>
+            <xsl:when test="./cei:idno">
+                <idno>
+                    <xsl:value-of select="./cei:idno"/>
+                </idno>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="//*[local-name() = 'body']/*[local-name() = 'idno']"
+                                     mode="msCharterId"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="./cei:altIdentifier">
+            <altIdentifier>
+                <xsl:if test="./cei:altIdentifier/@type">
+                    <xsl:attribute name="type">
+                        <xsl:value-of select="./cei:altIdentifier/@type"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:call-template name="altIdentifier"/>
+            </altIdentifier>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: msIdentifier first section -->
+
+    <!-- START: msIdentifier second section
+     to allow for multiple cei:archIdentifier elements -->
+    <xsl:template name="msIdentifierP2">
+        <xsl:if test="./cei:scope">
+            <note type="structural">
+                <xsl:value-of select="./cei:scope"/>
+            </note>
+        </xsl:if>
+        <xsl:if test="normalize-space(.) and not(*)">
+            <institution>
+                <xsl:value-of select="."/>
+            </institution>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: msIdentifier second section -->
+
+    <!-- START: altIdentifier -->
+    <xsl:template name="altIdentifier">
+        <xsl:if test="./cei:altIdentifier/cei:country">
+            <country>
+                <xsl:value-of select="./cei:altIdentifier/cei:country"/>
+            </country>
+        </xsl:if>
+        <xsl:if test="./cei:altIdentifier/cei:region">
+            <region>
+                <xsl:value-of select="./cei:altIdentifier/cei:region"/>
+            </region>
+        </xsl:if>
+        <xsl:if test="./cei:altIdentifier/cei:settlement">
+            <settlement>
+                <xsl:value-of select="./cei:altIdentifier/cei:settlement"/>
+            </settlement>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="./cei:altIdentifier/cei:arch">
+                <institution>
+                    <xsl:value-of select="./cei:altIdentifier/cei:arch"/>
+                </institution>
+            </xsl:when>
+            <xsl:when test="text()[normalize-space(.) != '']">
+                <institution>
+                    <xsl:value-of select="text()[normalize-space(.) != '']"/>
+                </institution>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:if test="./cei:altIdentifier/cei:repository">
+            <repository>
+                <xsl:value-of select="./cei:altIdentifier/cei:repository"/>
+            </repository>
+        </xsl:if>
+        <xsl:if test="./cei:altIdentifier/cei:archFond">
+            <collection>
+                <xsl:value-of select="./cei:altIdentifier/cei:archFond"/>
+            </collection>
+        </xsl:if>
+        <xsl:if test="./cei:altIdentifier/cei:idno">
             <idno>
                 <xsl:call-template name="type"/>
-                <xsl:value-of select="./cei:idno"/>
+                <xsl:value-of select="./cei:altIdentifier/cei:idno"/>
             </idno>
         </xsl:if>
     </xsl:template>
