@@ -68,7 +68,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:pict>` has no corresponding element in TEI, moved to `<figure><graphic>`
   - @hand moved to @change for now
 - `<cei:sic>` attribute @corr moved to @rendition
-- `<cei:notariusDesc>` and `<cei:notariusSub>` have no corresponding element, moved to `<p sameAs="ceiElementName">`
+- `<cei:notariusDesc>` and `<cei:notariusSub>` have no corresponding element, moved to `<p sameAs="ceiElementName">` and `<span sameAs="ceiElementName">`
 - not existing`<Elongata>` moved to `<p style="elongata">`
 - elements for charter form, like dispositio, are missing, for now moved to `<span type="formularName">`
 - `<cei:setPhrase>` move to `<distinct>`
@@ -83,9 +83,9 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:scope>` in `<cei:archIdentifier>` has no corresponding element, for now moved to `<note type='structural'>`
   - `<cei:scope>` outside of `<cei:bibl>` elements moved to `<local>` 
 - `<cei:archIdentifier>` sometimes contains content (punctuation, whitespace) outside of child elements, for now removed
-- the TEI DTD does not allow whitespace within many attributes, this is problematic for image URLs that contain whitspace e.g.,`"http://images.monasterium.net/illum/IllUrk/1022_AD_Alpes-Maritimes_donation-1022- pdf.jpg"`
+- the TEI DTD does not allow whitespace within many attributes, this is problematic for image URLs that contain whitespace or any special characters e.g.,`"http://images.monasterium.net/illum/IllUrk/1022_AD_Alpes-Maritimes_donation-1022- pdf.jpg"`
   - see [teidata.pointer](https://tei-c.org/release/doc/tei-p5-doc/en/html/ref-teidata.pointer.html)
-  - @type has similar issues
+    - there are a lot of them, how to handle?
 - `<cei:altIdentifier>`: if there is no `<cei:idno>` element the content of `<cei:altIdentifier>` will be used.
 - `<cei:diplomaticAnalysis>` text content moved to `<ab>`elements
 

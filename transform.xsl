@@ -1200,9 +1200,9 @@
     <!-- START: notariusDesc -->
     <xsl:template match="cei:notariusSub">
         <xsl:if test="normalize-space(.) != ''">
-            <p copyOf="notariusSub">
+            <span copyOf="notariusSub">
                 <xsl:apply-templates/>
-            </p>
+            </span>
         </xsl:if>
     </xsl:template>
     <!-- END: notariusDesc -->
@@ -1452,6 +1452,14 @@
         </xsl:if>
     </xsl:template>
     <!-- END: diplomaticAnalysis quoteDate -->
+
+    <!-- START: diplomaticAnalysis exclude nota -->
+    <xsl:template match="cei:nota" mode="diplomaticAnalysis">
+        <!-- Do nothing -->
+    </xsl:template>
+    <!-- END: diplomaticAnalysis exclude nota -->
+
+
     <!-- START: back -->
 
     <!-- START: divNotes -->
@@ -1598,17 +1606,17 @@
         <xsl:if test="./@id | ./@b_name | ./@n">
             <settingDesc>
                 <setting>
-                    <xsl:if test="./@id">
+                    <xsl:if test="normalize-space(./@id) != ''">
                         <xsl:attribute name="corresp">
                             <xsl:value-of select="./@id"/>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:if test="./@b_name">
+                    <xsl:if test="normalize-space(./@b_name) != ''">
                         <name type="bestand">
                             <xsl:value-of select="./@b_name"/>
                         </name>
                     </xsl:if>
-                    <xsl:if test="./@n">
+                    <xsl:if test="normalize-space(./@n) != ''">
                         <locale>
                             <xsl:value-of select="./@n"/>
                         </locale>
@@ -3064,37 +3072,37 @@
     <!-- START: attribute rolename -->
     <xsl:template name="rolenameDistinct">
 
-        <xsl:if test="./@id">
+        <xsl:if test="normalize-space(./@id) != ''">
             <xsl:attribute name="xml:id">
                 <xsl:value-of select="./@id"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@facs">
+        <xsl:if test="normalize-space(./@facs) != ''">
             <xsl:attribute name="facs">
                 <xsl:value-of select="./@facs"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@lang">
+        <xsl:if test="normalize-space(./@lang) != ''">
             <xsl:attribute name="xml:lang">
                 <xsl:value-of select="./@lang"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@n">
+        <xsl:if test="normalize-space(./@n) != ''">
             <xsl:attribute name="n">
                 <xsl:value-of select="./@n"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@type">
+        <xsl:if test="normalize-space(./@type) != ''">
             <xsl:attribute name="type">
                 <xsl:value-of select="translate(./@type, ' ', '')"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@rend">
+        <xsl:if test="normalize-space(./@rend) != ''">
             <xsl:attribute name="rend">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@resp">
+        <xsl:if test="normalize-space(./@resp) != ''">
             <xsl:attribute name="resp">
                 <xsl:value-of select="./@resp"/>
             </xsl:attribute>
@@ -3263,47 +3271,47 @@
     <!-- START: attribute bibl -->
     <xsl:template name="bibl">
 
-        <xsl:if test="./@id">
+        <xsl:if test="normalize-space(./@id) != ''">
             <xsl:attribute name="xml:id">
                 <xsl:value-of select="./@id"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@facs">
+        <xsl:if test="normalize-space(./@facs) != ''">
             <xsl:attribute name="facs">
                 <xsl:value-of select="./@facs"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@key">
+        <xsl:if test="normalize-space(./@key) != ''">
             <xsl:attribute name="corresp">
                 <xsl:value-of select="./@key"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@lang">
+        <xsl:if test="normalize-space(./@lang) != ''">
             <xsl:attribute name="xml:lang">
                 <xsl:value-of select="./@lang"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@n">
+        <xsl:if test="normalize-space(./@n) != ''">
             <xsl:attribute name="n">
                 <xsl:value-of select="./@n"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@type">
+        <xsl:if test="normalize-space(./@type) != ''">
             <xsl:attribute name="type">
                 <xsl:value-of select="translate(./@type, ' ', '')"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@rend">
+        <xsl:if test="normalize-space(./@rend) != ''">
             <xsl:attribute name="rend">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@resp">
+        <xsl:if test="normalize-space(./@resp) != ''">
             <xsl:attribute name="resp">
                 <xsl:value-of select="./@resp"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@status">
+        <xsl:if test="normalize-space(./@status) != ''">
             <xsl:attribute name="status">
                 <xsl:value-of select="./@status"/>
             </xsl:attribute>
@@ -3352,52 +3360,52 @@
 
     <!-- START: attributes placeName geogName -->
     <xsl:template name="placenameGeogName">
-        <xsl:if test="./@id">
+        <xsl:if test="normalize-space(./@id) != ''">
             <xsl:attribute name="corresp">
                 <xsl:value-of select="./@id"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@facs">
+        <xsl:if test="normalize-space(./@facs) != ''">
             <xsl:attribute name="facs">
                 <xsl:value-of select="./@facs"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@key">
+        <xsl:if test="normalize-space(./@key) != ''">
             <xsl:attribute name="key">
                 <xsl:value-of select="./@key"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@n">
+        <xsl:if test="normalize-space(./@n) != ''">
             <xsl:attribute name="n">
                 <xsl:value-of select="./@n"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@type">
+        <xsl:if test="normalize-space(./@type) != ''">
             <xsl:attribute name="type">
                 <xsl:value-of select="translate(./@type, ' ', '')"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@rend">
+        <xsl:if test="normalize-space(./@rend) != ''">
             <xsl:attribute name="rend">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@resp">
+        <xsl:if test="normalize-space(./@resp) != ''">
             <xsl:attribute name="resp">
                 <xsl:value-of select="./@resp"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@lang">
+        <xsl:if test="normalize-space(./@lang) != ''">
             <xsl:attribute name="xml:lang">
                 <xsl:value-of select="./@lang"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@certainty">
+        <xsl:if test="normalize-space(./@certainty) != ''">
             <xsl:attribute name="cert">
                 <xsl:value-of select="./@certainty"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@existent">
+        <xsl:if test="normalize-space(./@existent) != ''">
             <xsl:attribute name="evidence">
                 <xsl:value-of select="./@existent"/>
             </xsl:attribute>
@@ -3462,47 +3470,47 @@
     <!-- START: ref attributes-->
     <xsl:template name="refAttributes">
 
-        <xsl:if test="./@id">
+        <xsl:if test="normalize-space(./@id) != ''">
             <xsl:attribute name="corresp">
                 <xsl:value-of select="./@id"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@facs">
+        <xsl:if test="normalize-space(./@facs) != ''">
             <xsl:attribute name="facs">
                 <xsl:value-of select="./@facs"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@lang">
+        <xsl:if test="normalize-space(./@lang) != ''">
             <xsl:attribute name="xml:lang">
                 <xsl:value-of select="./@lang"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@n">
+        <xsl:if test="normalize-space(./@n) != ''">
             <xsl:attribute name="n">
                 <xsl:value-of select="./@n"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@key">
+        <xsl:if test="normalize-space(./@key) != ''">
             <xsl:attribute name="cRef">
                 <xsl:value-of select="./@key"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@target">
+        <xsl:if test="normalize-space(./@target) != ''">
             <xsl:attribute name="target">
                 <xsl:value-of select="./@target"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@type">
+        <xsl:if test="normalize-space(./@type) != ''">
             <xsl:attribute name="subtype">
                 <xsl:value-of select="translate(./@type, ' ', '')"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@rend">
+        <xsl:if test="normalize-space(./@rend) != ''">
             <xsl:attribute name="rend">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@resp">
+        <xsl:if test="normalize-space(./@resp) != ''">
             <xsl:attribute name="resp">
                 <xsl:value-of select="./@resp"/>
             </xsl:attribute>
