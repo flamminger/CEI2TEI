@@ -43,7 +43,6 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:quoteOriginaldatierung>` moved to `diploDesc <origDate><q>`
 - `<cei:back><cei:divNotes>` moved to `<back><div type="divNotes">`
 - `<cei:back><cei:deprecatedNote>` moved to `<back><div type="deprecatedNotes">`
-- `<cei:altIdentifier>` in `<cei:msIdentifier>`, for now, moved to `<msIdentifier><repository>`
 - `<cei:pTenor>` we won't be able to catch everything. E.g., `UrkBremen/2c1824a6-9910-46cc-9d2c-cc8dc8bd2efe.cei.xml` --> mixed content
 - `<cei:witness><cei:archIdentifier>` equivalent is missing. For now, moved to `<witness><idno>`
 - `<cei:witness><cei:figure>` construct not possible in the new schema. For now, moved to `<witness><bibl type="graphic"><graphic>`
@@ -87,7 +86,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - the TEI DTD does not allow whitespace within many attributes, this is problematic for image URLs that contain whitspace e.g.,`"http://images.monasterium.net/illum/IllUrk/1022_AD_Alpes-Maritimes_donation-1022- pdf.jpg"`
   - see [teidata.pointer](https://tei-c.org/release/doc/tei-p5-doc/en/html/ref-teidata.pointer.html)
   - @type has similar issues
-
+- `<cei:altIdentifier>`: if there is no `<cei:idno>` element the content of `<cei:altIdentifier>` will be used.
 ## ToDos
 - [ ] refactor templates (in progress)
 - [ ] automated test of small file sample (in progress)

@@ -634,7 +634,7 @@
             <msIdentifier>
                 <xsl:call-template name="msIdentifierP1"/>
                 <xsl:if test="./following-sibling::cei:archIdentifier">
-                   <xsl:apply-templates select="./following-sibling::cei:archIdentifier" mode="secondArch"/>
+                    <xsl:apply-templates select="./following-sibling::cei:archIdentifier" mode="secondArch"/>
                 </xsl:if>
                 <xsl:call-template name="msIdentifierP2"/>
             </msIdentifier>
@@ -748,18 +748,11 @@
                 <xsl:value-of select="./cei:altIdentifier/cei:settlement"/>
             </settlement>
         </xsl:if>
-        <xsl:choose>
-            <xsl:when test="./cei:altIdentifier/cei:arch">
-                <institution>
-                    <xsl:value-of select="./cei:altIdentifier/cei:arch"/>
-                </institution>
-            </xsl:when>
-            <xsl:when test="text()[normalize-space(.) != '']">
-                <institution>
-                    <xsl:value-of select="text()[normalize-space(.) != '']"/>
-                </institution>
-            </xsl:when>
-        </xsl:choose>
+        <xsl:if test="./cei:altIdentifier/cei:arch">
+            <institution>
+                <xsl:value-of select="./cei:altIdentifier/cei:arch"/>
+            </institution>
+        </xsl:if>
         <xsl:if test="./cei:altIdentifier/cei:repository">
             <repository>
                 <xsl:value-of select="./cei:altIdentifier/cei:repository"/>
@@ -770,12 +763,24 @@
                 <xsl:value-of select="./cei:altIdentifier/cei:archFond"/>
             </collection>
         </xsl:if>
-        <xsl:if test="./cei:altIdentifier/cei:idno">
-            <idno>
-                <xsl:call-template name="type"/>
-                <xsl:value-of select="./cei:altIdentifier/cei:idno"/>
-            </idno>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="./cei:altIdentifier/cei:idno">
+                <idno>
+                    <xsl:call-template name="type"/>
+                    <xsl:value-of select="./cei:altIdentifier/cei:idno"/>
+                </idno>
+            </xsl:when>
+            <xsl:when test="./cei:altIdentifier/cei:idno/@id">
+                <idno>
+                    <xsl:value-of select="./cei:altIdentifier/cei:idno/@id"/>
+                </idno>
+            </xsl:when>
+            <xsl:otherwise>
+                <idno>
+                    <xsl:value-of select="./cei:altIdentifier/text()"/>
+                </idno>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- END: altIdentifier -->
 
