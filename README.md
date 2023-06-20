@@ -88,7 +88,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
     - there are a lot of them, how to handle?
 - `<cei:altIdentifier>`: if there is no `<cei:idno>` element the content of `<cei:altIdentifier>` will be used.
 - `<cei:diplomaticAnalysis>` text content moved to `<ab>`elements
-
+- TEI date attributes like @to or @from to not allow for 99 values
+  - dates below 1000 AD need reformating to 0999-01-01
 
 ## ToDos
 - [ ] refactor templates (in progress)
