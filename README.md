@@ -87,6 +87,9 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - see [teidata.pointer](https://tei-c.org/release/doc/tei-p5-doc/en/html/ref-teidata.pointer.html)
   - @type has similar issues
 - `<cei:altIdentifier>`: if there is no `<cei:idno>` element the content of `<cei:altIdentifier>` will be used.
+- `<cei:diplomaticAnalysis>` text content moved to `<ab>`elements
+
+
 ## ToDos
 - [ ] refactor templates (in progress)
 - [ ] automated test of small file sample (in progress)

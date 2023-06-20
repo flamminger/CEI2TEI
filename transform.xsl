@@ -723,11 +723,6 @@
                 <xsl:value-of select="./cei:scope"/>
             </note>
         </xsl:if>
-        <xsl:if test="normalize-space(.) and not(*)">
-            <institution>
-                <xsl:value-of select="."/>
-            </institution>
-        </xsl:if>
     </xsl:template>
     <!-- END: msIdentifier second section -->
 
@@ -1435,6 +1430,16 @@
         </xsl:if>
     </xsl:template>
     <!-- END: diplomaticAnalysis p -->
+
+    <!-- START: diplomaticAnalysis text content -->
+    <xsl:template match="cei:diplomaticAnalysis/text()" mode="diplomaticAnalysis">
+        <xsl:if test="normalize-space(.) != ''">
+            <ab>
+                <xsl:value-of select="."/>
+            </ab>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: diplomaticAnalysis text content -->
 
     <!-- START: diplomaticAnalysis quoteDate -->
     <xsl:template match="cei:quoteOriginaldatierung" mode="diplomaticAnalysis">
