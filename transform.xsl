@@ -9,7 +9,7 @@
                 xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:csl="http://www.w3.org/1999/XSL/Transform"
                 exclude-result-prefixes="xs" version="3.0">
 
-    <xsl:output method="xml" indent="yes" xalan:indent-amount="4"/>
+    <xsl:output method="xml" indent="yes" xalan:indent-amount="4" encoding="UTF-8"/>
     <xsl:strip-space elements="*"/>
 
     <!--  START: ATOM VARIABLES  -->
@@ -313,7 +313,7 @@
     </xsl:template>
 
     <!-- END: lang_MOM -->
-    <!-- TODO Adapt call for two archIdentifier elements -->
+
     <!-- START: witnessOrig -->
     <xsl:template match="cei:witnessOrig" mode="msDescId">
         <xsl:choose>
@@ -1648,7 +1648,20 @@
     <!-- START: index -->
     <xsl:template match="cei:index">
         <xsl:choose>
-            <xsl:when test="../p">
+            <xsl:when test="parent::cei:p">
+                <index>
+                    <xsl:call-template name="listIndex"/>
+                    <term>
+                        <xsl:if test="./@type">
+                            <xsl:attribute name="next">
+                                <xsl:value-of select="./@type"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </term>
+                </index>
+            </xsl:when>
+            <xsl:when test="parent::cei:abstract">
                 <index>
                     <xsl:call-template name="listIndex"/>
                     <term>
@@ -3045,9 +3058,9 @@
 
     <!-- START: attribute list index -->
     <xsl:template name="listIndex">
-        <xsl:if test="./@indexName">
+        <xsl:if test="normalize-space(./@indexName) != ''">
             <xsl:attribute name="indexName">
-                <xsl:value-of select="normalize-space(./@indexName)"/>
+                <xsl:value-of select="translate(./@indexName, ' ', '')"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@lemma">
