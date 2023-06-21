@@ -92,8 +92,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - dates below 1000 AD need reformating to 0999-01-01
 
 ## ToDos
-- [ ] refactor templates (in progress)
+- [ ] refactor templates (in progress; merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay (in progress) 
 - [ ] automated test of small file sample
 - [ ] automated test of larger file sample
-- [ ] update schema
+- [ ] update schema (in progress for attributes)

@@ -43,7 +43,7 @@
    <sourceDesc>
     <p>Written from scratch.</p>
    </sourceDesc>
-  </fileDesc><encodingDesc><appInfo><application ident="RomaJS" version="1.0.0" when="2023-06-21T06:59:43.092Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
+  </fileDesc><encodingDesc><appInfo><application ident="RomaJS" version="1.0.0" when="2023-06-21T09:40:50.374Z"><desc>File edited with <ref target="https://github.com/TEIC/romajs">RomaJS</ref></desc></application></appInfo></encodingDesc>
  </teiHeader>
  <text>
   <body>
@@ -685,7 +685,7 @@
        </sequence>
       </content>
      </elementSpec>
-    <elementSpec ident="graphic" mode="change"><attList><attDef ident="url" mode="change"><datatype><dataRef name="string" restriction=".+"/></datatype></attDef></attList></elementSpec></schemaSpec>
+    <elementSpec ident="graphic" mode="change"><attList><attDef ident="url" mode="change"><datatype><dataRef name="string" restriction=".+"/></datatype></attDef></attList></elementSpec><classSpec ident="att.global.linking" type="atts" mode="change"><attList><attDef ident="corresp" mode="change"><datatype><dataRef name="string" restriction=".+"/></datatype></attDef></attList></classSpec></schemaSpec>
    </div>
   </body>
  </text>
