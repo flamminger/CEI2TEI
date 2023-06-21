@@ -1639,6 +1639,22 @@
 
     <!-- START: global elements -->
 
+    <!-- START: index -->
+    <xsl:template match="cei:index">
+            <index>
+                <xsl:call-template name="listIndex"/>
+                <term>
+                    <xsl:if test="./@type">
+                        <xsl:attribute name="next">
+                            <xsl:value-of select="./@type"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </term>
+            </index>
+    </xsl:template>
+    <!-- END: index -->
+
     <!-- START: metamark -->
     <xsl:template match="cei:metamark">
         <metamark>
