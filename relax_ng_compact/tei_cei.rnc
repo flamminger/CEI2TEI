@@ -7,7 +7,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2023-06-21T12:49:43Z. .
+# Schema generated from ODD source 2023-06-21T12:58:23Z. .
 # TEI Edition: Version 4.6.0. Last updated on
 #         4th April 2023, revision f18deffba
 # TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
@@ -3813,7 +3813,9 @@ tei_index =
     tei_att.spanning.attributes,
     
     ## a single word which follows the rules defining a legal XML name (see ), supplying a name to specify which index (of several) the index entry belongs to.
-    attribute indexName { xsd:Name }?,
+    attribute indexName {
+      xsd:string { pattern = ".+" }
+    }?,
     empty
   }
 tei_media =

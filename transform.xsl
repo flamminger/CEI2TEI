@@ -3060,7 +3060,7 @@
     <xsl:template name="listIndex">
         <xsl:if test="normalize-space(./@indexName) != ''">
             <xsl:attribute name="indexName">
-                <xsl:value-of select="translate(./@indexName, ' ', '')"/>
+                <xsl:value-of select="./@indexName"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@lemma">
