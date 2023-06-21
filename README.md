@@ -93,6 +93,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 
 ## ToDos
 - [ ] refactor templates (in progress)
-- [ ] automated test of small file sample (in progress)
+- [ ] validate against deeply annotated sample, like Fontenay (in progress) 
+- [ ] automated test of small file sample
 - [ ] automated test of larger file sample
 - [ ] update schema
