@@ -413,16 +413,26 @@
     <!-- END: dimensions -->
 
     <!-- START: height -->
-    <xsl:template match="cei:height">
+    <xsl:template match="*[local-name() = 'height']">
         <height>
+            <xsl:if test="./@unit">
+                <xsl:attribute name="unit">
+                    <xsl:value-of select="./@unit"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </height>
     </xsl:template>
     <!-- END: height -->
 
     <!-- START: width -->
-    <xsl:template match="cei:width">
+    <xsl:template match="*[local-name() = 'width']">
         <width>
+            <xsl:if test="./@unit">
+                <xsl:attribute name="unit">
+                    <xsl:value-of select="./@unit"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </width>
     </xsl:template>
