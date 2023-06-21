@@ -3302,12 +3302,6 @@
 
     <!-- START: attribute bibl -->
     <xsl:template name="bibl">
-
-        <xsl:if test="normalize-space(./@id) != ''">
-            <xsl:attribute name="xml:id">
-                <xsl:value-of select="./@id"/>
-            </xsl:attribute>
-        </xsl:if>
         <xsl:if test="normalize-space(./@facs) != ''">
             <xsl:attribute name="facs">
                 <xsl:value-of select="./@facs"/>

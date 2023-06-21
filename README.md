@@ -91,6 +91,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:diplomaticAnalysis>` text content moved to `<ab>`elements
 - TEI date attributes like @to or @from to not allow for 99 values
   - dates below 1000 AD need reformating to 0999-01-01
+- `<cei:bibl>` attribute @id removed, only used once for URL duplicate
 
 ## ToDos
 - [ ] refactor templates (in progress; merge reoccurring template parts)
