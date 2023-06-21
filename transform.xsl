@@ -28,7 +28,7 @@
     <!-- START: ROOT DOCUMENT -->
     <xsl:template match="/">
         <xsl:processing-instruction name="xml-model">
-            href="https://raw.githubusercontent.com/flamminger/CEI2TEI/develop/schema/tei_cei/rng/tei2cei.rnc"
+            href="https://raw.githubusercontent.com/flamminger/CEI2TEI/develop/relax_ng_compact/tei_cei.rnc"
         </xsl:processing-instruction>
         <TEI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:bf="http://betterform.sourceforge.net/xforms"
