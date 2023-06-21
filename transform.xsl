@@ -402,12 +402,18 @@
                     <xsl:value-of select="./text()"/>
                 </measure>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="normalize-space(.) != ''">
                 <dimensions>
                     <xsl:call-template name="measureDimensions"/>
                     <xsl:apply-templates select="node()[text()]"/>
                 </dimensions>
-            </xsl:otherwise>
+            </xsl:when>
+<!--            <xsl:otherwise>-->
+<!--                <dimensions>-->
+<!--                    <xsl:call-template name="measureDimensions"/>-->
+<!--                    <xsl:apply-templates select="node()[text()]"/>-->
+<!--                </dimensions>-->
+<!--            </xsl:otherwise>-->
         </xsl:choose>
     </xsl:template>
     <!-- END: dimensions -->
