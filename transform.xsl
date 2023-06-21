@@ -408,12 +408,12 @@
                     <xsl:apply-templates select="node()[text()]"/>
                 </dimensions>
             </xsl:when>
-<!--            <xsl:otherwise>-->
-<!--                <dimensions>-->
-<!--                    <xsl:call-template name="measureDimensions"/>-->
-<!--                    <xsl:apply-templates select="node()[text()]"/>-->
-<!--                </dimensions>-->
-<!--            </xsl:otherwise>-->
+            <!--            <xsl:otherwise>-->
+            <!--                <dimensions>-->
+            <!--                    <xsl:call-template name="measureDimensions"/>-->
+            <!--                    <xsl:apply-templates select="node()[text()]"/>-->
+            <!--                </dimensions>-->
+            <!--            </xsl:otherwise>-->
         </xsl:choose>
     </xsl:template>
     <!-- END: dimensions -->
@@ -1647,17 +1647,36 @@
 
     <!-- START: index -->
     <xsl:template match="cei:index">
-            <index>
-                <xsl:call-template name="listIndex"/>
-                <term>
-                    <xsl:if test="./@type">
-                        <xsl:attribute name="next">
-                            <xsl:value-of select="./@type"/>
-                        </xsl:attribute>
-                    </xsl:if>
-                    <xsl:value-of select="normalize-space(.)"/>
-                </term>
-            </index>
+        <xsl:choose>
+            <xsl:when test="../p">
+                <index>
+                    <xsl:call-template name="listIndex"/>
+                    <term>
+                        <xsl:if test="./@type">
+                            <xsl:attribute name="next">
+                                <xsl:value-of select="./@type"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </term>
+                </index>
+            </xsl:when>
+            <xsl:otherwise>
+                <p>
+                    <index>
+                        <xsl:call-template name="listIndex"/>
+                        <term>
+                            <xsl:if test="./@type">
+                                <xsl:attribute name="next">
+                                    <xsl:value-of select="./@type"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:value-of select="normalize-space(.)"/>
+                        </term>
+                    </index>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- END: index -->
 
@@ -3028,7 +3047,7 @@
     <xsl:template name="listIndex">
         <xsl:if test="./@indexName">
             <xsl:attribute name="indexName">
-                <xsl:value-of select="./@indexName"/>
+                <xsl:value-of select="normalize-space(./@indexName)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@lemma">

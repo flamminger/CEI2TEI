@@ -51,6 +51,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - Filter or keep optional / empty elements?
 - grouped all `persName`, `placeName`, `index` list
     - there is no dedicated list for `<index>` elements. For now, moved to `<list type="index"><item><index
+    - removed whitespace from indexName attributes
 - `<cei:langMOM>` moved to `<language>`, which requires the attribute ident, for now set to "und"
 - `cei:@certainty` and `tei:@cert` are not supporting the same content. CEI = free text, TEI four different options
 - `cei:@type` remove whitespace when transforming to `tei:@type`
@@ -90,7 +91,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:altIdentifier>`: if there is no `<cei:idno>` element the content of `<cei:altIdentifier>` will be used.
 - `<cei:diplomaticAnalysis>` text content moved to `<ab>`elements
 - TEI date attributes like @to or @from to not allow for 99 values
-  - dates below 1000 AD need reformating to 0999-01-01
+  - dates below 1000 AD need reformatting to 0999-01-01
 - `<cei:bibl>` attribute @id removed, only used once for URL duplicate
 
 ## ToDos
