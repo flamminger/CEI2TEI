@@ -1137,7 +1137,7 @@
                 </xsl:if>
                 <xsl:if test="./@type">
                     <xsl:attribute name="type">
-                        <xsl:value-of select="translate(./@type, ' ', '')"/>
+                        <xsl:value-of select="normalize-space(./@type)"/>
                     </xsl:attribute>
                 </xsl:if>
                 <xsl:if test="./@part">
@@ -2184,7 +2184,7 @@
     <!--                </xsl:if>-->
     <!--                <xsl:if test="./@type">-->
     <!--                    <xsl:attribute name="type">-->
-    <!--                        <xsl:value-of select="translate(./@type, ' ', '')"/>-->
+    <!--                        <xsl:value-of select="normalize-space(./@type)"/>-->
     <!--                    </xsl:attribute>-->
     <!--                </xsl:if>-->
     <!--                <xsl:if test="./@n">-->
@@ -2906,7 +2906,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
 
@@ -3106,7 +3106,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@key">
@@ -3158,7 +3158,7 @@
         </xsl:if>
         <xsl:if test="normalize-space(./@type) != ''">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@rend) != ''">
@@ -3200,7 +3200,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="role">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
@@ -3356,7 +3356,7 @@
         </xsl:if>
         <xsl:if test="normalize-space(./@type) != ''">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@rend) != ''">
@@ -3440,7 +3440,7 @@
         </xsl:if>
         <xsl:if test="normalize-space(./@type) != ''">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@rend) != ''">
@@ -3486,7 +3486,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="prev">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@place">
@@ -3560,7 +3560,7 @@
         </xsl:if>
         <xsl:if test="normalize-space(./@type) != ''">
             <xsl:attribute name="subtype">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@rend) != ''">
@@ -3639,7 +3639,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="ana">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
@@ -3686,7 +3686,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
@@ -3733,7 +3733,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
 
@@ -3782,7 +3782,7 @@
 
         <xsl:if test="./@type">
             <xsl:attribute name="n">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@lang">
@@ -3844,7 +3844,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:choose>
@@ -3885,7 +3885,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@value">
@@ -3925,7 +3925,7 @@
         </xsl:if>
         <xsl:if test="./@type">
             <xsl:attribute name="type">
-                <xsl:value-of select="translate(./@type, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
