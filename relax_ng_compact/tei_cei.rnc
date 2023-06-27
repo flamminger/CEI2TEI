@@ -7,7 +7,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2023-06-27T09:35:08Z. .
+# Schema generated from ODD source 2023-06-27T10:14:24Z. .
 # TEI Edition: Version 4.6.0. Last updated on
 #         4th April 2023, revision f18deffba
 # TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
@@ -165,7 +165,7 @@ tei_att.dimensions.attribute.unit =
     | 
       ## (characters) characters of text
       "char"
-    | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+    | xsd:string
   }?
 tei_att.dimensions.attribute.quantity =
   
@@ -200,9 +200,7 @@ tei_att.dimensions.attribute.scope =
   
   ## where the measurement summarizes more than one observation, specifies the applicability of this measurement.
   ## Sample values include: 1] all; 2] most; 3] range
-  attribute scope {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute scope { xsd:string }?
 tei_att.written.attributes = tei_att.written.attribute.hand
 tei_att.written.attribute.hand =
   [
@@ -225,9 +223,7 @@ tei_att.damaged.attribute.agent =
   
   ## categorizes the cause of the damage, if it can be identified.
   ## Sample values include: 1] rubbing; 2] mildew; 3] smoke
-  attribute agent {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute agent { xsd:string }?
 tei_att.damaged.attribute.degree =
   [
     a:documentation [
@@ -263,9 +259,7 @@ tei_att.breaking.attributes = tei_att.breaking.attribute.break
 tei_att.breaking.attribute.break =
   
   ## indicates whether or not the element bearing this attribute should be considered to mark the end of an orthographic token in the same way as whitespace.
-  attribute break {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute break { xsd:string }?
 tei_att.cReferencing.attributes = tei_att.cReferencing.attribute.cRef
 tei_att.cReferencing.attribute.cRef =
   [
@@ -551,10 +545,7 @@ tei_att.docStatus.attribute.status =
   
   ## describes the status of a document either currently or, when associated with a dated element, at the time indicated.
   ## Sample values include: 1] approved; 2] candidate; 3] cleared; 4] deprecated; 5] draft; 6] embargoed; 7] expired; 8] frozen; 9] galley; 10] proposed; 11] published; 12] recommendation; 13] submitted; 14] unfinished; 15] withdrawn
-  [ a:defaultValue = "draft" ]
-  attribute status {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  [ a:defaultValue = "draft" ] attribute status { xsd:string }?
 tei_att.global.responsibility.attributes =
   tei_att.global.responsibility.attribute.cert,
   tei_att.global.responsibility.attribute.resp
@@ -590,7 +581,7 @@ tei_att.editLike.attribute.evidence =
        | 
          ## the intervention or interpretation has been made by the editor, cataloguer, or scholar on the basis of their expertise.
          "conjecture"
-       | xsd:token { pattern = "[^\p{C}\p{Z}]+" })+
+       | xsd:string)+
     }
   }?
 tei_att.editLike.attribute.instant =
@@ -776,9 +767,7 @@ tei_att.handFeatures.attribute.medium =
   
   ## describes the tint or type of ink, e.g. brown, or other writing medium, e.g. pencil
   attribute medium {
-    list {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-    }
+    list { xsd:string+ }
   }?
 tei_att.handFeatures.attribute.scope =
   
@@ -856,9 +845,7 @@ tei_att.interpLike.attribute.type =
 tei_att.interpLike.attribute.subtype =
   
   ## (subtype) provides a sub-categorization of the phenomenon is being noted in the passage, if needed
-  attribute subtype {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute subtype { xsd:string }?
 tei_att.interpLike.attribute.inst =
   
   ## (instances) points to instances of the analysis or interpretation represented by the current element.
@@ -934,7 +921,7 @@ tei_att.measurement.attribute.unit =
     | 
       ## (mebibyte) 2²⁰ or 1 048 576 bytes
       "MiB"
-    | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+    | xsd:string
   }?
 tei_att.measurement.attribute.unitRef =
   [
@@ -993,9 +980,7 @@ tei_att.naming.attribute.role =
   
   ## may be used to specify further information about the entity referenced by this name in the form of a set of whitespace-separated values, for example the occupation of a person, or the status of a place.
   attribute role {
-    list {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-    }
+    list { xsd:string+ }
   }?
 tei_att.naming.attribute.nymRef =
   
@@ -1009,9 +994,7 @@ tei_att.notated.attributes = tei_att.notated.attribute.notation
 tei_att.notated.attribute.notation =
   
   ## names the notation used for the content of the element.
-  attribute notation {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute notation { xsd:string }?
 tei_att.placement.attributes = tei_att.placement.attribute.place
 tei_att.placement.attribute.place =
   
@@ -1055,7 +1038,7 @@ tei_att.placement.attribute.place =
        | 
          ## in a predefined space, for example left by an earlier scribe.
          "inspace"
-       | xsd:token { pattern = "[^\p{C}\p{Z}]+" })+
+       | xsd:string)+
     }
   }?
 tei_att.typed.attributes =
@@ -1069,9 +1052,7 @@ tei_att.typed.attribute.type =
 tei_att.typed.attribute.subtype =
   
   ## (subtype) provides a sub-categorization of the element, if needed
-  attribute subtype {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute subtype { xsd:string }?
 sch:pattern [
   id = "tei_cei-att.typed-subtypeTyped-constraint-rule-7"
   "\x{a}" ~
@@ -1237,9 +1218,7 @@ tei_att.segLike.attributes =
 tei_att.segLike.attribute.function =
   
   ## (function) characterizes the function of the segment.
-  attribute function {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute function { xsd:string }?
 tei_att.sortable.attributes = tei_att.sortable.attribute.sortKey
 tei_att.sortable.attribute.sortKey =
   
@@ -1374,16 +1353,11 @@ tei_att.transcriptional.attribute.status =
   
   ## indicates the effect of the intervention, for example in the case of a deletion, strikeouts which include too much or too little text, or in the case of an addition, an insertion which duplicates some of the text already present.
   ## Sample values include: 1] duplicate; 2] duplicate-partial; 3] excessStart; 4] excessEnd; 5] shortStart; 6] shortEnd; 7] partial; 8] unremarkable
-  [ a:defaultValue = "unremarkable" ]
-  attribute status {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  [ a:defaultValue = "unremarkable" ] attribute status { xsd:string }?
 tei_att.transcriptional.attribute.cause =
   
   ## documents the presumed cause for the intervention.
-  attribute cause {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute cause { xsd:string }?
 tei_att.transcriptional.attribute.seq =
   
   ## (sequence) assigns a sequence number related to the order in which the encoded features carrying this attribute are believed to have occurred.
@@ -1421,7 +1395,7 @@ tei_att.citing.attribute.unit =
     | 
       ## the element identifies an entry number or label in a list of entries.
       "entry"
-    | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+    | xsd:string
   }?
 tei_att.citing.attribute.from =
   [
@@ -2850,7 +2824,7 @@ tei_att.milestoneUnit.attribute.unit =
     | 
       ## passages present in the text, but not to be included as part of the reference.
       "unnumbered"
-    | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+    | xsd:string
   }
 tei_p =
   
@@ -2937,9 +2911,7 @@ tei_distinct =
     tei_att.typed.attribute.subtype,
     
     ## specifies the sublanguage or register to which the word or phrase is being assigned
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     
     ## specifies how the phrase is distinct diachronically
     attribute time { xsd:string }?,
@@ -3032,7 +3004,7 @@ tei_q =
       | 
         ## (mentioned) refering to itself, not its normal referent
         "mentioned"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     empty
   }
@@ -3315,15 +3287,13 @@ tei_gap =
          | 
            ## (sampling) 
            "sampling"
-         | xsd:token { pattern = "[^\p{C}\p{Z}]+" })+
+         | xsd:string)+
       }
     }?,
     
     ## (agent) in the case of text omitted because of damage, categorizes the cause of the damage, if it can be identified.
     ## Sample values include: 1] rubbing (rubbing); 2] mildew (mildew); 3] smoke (smoke)
-    attribute agent {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute agent { xsd:string }?,
     empty
   }
 tei_ellipsis =
@@ -3387,15 +3357,13 @@ tei_unclear =
          | 
            ## (eccentric ductus) indicates illegibility due to an unusual, awkward, or incompetent execution of a glyph or glyphs 
            "eccentric_ductus"
-         | xsd:token { pattern = "[^\p{C}\p{Z}]+" })+
+         | xsd:string)+
       }
     }?,
     
     ## Where the difficulty in transcription arises from damage, categorizes the cause of the damage, if it can be identified.
     ## Sample values include: 1] rubbing; 2] mildew; 3] smoke
-    attribute agent {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute agent { xsd:string }?,
     empty
   }
 tei_name =
@@ -3479,7 +3447,7 @@ tei_num =
       | 
         ## a percentage
         "percentage"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     
     ## supplies the value of the number in standard form.
@@ -3502,9 +3470,7 @@ tei_measure =
     tei_att.ranging.attributes,
     
     ## specifies the type of measurement in any convenient typology.
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_measureGrp =
@@ -3564,9 +3530,7 @@ tei_abbr =
     
     ## (type) allows the encoder to classify the abbreviation according to some convenient typology.
     ## Sample values include: 1] suspension (suspension); 2] contraction (contraction); 3] brevigraph; 4] superscription (superscription); 5] acronym (acronym); 6] title (title); 7] organization (organization); 8] geographic (geographic)
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_expan =
@@ -3703,7 +3667,7 @@ tei_list =
       | 
         ## (syllogism) each list item is part of an argument consisting of two or more propositions and a final conclusion derived from them.
         "syllogism"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     empty
   }
@@ -4065,9 +4029,7 @@ tei_title =
     
     ## classifies the title according to some convenient typology.
     ## Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] short; 5] desc (descriptive)
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     
     ## indicates the bibliographic level for a title, that is, whether it identifies an article, book, journal, series, or unpublished material.
     attribute level {
@@ -4407,7 +4369,7 @@ tei_stage =
          | 
            ## more than one of the above
            "mixed"
-         | xsd:token { pattern = "[^\p{C}\p{Z}]+" })*
+         | xsd:string)*
       }
     }?,
     empty
@@ -4441,9 +4403,7 @@ tei_divGen =
     
     ## specifies what type of generated text division (e.g. index, table of contents, etc.) is to appear.
     ## Sample values include: 1] index; 2] toc; 3] figlist; 4] tablist
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_textLang =
@@ -4656,7 +4616,7 @@ tei_idno =
       | 
         ## OCLC control number (record number) for the union catalog record in WorldCat, a union catalog for member libraries in the Online Computer Library Center global cooperative.
         "OCLC"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     empty
   }
@@ -5041,9 +5001,7 @@ tei_rendition =
     
     ## where CSS is used, provides a way of defining pseudo-elements, that is, styling rules applicable to specific sub-portions of an element.
     ## Sample values include: 1] first-line; 2] first-letter; 3] before; 4] after
-    attribute scope {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute scope { xsd:string }?,
     [
       a:documentation [
         "contains a selector or series of selectors specifying the elements to which the contained style description applies, expressed in the language specified in the "
@@ -5154,9 +5112,7 @@ tei_citeStructure =
         "Sample values include: 1] book; 2] chapter; 3] entry; 4] poem; 5] letter; 6] line; 7] section; 8] verse; 9] volume"
       ]
     ]
-    attribute unit {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute unit { xsd:string }?,
     empty
   }
 tei_citeData =
@@ -5287,7 +5243,7 @@ tei_geoDecl =
       | 
         ## (European Datum coordinate system) the value supplied is to be interpreted as latitude followed by longitude according to the European Datum coordinate system.
         "ED50"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     empty
   }
@@ -5557,7 +5513,7 @@ tei_correspAction =
       | 
         ## information concerning the forwarding of a message.
         "forwarded"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     empty
   }
@@ -5832,7 +5788,7 @@ tei_when =
       | 
         ## (milliseconds) 
         "ms"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     
     ## specifies a time interval either as a number or as one of the keywords defined by the datatype teidata.interval
@@ -5895,7 +5851,7 @@ tei_timeline =
       | 
         ## (milliseconds) 
         "ms"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     
     ## specifies a time interval either as a positive integral value or using one of a set of predefined codes.
@@ -6614,9 +6570,7 @@ tei_titlePage =
     tei_att.typed.attribute.subtype,
     
     ## classifies the title page according to any convenient typology.
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_docTitle =
@@ -6655,7 +6609,7 @@ tei_titlePart =
       | 
         ## (descriptive) descriptive paraphrase of the work
         "desc"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     empty
   }
@@ -7145,9 +7099,7 @@ tei_affiliation =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] sponsor; 2] recommend; 3] discredit; 4] pledged
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_age =
@@ -7163,9 +7115,7 @@ tei_age =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] western; 2] sui; 3] subjective; 4] objective; 5] inWorld (in world); 6] chronological; 7] biological; 8] psychological; 9] functional
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     
     ## supplies a numeric code representing the age or age group
     attribute value { xsd:nonNegativeInteger }?,
@@ -7185,9 +7135,7 @@ tei_birth =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] caesarean (caesarean section); 2] vaginal (vaginal delivery); 3] exNihilo (ex nihilo); 4] incorporated; 5] founded; 6] established
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_climate =
@@ -7220,9 +7168,7 @@ tei_death =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] proclaimed; 2] assumed; 3] verified; 4] clinical; 5] brain; 6] natural; 7] unnatural; 8] fragmentation; 9] dissolution
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_education =
@@ -7238,9 +7184,7 @@ tei_education =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] primary; 2] secondary; 3] undergraduate; 4] graduate; 5] residency; 6] apprenticeship
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_event =
@@ -7279,9 +7223,7 @@ tei_faith =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] practicing; 2] clandestine; 3] patrilineal; 4] matrilineal; 5] convert
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_floruit =
@@ -7307,9 +7249,7 @@ tei_gender =
     
     ## supplies a coded value for gender identity
     attribute value {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     empty
   }
@@ -7336,9 +7276,7 @@ tei_langKnowledge =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] listening; 2] speaking; 3] reading; 4] writing
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     
     ## supplies one or more valid language tags for the languages specified
     attribute tags {
@@ -7475,9 +7413,7 @@ tei_nationality =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] birth; 2] naturalised; 3] self-assigned
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_occupation =
@@ -7493,9 +7429,7 @@ tei_occupation =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] primary; 2] other; 3] paid; 4] unpaid
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     [
       a:documentation [
         "indicates the classification system or taxonomy in use, for example by supplying the identifier of a "
@@ -7542,9 +7476,7 @@ tei_org =
     
     ## specifies a primary role or classification for the organization.
     attribute role {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     empty
   }
@@ -7560,29 +7492,21 @@ tei_person =
     
     ## specifies a primary role or classification for the person.
     attribute role {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     
     ## specifies the sex of the person.
     attribute sex {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     
     ## specifies the gender of the person.
     attribute gender {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     
     ## specifies an age group for the person.
-    attribute age {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute age { xsd:string }?,
     empty
   }
 tei_persona =
@@ -7596,29 +7520,21 @@ tei_persona =
     
     ## specifies a primary role or classification for the persona.
     attribute role {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     
     ## specifies the sex of the persona.
     attribute sex {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     
     ## specifies the gender of the persona.
     attribute gender {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     
     ## specifies an age group for the persona.
-    attribute age {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute age { xsd:string }?,
     empty
   }
 tei_personGrp =
@@ -7630,28 +7546,20 @@ tei_personGrp =
     tei_att.sortable.attributes,
     
     ## specifies the role of this group of participants in the interaction.
-    attribute role {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute role { xsd:string }?,
     
     ## specifies the sex of the participant group.
     attribute sex {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     
     ## specifies the gender of the participant group.
     attribute gender {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     
     ## specifies the age group of the participants.
-    attribute age {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute age { xsd:string }?,
     
     ## describes informally the size or approximate size of the group for example by means of a number and an indication of accuracy e.g. approx 200.
     attribute size {
@@ -7682,15 +7590,13 @@ tei_persPronouns =
       | 
         ## (trusted third party) The given value has been supplied by another individual trusted by the encoder to know the preferences of the person to whom this pronoun applies.
         "trustedThirdParty"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     
     ## (value) supplies a regularized value for personal pronouns.
     ## Sample values include: 1] e (e); 2] he (he); 3] she (she); 4] they (they)
     attribute value {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     empty
   }
@@ -7801,9 +7707,7 @@ tei_relation =
     tei_att.typed.attributes,
     
     ## supplies a name for the kind of relationship of which this is an instance.
-    attribute name {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute name { xsd:string }?,
     (
      ## identifies the active participants in a non-mutual relationship, or all the participants in a mutual one.
      attribute active {
@@ -7840,9 +7744,7 @@ tei_residence =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] primary; 2] secondary; 3] temporary; 4] permanent
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_sex =
@@ -7857,9 +7759,7 @@ tei_sex =
     
     ## supplies a coded value for sex
     attribute value {
-      list {
-        xsd:token { pattern = "[^\p{C}\p{Z}]+" }+
-      }
+      list { xsd:string+ }
     }?,
     empty
   }
@@ -7876,9 +7776,7 @@ tei_socecStatus =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology.
     ## Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] independent
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     [
       a:documentation [
         "identifies the classification system or taxonomy in use, for example by pointing to a locally-defined "
@@ -8202,9 +8100,7 @@ tei_surface =
     
     ## describes the method by which this surface is or was connected to the main surface
     ## Sample values include: 1] glued; 2] pinned; 3] sewn
-    attribute attachment {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute attachment { xsd:string }?,
     
     ## indicates whether the surface is attached and folded in such a way as to provide two writing surfaces
     attribute flipping { xsd:boolean }?,
@@ -8540,9 +8436,7 @@ tei_fw =
     
     ## classifies the material encoded according to some useful typology.
     ## Sample values include: 1] header; 2] footer; 3] pageNum (page number); 4] lineNum (line number); 5] sig (signature); 6] catch (catchword)
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_handNotes =
@@ -8855,7 +8749,7 @@ tei_att.tableDecoration.attribute.role =
     | 
       ## data values.
       "data"
-    | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+    | xsd:string
   }?
 tei_att.tableDecoration.attribute.rows =
   
@@ -9071,9 +8965,7 @@ tei_dimensions =
     
     ## indicates which aspect of the object is being measured.
     ## Sample values include: 1] leaves; 2] ruled; 3] pricked; 4] written; 5] miniatures; 6] binding; 7] box
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_dim =
@@ -9183,9 +9075,7 @@ tei_material =
     
     ## describes the function or use of the material in relation to the object as a whole.
     ## Sample values include: 1] binding; 2] endband; 3] slipcase; 4] support; 5] tie
-    attribute function {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute function { xsd:string }?,
     
     ## identifies one or more elements to which the metamark applies.
     attribute target {
@@ -9545,9 +9435,7 @@ tei_objectDesc =
     tei_att.global.attributes,
     
     ## (form) a short project-specific name identifying the physical form of the carrier, for example as a codex, roll, fragment, partial leaf, cutting etc.
-    attribute form {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute form { xsd:string }?,
     empty
   }
 tei_supportDesc =
@@ -9574,7 +9462,7 @@ tei_supportDesc =
       | 
         ##
         "mixed"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     empty
   }
@@ -9956,16 +9844,12 @@ tei_att.textCritical.attribute.type =
   
   ## classifies the reading according to some useful typology.
   ## Sample values include: 1] substantive (substantive); 2] orthographic (orthographic)
-  attribute type {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute type { xsd:string }?
 tei_att.textCritical.attribute.cause =
   
   ## classifies the cause for the variant reading, according to any appropriate typology of possible origins.
   ## Sample values include: 1] homeoteleuton; 2] homeoarchy; 3] paleographicConfusion; 4] haplography; 5] dittography; 6] falseEmendation
-  attribute cause {
-    xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-  }?
+  attribute cause { xsd:string }?
 tei_att.textCritical.attribute.varSeq =
   
   ## (variant sequence) provides a number indicating the position of this reading in a sequence, when there is reason to presume a sequence to the variants. 
@@ -9992,9 +9876,7 @@ tei_app =
     tei_att.typed.attribute.subtype,
     
     ## classifies the variation contained in this element according to some convenient typology.
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     
     ## identifies the beginning of the lemma in the base text.
     attribute from {
@@ -10128,9 +10010,7 @@ tei_witDetail =
     tei_att.typed.attribute.subtype,
     
     ## describes the type of information given about the witness.
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     
     ## (witnesses) indicates the sigil or sigla identifying the witness or witnesses to which the detail refers.
     attribute wit {
@@ -10337,7 +10217,7 @@ tei_att.gaijiProp.attribute.version =
     | 
       ##
       "unassigned"
-    | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+    | xsd:string
   }?
 tei_g =
   
@@ -11788,9 +11668,7 @@ tei_pc =
     }?,
     
     ## provides a name for the kind of unit delimited by this punctuation mark.
-    attribute unit {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute unit { xsd:string }?,
     
     ## indicates whether this punctuation mark precedes or follows the unit it delimits.
     attribute pre { xsd:boolean }?,
@@ -12038,9 +11916,7 @@ tei_derivation =
     
     ## categorizes the derivation of the text.
     ## Sample values include: 1] original; 2] revision; 3] translation; 4] abridgment; 5] plagiarism; 6] traditional
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_domain =
@@ -12053,9 +11929,7 @@ tei_domain =
     
     ## categorizes the domain of use.
     ## Sample values include: 1] art; 2] domestic; 3] religious; 4] business; 5] education (education); 6] govt (government); 7] public
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_factuality =
@@ -12122,7 +11996,7 @@ tei_interaction =
       | 
         ## number of addressors unknown or unspecifiable
         "unknown"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     
     ## specifies the number of passive participants (or addressees) to whom a text is directed or in whose presence it is created or performed.
@@ -12143,7 +12017,7 @@ tei_interaction =
       | 
         ## text is addressed to an undefined and indeterminately large number e.g. a published book
         "world"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     empty
   }
@@ -12157,9 +12031,7 @@ tei_preparedness =
     
     ## a keyword characterizing the type of preparedness.
     ## Sample values include: 1] none; 2] scripted; 3] formulaic; 4] revised
-    attribute type {
-      xsd:token { pattern = "[^\p{C}\p{Z}]+" }
-    }?,
+    attribute type { xsd:string }?,
     empty
   }
 tei_purpose =
@@ -12185,7 +12057,7 @@ tei_purpose =
       | 
         ## amuse, entertain, etc.
         "entertain"
-      | xsd:token { pattern = "[^\p{C}\p{Z}]+" }
+      | xsd:string
     }?,
     
     ## specifies the extent to which this purpose predominates.

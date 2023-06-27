@@ -95,6 +95,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:bibl>` attribute @id removed, only used once for URL duplicate
 - TEI @type attribute, update Reg Ex from (att.interpLike && att.typed)`[^\p{C}\p{Z}]`+ to `.+` 
 - TEI datatype teidata.name changed to string (relevant for attributes like @scribe)
+  - check revert is possible (after teidata.enumerated changes) 
+- TEI datatype teidata.enumerated changed to string (relevant for attributes like @agent, @type, @measure)
 ## ToDos
 - [ ] refactor templates (in progress; merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay (in progress) 
