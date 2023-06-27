@@ -94,6 +94,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - TEI target, url, corresp attributes data type changed to string .+
 - `<cei:bibl>` attribute @id removed, only used once for URL duplicate
 - TEI @type attribute, update Reg Ex from (att.interpLike && att.typed)`[^\p{C}\p{Z}]`+ to `.+` 
+- TEI datatype teidata.name changed to string (relevant for attributes like @scribe)
 ## ToDos
 - [ ] refactor templates (in progress; merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay (in progress) 

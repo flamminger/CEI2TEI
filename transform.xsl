@@ -2389,7 +2389,7 @@
     <xsl:template name="handShift">
         <xsl:if test="./@hand">
             <xsl:attribute name="scribe">
-                <xsl:value-of select="translate(./@hand, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@hand)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@certainty">

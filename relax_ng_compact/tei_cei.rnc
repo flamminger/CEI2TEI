@@ -7,7 +7,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2023-06-27T09:25:22Z. .
+# Schema generated from ODD source 2023-06-27T09:35:08Z. .
 # TEI Edition: Version 4.6.0. Last updated on
 #         4th April 2023, revision f18deffba
 # TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
@@ -739,7 +739,7 @@ tei_att.handFeatures.attributes =
 tei_att.handFeatures.attribute.scribe =
   
   ## gives a name or other identifier for the scribe believed to be responsible for this hand.
-  attribute scribe { xsd:Name }?
+  attribute scribe { xsd:string }?
 tei_att.handFeatures.attribute.scribeRef =
   [
     a:documentation [
@@ -757,7 +757,7 @@ tei_att.handFeatures.attribute.script =
   
   ## characterizes the particular script or writing style used by this hand, for example secretary, copperplate, Chancery, Italian, etc.
   attribute script {
-    list { xsd:Name+ }
+    list { xsd:string+ }
   }?
 tei_att.handFeatures.attribute.scriptRef =
   [
@@ -5004,7 +5004,7 @@ tei_tagUsage =
         " element."
       ]
     ]
-    attribute gi { xsd:Name },
+    attribute gi { xsd:string },
     
     ## specifies the number of occurrences of this element within the text.
     attribute occurs { xsd:nonNegativeInteger }?,
@@ -5362,7 +5362,7 @@ tei_application =
     tei_att.datable.attributes,
     
     ## supplies an identifier for the application, independent of its version number or display name.
-    attribute ident { xsd:Name },
+    attribute ident { xsd:string },
     
     ## supplies a version number for the application, independent of its identifier or display name.
     attribute version {
@@ -5945,7 +5945,7 @@ tei_join =
     tei_att.typed.attributes,
     
     ## specifies the name of an element which this aggregation may be understood to represent.
-    attribute result { xsd:Name }?,
+    attribute result { xsd:string }?,
     
     ## indicates whether the targets to be joined include the entire element indicated (the entire subtree including its root), or just the children of the target (the branches of the subtree).
     [ a:defaultValue = "root" ]
@@ -5990,7 +5990,7 @@ tei_joinGrp =
         " included within the group."
       ]
     ]
-    attribute result { xsd:Name }?,
+    attribute result { xsd:string }?,
     empty
   }
 tei_alt =
