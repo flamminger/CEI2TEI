@@ -7,7 +7,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2023-06-27T10:19:54Z. .
+# Schema generated from ODD source 2023-06-27T12:06:38Z. .
 # TEI Edition: Version 4.6.0. Last updated on
 #         4th April 2023, revision f18deffba
 # TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
@@ -697,12 +697,7 @@ tei_att.global.attribute.xmllang =
       "."
     ]
   ]
-  attribute xml:lang {
-    xsd:language
-    | (
-       ##
-       "")
-  }?
+  attribute xml:lang { xsd:string }?
 tei_att.global.attribute.xmlbase =
   
   ## provides a base URI reference with which applications can resolve relative URI references into absolute URI references.
@@ -1086,12 +1081,7 @@ tei_att.pointing.attribute.targetLang =
       "."
     ]
   ]
-  attribute targetLang {
-    xsd:language
-    | (
-       ##
-       "")
-  }?
+  attribute targetLang { xsd:string }?
 sch:pattern [
   id = "tei_cei-att.pointing-targetLang-targetLang-constraint-rule-9"
   "\x{a}" ~
@@ -4410,21 +4400,11 @@ tei_textLang =
     tei_att.global.attributes,
     
     ## (main language) supplies a code which identifies the chief language used in the bibliographic work.
-    attribute mainLang {
-      xsd:language
-      | (
-         ##
-         "")
-    }?,
+    attribute mainLang { xsd:string }?,
     
     ## (other languages) one or more codes identifying any other languages used in the bibliographic work.
     attribute otherLangs {
-      list {
-        (xsd:language
-         | (
-            ##
-            ""))*
-      }
+      list { xsd:string* }
     }?,
     empty
   }
@@ -5380,12 +5360,7 @@ tei_language =
         " attribute."
       ]
     ]
-    attribute ident {
-      xsd:language
-      | (
-         ##
-         "")
-    },
+    attribute ident { xsd:string },
     
     ## specifies the approximate percentage (by volume) of the text which uses this language.
     attribute usage { xsd:nonNegativeInteger }?,
@@ -7276,12 +7251,7 @@ tei_langKnowledge =
     
     ## supplies one or more valid language tags for the languages specified
     attribute tags {
-      list {
-        (xsd:language
-         | (
-            ##
-            ""))+
-      }
+      list { xsd:string+ }
     }?,
     empty
   }
@@ -7295,12 +7265,7 @@ tei_langKnown =
     tei_att.editLike.attributes,
     
     ## supplies a valid language tag for the language concerned.
-    attribute tag {
-      xsd:language
-      | (
-         ##
-         "")
-    },
+    attribute tag { xsd:string },
     
     ## a code indicating the person's level of knowledge for this language
     attribute level {

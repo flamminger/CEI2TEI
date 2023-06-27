@@ -96,6 +96,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - TEI datatype teidata.name changed to string (relevant for attributes like @scribe)
 - TEI datatype teidata.enumerated changed to string (relevant for attributes like @agent, @type, @measure)
   - datatype changes apply to all (may need manual changes in the schema)
+- TEI datatype teidata.language changed to string (relevant for attributes like @xml:id)
+  - if lang tags are normalized, this will not be necessary
 ## ToDos
 - [ ] refactor templates (in progress; merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay (in progress) 
