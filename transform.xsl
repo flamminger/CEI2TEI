@@ -540,31 +540,45 @@
                     </figure>
                 </surfaceGrp>
             </xsl:when>
+            <xsl:when test="./cei:graphic and ./cei:figDesc">
+                    <xsl:apply-templates select="cei:graphic" mode="graphDesc"/>
+            </xsl:when>
             <xsl:when test="./cei:zone">
                 <surfaceGrp>
                     <xsl:apply-templates/>
                 </surfaceGrp>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates mode="facsimile"/>
+                <xsl:apply-templates mode="figure"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!-- END: surfaceGrp graphic -->
 
     <!-- START: figDesc -->
-    <xsl:template match="cei:figDesc" mode="facsimile">
+    <xsl:template match="cei:figDesc" mode="figure">
         <desc>
-            <xsl:apply-templates mode="facsimile"/>
+            <xsl:apply-templates/>
         </desc>
     </xsl:template>
     <!-- END: figureDesc -->
 
     <!-- START: graphic -->
-    <xsl:template match="cei:graphic" mode="facsimile">
+    <xsl:template match="cei:graphic" mode="figure">
         <xsl:if test="./@url != ''">
             <graphic url="{./@url}">
                 <xsl:call-template name="graphic"/>
+            </graphic>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: graphic -->
+
+    <!-- START: graphic -->
+    <xsl:template match="cei:graphic" mode="graphDesc">
+        <xsl:if test="./@url != ''">
+            <graphic url="{./@url}">
+                <xsl:call-template name="graphic"/>
+                <desc><xsl:value-of select="../cei:figDesc"/></desc>
             </graphic>
         </xsl:if>
     </xsl:template>
@@ -1162,10 +1176,10 @@
 
     <!-- START: figDesc -->
     <xsl:template match="cei:figDesc">
-        <figDesc>
+        <desc>
             <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates/>
-        </figDesc>
+        </desc>
     </xsl:template>
     <!-- END: figDesc -->
 
@@ -3235,7 +3249,7 @@
                 <xsl:value-of select="./@id"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@facs">
+        <xsl:if test="normalize-space(./@facs)">
             <xsl:attribute name="facs">
                 <xsl:value-of select="./@facs"/>
             </xsl:attribute>
@@ -3257,7 +3271,7 @@
         </xsl:if>
 
     </xsl:template>
-    <!-- END: attribute hi sealDim zone rights figDesc figure app fireign -->
+    <!-- END: attribute hi sealDim zone rights figDesc figure app foreign -->
 
     <!-- START: attribute anchor -->
     <xsl:template name="anchor">
