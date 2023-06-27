@@ -7,7 +7,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2023-06-27T10:14:24Z. .
+# Schema generated from ODD source 2023-06-27T10:19:54Z. .
 # TEI Edition: Version 4.6.0. Last updated on
 #         4th April 2023, revision f18deffba
 # TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
@@ -839,9 +839,7 @@ tei_att.interpLike.attribute.type =
   
   ## indicates what kind of phenomenon is being noted in the passage.
   ## Sample values include: 1] image; 2] character; 3] theme; 4] allusion
-  attribute type {
-    xsd:string { pattern = ".+" }
-  }?
+  attribute type { xsd:string }?
 tei_att.interpLike.attribute.subtype =
   
   ## (subtype) provides a sub-categorization of the phenomenon is being noted in the passage, if needed
@@ -1046,9 +1044,7 @@ tei_att.typed.attributes =
 tei_att.typed.attribute.type =
   
   ## characterizes the element in some sense, using any convenient classification scheme or typology.
-  attribute type {
-    xsd:string { pattern = ".+" }
-  }?
+  attribute type { xsd:string }?
 tei_att.typed.attribute.subtype =
   
   ## (subtype) provides a sub-categorization of the element, if needed
@@ -3075,7 +3071,7 @@ tei_desc =
       ## (deprecation
       ##           information) This element describes why or how its parent element is being deprecated, typically including recommendations for alternate encoding.
       "deprecationInfo"
-      | xsd:string { pattern = ".+" }
+      | xsd:string
     }?,
     empty
   }
@@ -11367,9 +11363,7 @@ tei_certainty =
     
     ## characterizes the element in some sense, using any convenient classification scheme or typology; sample categorization of annotations of uncertainty might use following values:
     ## Sample values include: 1] ignorance; 2] incompleteness; 3] credibility; 4] imprecision
-    attribute type {
-      xsd:string { pattern = ".+" }
-    }?,
+    attribute type { xsd:string }?,
     
     ## indicates more exactly the aspect concerning which certainty is being expressed: specifically, whether the markup is correctly located, whether the correct element or attribute name has been used, or whether the content of the element or attribute is correct, etc.
     attribute locus {

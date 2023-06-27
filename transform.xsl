@@ -2679,12 +2679,12 @@
     <xsl:template name="damage">
         <xsl:if test="./@agent and normalize-space(./@agent) != ''">
             <xsl:attribute name="agent">
-                <xsl:value-of select="translate(./@agent, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@agent)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@extent">
             <xsl:attribute name="extent">
-                <xsl:value-of select="translate(./@extent, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@extent)"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@resp">
@@ -3802,7 +3802,7 @@
         </xsl:if>
         <xsl:if test="normalize-space(./@n) != ''">
             <xsl:attribute name="n">
-                <xsl:value-of select="translate(./@n, ' ', '')"/>
+                <xsl:value-of select="normalize-space(./@n)"/>
             </xsl:attribute>
         </xsl:if>
 
