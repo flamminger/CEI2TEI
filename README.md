@@ -77,9 +77,9 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:mod>` moved to `<expan>`
   - @type moved to rendition
 - `<cei:space>` attribute @hand has no corresponding attribute, moved to @source for now 
-- `<cei:supplied>` attributes @type and @lang have no corrsponding attributes, moved to @unit and @source
+- `<cei:supplied>` attributes @type and @lang have no corresponding attributes, moved to @unit and @source
 - `<cei:handSHift` attribute @hand moved to @scribe
-  - @scribe does not allow whitespace or special characters
+  - @scribe does not allow whitespace or special characters (SEE below for datatype changes)
 - `<tei:tei>` elements within a few charters, for now removed
 - `<cei:note>` attribute @type can no longer be used freely, for now moved to @prev
 - `<cei:scope>` in `<cei:archIdentifier>` has no corresponding element, for now moved to `<note type='structural'>`
@@ -88,6 +88,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - the TEI DTD does not allow whitespace within many attributes, this is problematic for image URLs that contain whitespace or any special characters e.g.,`"http://images.monasterium.net/illum/IllUrk/1022_AD_Alpes-Maritimes_donation-1022- pdf.jpg"`
   - see [teidata.pointer](https://tei-c.org/release/doc/tei-p5-doc/en/html/ref-teidata.pointer.html)
     - there are a lot of them, how to handle?
+    - for now changed to string with Reg Ex .+
 - `<cei:altIdentifier>`: if there is no `<cei:idno>` element the content of `<cei:altIdentifier>` will be used.
 - `<cei:diplomaticAnalysis>` text content moved to `<ab>`elements
 - TEI date attribute data type changed to string \d{1,8}
