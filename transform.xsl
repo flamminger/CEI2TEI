@@ -543,7 +543,7 @@
                 </surfaceGrp>
             </xsl:when>
             <xsl:when test="./cei:graphic and ./cei:figDesc">
-                    <xsl:apply-templates select="cei:graphic" mode="graphDesc"/>
+                <xsl:apply-templates select="cei:graphic" mode="graphDesc"/>
             </xsl:when>
             <xsl:when test="./cei:zone">
                 <surfaceGrp>
@@ -580,7 +580,9 @@
         <xsl:if test="./@url != ''">
             <graphic url="{./@url}">
                 <xsl:call-template name="graphic"/>
-                <desc><xsl:value-of select="../cei:figDesc"/></desc>
+                <desc>
+                    <xsl:value-of select="../cei:figDesc"/>
+                </desc>
             </graphic>
         </xsl:if>
     </xsl:template>
@@ -1242,20 +1244,28 @@
     <!-- START: sealDesc -->
     <xsl:template match="cei:sealDesc">
         <xsl:if test="normalize-space(.) != ''">
-            <decoNote>
-                <xsl:call-template name="sealDescConc"/>
-                <xsl:choose>
-                    <xsl:when test="./*">
-                        <xsl:apply-templates select="*[not(self::cei:seal)]"/>
-                    </xsl:when>
-                    <xsl:when test="./text()">
-                        <p>
-                            <xsl:value-of select="."/>
-                        </p>
-                    </xsl:when>
-                </xsl:choose>
-            </decoNote>
-            <xsl:apply-templates select="cei:seal"/>
+            <seal>
+                <decoNote>
+                    <xsl:apply-templates/>
+                </decoNote>
+            </seal>
+
+
+            <!--            <decoNote>-->
+            <!--                <xsl:call-template name="sealDescConc"/>-->
+            <!--                <xsl:value-of select="./text()"/>-->
+            <!--                <xsl:choose>-->
+            <!--                    <xsl:when test="./*">-->
+            <!--                        <xsl:apply-templates select="*[not(self::cei:seal)]"/>-->
+            <!--                    </xsl:when>-->
+            <!--                    <xsl:when test="./text()">-->
+            <!--                        <p>-->
+            <!--                            <xsl:value-of select="."/>-->
+            <!--                        </p>-->
+            <!--                    </xsl:when>-->
+            <!--                </xsl:choose>-->
+            <!--            </decoNote>-->
+            <!--            <xsl:apply-templates select="cei:seal"/>-->
         </xsl:if>
     </xsl:template>
     <!-- END: sealDesc -->
@@ -1263,7 +1273,7 @@
     <!-- START: seal -->
     <xsl:template match="cei:seal">
         <xsl:if test="normalize-space(.) != ''">
-            <seal>
+            <authen>
                 <xsl:if test="./@id">
                     <xsl:attribute name="corresp">
                         <xsl:value-of select="./@id"/>
@@ -1300,17 +1310,11 @@
                             <xsl:value-of select="text()"/>
                         </desc>
                     </xsl:when>
-                    <xsl:when test="./node() and normalize-space(.) != ''">
-                        <xsl:apply-templates/>
-                    </xsl:when>
                     <xsl:otherwise>
-                        <p>
-                            <xsl:apply-templates/>
-                        </p>
+                        <xsl:apply-templates/>
                     </xsl:otherwise>
                 </xsl:choose>
-
-            </seal>
+            </authen>
         </xsl:if>
     </xsl:template>
     <!-- END: seal -->
