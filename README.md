@@ -100,7 +100,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - if lang tags are normalized, this will not be necessary
 ## ToDos
 - [ ] refactor templates (in progress; merge reoccurring template parts)
-- [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden, IT-BST/BST, CZ-NA/ACK (in progress) 
+- [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden, IT-BST/BST, CZ-NA/ACK, AT-HHStA (in progress) 
 - [ ] automated test of small file sample
 - [ ] automated test of larger file sample
 - [ ] update schema (in progress for attributes)

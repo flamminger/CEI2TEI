@@ -1293,6 +1293,11 @@
                     </xsl:attribute>
                 </xsl:if>
                 <xsl:choose>
+                    <xsl:when test="text() and not(*)">
+                        <desc>
+                            <xsl:value-of select="text()"/>
+                        </desc>
+                    </xsl:when>
                     <xsl:when test="./node() and normalize-space(.) != ''">
                         <xsl:apply-templates/>
                     </xsl:when>
@@ -1347,7 +1352,7 @@
     <!-- START: sigillant -->
     <xsl:template match="cei:sigillant">
         <legalActor type="sigillant">
-            <xsl:apply-templates select="cei:persName" mode="abstract"/>
+            <xsl:apply-templates mode="abstract"/>
         </legalActor>
     </xsl:template>
     <!-- END: sigillant -->
