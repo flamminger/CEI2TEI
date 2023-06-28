@@ -454,10 +454,12 @@
 
     <!-- START: condition -->
     <xsl:template match="cei:condition">
-        <condition>
-            <xsl:call-template name="supForeignTestisCitQuote"/>
-            <xsl:apply-templates/>
-        </condition>
+        <xsl:if test="normalize-space(cei:condition) != ''">
+            <condition>
+                <xsl:call-template name="supForeignTestisCitQuote"/>
+                <xsl:apply-templates/>
+            </condition>
+        </xsl:if>
     </xsl:template>
     <!-- END: conidition -->
 
