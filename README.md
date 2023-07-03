@@ -101,6 +101,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - if lang tags are normalized, this will not be necessary
 - escaped characters in URLs, e.g., `&amp;` are not allowed in TEI, despite the .+ Reg Ex. 
   - eg: "https://www.monasterium.net/mom/AT-StaLois/A/StaLois_I.A.254/charter" see image 18
+- `<cei:diplomaticAnalysis>/<cei:divNotes>/<cei:note>` moved to `<p>` element
 ## ToDos
 - [ ] refactor templates (in progress; merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden, IT-BST/BST, CZ-NA/ACK, AT-HHStA (in progress) 

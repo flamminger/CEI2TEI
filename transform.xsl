@@ -1502,6 +1502,14 @@
     </xsl:template>
     <!-- END: diplomaticAnalysis exclude nota -->
 
+    <!-- START: diplomaticAnalysis note -->
+    <xsl:template match="cei:note" mode="diplomaticAnalysis">
+        <p>
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+    <!-- END: diplomaticAnalysis exclude nota -->
+
 
     <!-- START: back -->
 
