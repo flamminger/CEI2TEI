@@ -106,9 +106,11 @@
                                                      mode="nota"/>
                             </diploDesc>
                             <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'auth']">
-                                <xsl:apply-templates
-                                        select="//*[local-name() = 'witnessOrig']//*[local-name() = 'auth']"
-                                        mode="auth"/>
+                                <authDesc>
+                                    <xsl:apply-templates
+                                            select="//*[local-name() = 'witnessOrig']//*[local-name() = 'auth']"
+                                            mode="auth"/>
+                                </authDesc>
                             </xsl:if>
                         </msDesc>
                         <xsl:if test="//*[local-name() = 'witListPar']/* != ''">
@@ -654,9 +656,11 @@
                 </diploDesc>
             </xsl:if>
             <xsl:if test="..//*[local-name() = 'auth']">
-                <xsl:apply-templates
-                        select="..//*[local-name() = 'auth']"
-                        mode="auth"/>
+                <authDesc>
+                    <xsl:apply-templates
+                            select="..//*[local-name() = 'auth']"
+                            mode="auth"/>
+                </authDesc>
             </xsl:if>
         </msDesc>
     </xsl:template>
@@ -1215,11 +1219,9 @@
 
     <!--START: AUTH -->
     <xsl:template match="cei:auth" mode="auth">
-        <authDesc>
-            <xsl:call-template name="authAttb"/>
-            <xsl:apply-templates/>
-            <!--            <xsl:apply-templates select="//*[local-name() = 'seal']" mode="auth"/>-->
-        </authDesc>
+        <xsl:call-template name="authAttb"/>
+        <xsl:apply-templates/>
+        <!--            <xsl:apply-templates select="//*[local-name() = 'seal']" mode="auth"/>-->
     </xsl:template>
     <!-- START: notariusDesc -->
     <xsl:template match="cei:notariusDesc">
