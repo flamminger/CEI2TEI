@@ -1391,6 +1391,16 @@
     </xsl:template>
     <!-- END: sourceRegest -->
 
+    <!-- START: sourceRegest -->
+    <xsl:template match="cei:p" mode="sourceRegest">
+        <xsl:if test="normalize-space(.) != ''">
+            <bibl>
+                <xsl:apply-templates mode="sourceRegest"/>
+            </bibl>
+        </xsl:if>
+    </xsl:template>
+    <!-- END: sourceRegest -->
+
     <!-- START: sourceRegest bibl -->
     <xsl:template match="cei:bibl" mode="sourceRegest">
         <xsl:if test="normalize-space(.) != ''">
