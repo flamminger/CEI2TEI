@@ -108,8 +108,8 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - to allow for mom content like: `prev="8 (ins. 1)"`
 
 ## ToDos
-- [ ] refactor templates (in progress; merge reoccurring template parts)
-- [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden, IT-BST/BST, CZ-NA/ACK, AT-HHStA (in progress) 
+- [ ] refactor templates (e.g., merge reoccurring template parts)
+- [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden (in progress) 
 - [ ] automated test of small file sample
 - [ ] automated test of larger file sample
 - [ ] update schema (in progress for attributes)
