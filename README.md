@@ -99,7 +99,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - datatype changes apply to all (may need manual changes in the schema)
 - TEI datatype teidata.language changed to string (relevant for attributes like @xml:id)
   - if lang tags are normalized, this will not be necessary
-- escaped characters in URLs, e.g., `&amp;` are not allowed in TEI, despite the .+ Reg Ex. 
+- escaped characters in URLs, e.g., `&amp;` are not allowed in TEI, despite the .+ Reg Ex. Changed to `[\s\S]+` for graphic element
   - eg: "https://www.monasterium.net/mom/AT-StaLois/A/StaLois_I.A.254/charter" see image 18
 - `<cei:diplomaticAnalysis>/<cei:divNotes>/<cei:note>` moved to `<p>` element
 - `<cei:p>` element in `<cei:front><cei:sourceDesc>` moved to `<bibl>` element. Saw usage for (eg) Created by XY DD. M. YYYY 8:50:35, last update by XY DD. M.
