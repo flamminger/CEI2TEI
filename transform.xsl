@@ -1313,7 +1313,7 @@
                         </desc>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates/>
+                            <xsl:apply-templates/>
                     </xsl:otherwise>
                 </xsl:choose>
             </authen>
@@ -1364,6 +1364,13 @@
         </legalActor>
     </xsl:template>
     <!-- END: sigillant -->
+
+    <xsl:template match="cei:seal/text()">
+        <p>
+            <xsl:value-of select="."/>
+        </p>
+    </xsl:template>
+
     <!--END: AUTH -->
 
     <!-- START: sourceDesc template for <physcDesc>-->
