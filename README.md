@@ -104,6 +104,9 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:diplomaticAnalysis>/<cei:divNotes>/<cei:note>` moved to `<p>` element
 - `<cei:p>` element in `<cei:front><cei:sourceDesc>` moved to `<bibl>` element. Saw usage for (eg) Created by XY DD. M. YYYY 8:50:35, last update by XY DD. M.
   YYYY 8:51:30 
+- TEI @prev attribute, from att.global.linking: change datatype to string with Reg Ex .+
+  - to allow for mom content like: `prev="8 (ins. 1)"`
+
 ## ToDos
 - [ ] refactor templates (in progress; merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden, IT-BST/BST, CZ-NA/ACK, AT-HHStA (in progress) 

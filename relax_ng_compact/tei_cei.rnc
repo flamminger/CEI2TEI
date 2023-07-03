@@ -7,7 +7,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2023-06-27T12:06:38Z. .
+# Schema generated from ODD source 2023-07-03T09:14:22Z. .
 # TEI Edition: Version 4.6.0. Last updated on
 #         4th April 2023, revision f18deffba
 # TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
@@ -5605,7 +5605,7 @@ tei_att.global.linking.attribute.prev =
   
   ## (previous) points to the previous element of a virtual aggregate of which the current element is part.
   attribute prev {
-    xsd:anyURI { pattern = "\S+" }
+    xsd:string { pattern = ".+" }
   }?
 tei_att.global.linking.attribute.exclude =
   
