@@ -7,7 +7,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2023-07-03T09:30:24Z. .
+# Schema generated from ODD source 2023-07-03T11:24:04Z. .
 # TEI Edition: Version 4.6.0. Last updated on
 #         4th April 2023, revision f18deffba
 # TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
@@ -280,31 +280,31 @@ tei_att.datable.w3c.attribute.when =
   
   ## supplies the value of the date or time in a standard form, e.g. yyyy-mm-dd.
   attribute when {
-    xsd:string { pattern = "\d{1,8}" }
+    xsd:string { pattern = "\d{1,8}(-\d{0,2}){0,2}" }
   }?
 tei_att.datable.w3c.attribute.notBefore =
   
   ## specifies the earliest possible date for the event in standard form, e.g. yyyy-mm-dd.
   attribute notBefore {
-    xsd:string { pattern = "\d{1,8}" }
+    xsd:string { pattern = "\d{1,8}(-\d{0,2}){0,2}" }
   }?
 tei_att.datable.w3c.attribute.notAfter =
   
   ## specifies the latest possible date for the event in standard form, e.g. yyyy-mm-dd.
   attribute notAfter {
-    xsd:string { pattern = "\d{1,8}" }
+    xsd:string { pattern = "\d{1,8}(-\d{0,2}){0,2}" }
   }?
 tei_att.datable.w3c.attribute.from =
   
   ## indicates the starting point of the period in standard form, e.g. yyyy-mm-dd.
   attribute from {
-    xsd:string { pattern = "\d{1,8}" }
+    xsd:string { pattern = "\d{1,8}(-\d{0,2}){0,2}" }
   }?
 tei_att.datable.w3c.attribute.to =
   
   ## indicates the ending point of the period in standard form, e.g. yyyy-mm-dd.
   attribute to {
-    xsd:string { pattern = "\d{1,8}" }
+    xsd:string { pattern = "\d{1,8}(-\d{0,2}){0,2}" }
   }?
 sch:pattern [
   id = "tei_cei-att.datable.w3c-att-datable-w3c-when-constraint-rule-1"

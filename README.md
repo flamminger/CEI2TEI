@@ -91,7 +91,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
     - for now changed to string with Reg Ex .+
 - `<cei:altIdentifier>`: if there is no `<cei:idno>` element the content of `<cei:altIdentifier>` will be used.
 - `<cei:diplomaticAnalysis>` text content moved to `<ab>`elements
-- TEI date attribute data type changed to string \d{1,8}
+- TEI date attribute data type changed to string \d{1,8}(-\d{0,2}){0,2}
 - TEI target, url, corresp attributes data type changed to string .+
 - `<cei:bibl>` attribute @id removed, only used once for URL duplicate
 - TEI datatype teidata.name changed to string (relevant for attributes like @scribe)
