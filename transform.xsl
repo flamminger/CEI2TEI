@@ -2271,10 +2271,10 @@
 
     <!-- START: quote -->
     <xsl:template match="cei:quote">
-        <quote>
+        <q>
             <xsl:call-template name="supForeignTestisCitQuote"/>
             <xsl:apply-templates/>
-        </quote>
+        </q>
     </xsl:template>
     <!-- END: quote -->
 

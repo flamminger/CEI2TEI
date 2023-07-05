@@ -106,6 +106,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   YYYY 8:51:30 
 - TEI @prev attribute, from att.global.linking: change datatype to string with Reg Ex .+
   - to allow for mom content like: `prev="8 (ins. 1)"`
+- `<cei:quote>` moved to `<q>`, TEI `<q>` element is more flexible than `<quote>`
 
 ## ToDos
 - [ ] refactor templates (e.g., merge reoccurring template parts)
