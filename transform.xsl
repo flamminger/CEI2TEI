@@ -1697,6 +1697,14 @@
 
     <!-- START: global elements -->
 
+    <!-- START: cei:desc -->
+    <xsl:template match="cei:desc">
+        <desc>
+            <xsl:apply-templates/>
+        </desc>
+    </xsl:template>
+    <!-- END: cei:desc -->
+
     <!-- START: index -->
     <xsl:template match="cei:index">
         <xsl:choose>
