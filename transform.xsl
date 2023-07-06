@@ -133,7 +133,7 @@
                     </change>
                 </revisionDesc>
             </teiHeader>
-            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure'] != '' or //*[local-name() = 'witnessOrig']//*[local-name() = 'graphic']/@url">
+            <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']//*[local-name() = 'graphic']/@url != '' or //*[local-name() = 'witnessOrig']//*[local-name() = 'graphic']/@url != ''">
                 <facsimile>
                     <xsl:apply-templates select="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']"
                                          mode="facsimile"/>
@@ -1313,7 +1313,7 @@
                         </desc>
                     </xsl:when>
                     <xsl:otherwise>
-                            <xsl:apply-templates/>
+                        <xsl:apply-templates/>
                     </xsl:otherwise>
                 </xsl:choose>
             </authen>
