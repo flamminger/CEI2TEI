@@ -1745,7 +1745,33 @@
                     </term>
                 </index>
             </xsl:when>
-            <xsl:when test="parent::cei:placeName or parent::cei:persName">
+            <xsl:when test="parent::cei:placeName or parent::cei:persName or cei:nota">
+                <index>
+                    <xsl:call-template name="listIndex"/>
+                    <term>
+                        <xsl:if test="./@type">
+                            <xsl:attribute name="next">
+                                <xsl:value-of select="./@type"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </term>
+                </index>
+            </xsl:when>
+            <xsl:when test="parent::cei:persName or cei:nota">
+                <index>
+                    <xsl:call-template name="listIndex"/>
+                    <term>
+                        <xsl:if test="./@type">
+                            <xsl:attribute name="next">
+                                <xsl:value-of select="./@type"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </term>
+                </index>
+            </xsl:when>
+            <xsl:when test="parent::cei:nota">
                 <index>
                     <xsl:call-template name="listIndex"/>
                     <term>
@@ -2378,10 +2404,19 @@
 
     <!-- START: cei:ref -->
     <xsl:template match="cei:ref">
-        <ref>
-            <xsl:call-template name="refAttributes"/>
-            <xsl:apply-templates/>
-        </ref>
+        <xsl:choose>
+            <xsl:when test="parent::cei:listBiblRegest">
+                <bibl>
+                    <xsl:apply-templates/>
+                </bibl>
+            </xsl:when>
+            <xsl:otherwise>
+                <ref>
+                    <xsl:call-template name="refAttributes"/>
+                    <xsl:apply-templates/>
+                </ref>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- END: cei:ref -->
 
