@@ -7,7 +7,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2023-07-03T11:24:04Z. .
+# Schema generated from ODD source 2023-07-17T07:43:54Z. .
 # TEI Edition: Version 4.6.0. Last updated on
 #         4th April 2023, revision f18deffba
 # TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.6.0/
@@ -2160,16 +2160,13 @@ tei_model.lLike_sequence = tei_l
 tei_model.lLike_sequenceOptional = tei_l?
 tei_model.lLike_sequenceOptionalRepeatable = tei_l*
 tei_model.lLike_sequenceRepeatable = tei_l+
-tei_model.pLike = tei_p | tei_ab | tei_legalActor | tei_legend
-tei_model.pLike_alternation =
-  tei_p | tei_ab | tei_legalActor | tei_legend
-tei_model.pLike_sequence = tei_p, tei_ab, tei_legalActor, tei_legend
-tei_model.pLike_sequenceOptional =
-  tei_p?, tei_ab?, tei_legalActor?, tei_legend?
+tei_model.pLike = tei_p | tei_ab | tei_legend
+tei_model.pLike_alternation = tei_p | tei_ab | tei_legend
+tei_model.pLike_sequence = tei_p, tei_ab, tei_legend
+tei_model.pLike_sequenceOptional = tei_p?, tei_ab?, tei_legend?
 tei_model.pLike_sequenceOptionalRepeatable =
-  tei_p*, tei_ab*, tei_legalActor*, tei_legend*
-tei_model.pLike_sequenceRepeatable =
-  tei_p+, tei_ab+, tei_legalActor+, tei_legend+
+  tei_p*, tei_ab*, tei_legend*
+tei_model.pLike_sequenceRepeatable = tei_p+, tei_ab+, tei_legend+
 tei_model.stageLike = tei_stage
 tei_model.stageLike_alternation = tei_stage
 tei_model.stageLike_sequence = tei_stage
@@ -2251,6 +2248,7 @@ tei_model.persStateLike =
   | tei_socecStatus
   | tei_state
   | tei_trait
+  | tei_legalActor
 tei_model.personLike = tei_org | tei_person | tei_personGrp
 tei_model.personPart =
   tei_model.biblLike
@@ -2490,6 +2488,7 @@ tei_model.nameLike =
   | tei_idno
   | tei_model.persNamePart
   | tei_objectName
+  | tei_legalActor
 tei_model.nameLike_alternation =
   tei_model.nameLike.agent_alternation
   | tei_model.offsetLike_alternation
@@ -2498,6 +2497,7 @@ tei_model.nameLike_alternation =
   | tei_idno
   | tei_model.persNamePart_alternation
   | tei_objectName
+  | tei_legalActor
 tei_model.nameLike_sequence =
   tei_model.nameLike.agent_sequence,
   tei_model.offsetLike_sequence,
@@ -2505,7 +2505,8 @@ tei_model.nameLike_sequence =
   tei_rs,
   tei_idno,
   tei_model.persNamePart_sequence,
-  tei_objectName
+  tei_objectName,
+  tei_legalActor
 tei_model.nameLike_sequenceOptional =
   tei_model.nameLike.agent_sequenceOptional?,
   tei_model.offsetLike_sequenceOptional?,
@@ -2513,7 +2514,8 @@ tei_model.nameLike_sequenceOptional =
   tei_rs?,
   tei_idno?,
   tei_model.persNamePart_sequenceOptional?,
-  tei_objectName?
+  tei_objectName?,
+  tei_legalActor?
 tei_model.nameLike_sequenceOptionalRepeatable =
   tei_model.nameLike.agent_sequenceOptionalRepeatable*,
   tei_model.offsetLike_sequenceOptionalRepeatable*,
@@ -2521,7 +2523,8 @@ tei_model.nameLike_sequenceOptionalRepeatable =
   tei_rs*,
   tei_idno*,
   tei_model.persNamePart_sequenceOptionalRepeatable*,
-  tei_objectName*
+  tei_objectName*,
+  tei_legalActor*
 tei_model.nameLike_sequenceRepeatable =
   tei_model.nameLike.agent_sequenceRepeatable+,
   tei_model.offsetLike_sequenceRepeatable+,
@@ -2529,7 +2532,8 @@ tei_model.nameLike_sequenceRepeatable =
   tei_rs+,
   tei_idno+,
   tei_model.persNamePart_sequenceRepeatable+,
-  tei_objectName+
+  tei_objectName+,
+  tei_legalActor+
 tei_model.global =
   tei_model.global.meta
   | tei_model.milestoneLike
@@ -2602,7 +2606,6 @@ tei_model.inter =
   | tei_model.stageLike
   | tei_model.attributable
   | tei_authen
-  | tei_legalActor
   | tei_diploPart
   | tei_issued
 tei_model.common = tei_model.divPart | tei_model.inter | tei_q
@@ -12149,11 +12152,12 @@ tei_authen =
   }
 tei_legalActor =
   
-  ## Persons or organizations party to or otherwise mentioned in a an act or contract. 
+  ## Persons or organizations party to or otherwise mentioned in an act or contract. 
   element legalActor {
     (tei_model.correspActionPart | tei_macro.specialPara)*,
-    tei_att.global.attributes,
+    tei_att.canonical.attributes,
     tei_att.typed.attribute.subtype,
+    tei_att.global.attributes,
     
     ##
     attribute type {

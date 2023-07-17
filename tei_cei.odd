@@ -326,12 +326,13 @@
       </content>
      </elementSpec>
      <elementSpec ident="legalActor" mode="add">
-      <desc> Persons or organizations party to or otherwise mentioned in a an act or contract. </desc>
+      <desc> Persons or organizations party to or otherwise mentioned in an act or contract. </desc>
       <classes>
-       <memberOf key="att.global"/>
+       <memberOf key="att.canonical"/>
        <memberOf key="att.typed"/>
-       <memberOf key="model.inter"/>
-       <memberOf key="model.pLike"/>
+       <memberOf key="att.global"/>
+       <memberOf key="model.nameLike"/>
+       <memberOf key="model.persStateLike"/>
       </classes>
       <content>
        <alternate minOccurs="0" maxOccurs="unbounded">
