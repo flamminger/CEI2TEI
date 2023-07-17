@@ -237,13 +237,6 @@
             <xsl:value-of select="."/>
         </copyStatus>
     </xsl:template>
-
-    <xsl:template match="cei:traditioForm" mode="copyStatusDiploDesc">
-        <copyStatus>
-            <xsl:call-template name="traditioForm"/>
-            <xsl:value-of select="."/>
-        </copyStatus>
-    </xsl:template>
     <!-- END: copyStatus -->
 
     <!-- START: date -->
@@ -1740,6 +1733,19 @@
                 </index>
             </xsl:when>
             <xsl:when test="parent::cei:abstract">
+                <index>
+                    <xsl:call-template name="listIndex"/>
+                    <term>
+                        <xsl:if test="./@type">
+                            <xsl:attribute name="next">
+                                <xsl:value-of select="./@type"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </term>
+                </index>
+            </xsl:when>
+            <xsl:when test="parent::cei:placeName or parent::cei:persName">
                 <index>
                     <xsl:call-template name="listIndex"/>
                     <term>
