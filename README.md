@@ -108,6 +108,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
   - to allow for mom content like: `prev="8 (ins. 1)"`
 - `<cei:quote>` moved to `<q>`, TEI `<q>` element is more flexible than `<quote>`
 - adjusted TEI `<legalActor>` model classes to be similar to `<persName>`
+- adjusted TEI element `<witness>` can now contain a `<seal>` element
 ## ToDos
 - [ ] refactor templates (e.g., merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden (in progress) 
