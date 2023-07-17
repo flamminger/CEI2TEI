@@ -238,7 +238,7 @@
         </copyStatus>
     </xsl:template>
 
-    <xsl:template match="cei:traditioFor" mode="copyStatusDiploDesc">
+    <xsl:template match="cei:traditioForm" mode="copyStatusDiploDesc">
         <copyStatus>
             <xsl:call-template name="traditioForm"/>
             <xsl:value-of select="."/>
@@ -1696,6 +1696,24 @@
     <!-- END: cei:text attributes -->
 
     <!-- START: global elements -->
+
+    <!-- START: cei:traditioForm -->
+    <xsl:template match="cei:traditioForm">
+        <distinct>
+            <xsl:apply-templates/>
+        </distinct>
+    </xsl:template>
+    <!-- END: cei:traditioForm -->
+
+    <!-- START: cei:witness/cei:figure -->
+    <xsl:template match="cei:witness/cei:figure">
+        <bibl>
+            <figure>
+                <xsl:apply-templates/>
+            </figure>
+        </bibl>
+    </xsl:template>
+    <!-- END: cei:witness/cei:figure -->
 
     <!-- START: cei:desc -->
     <xsl:template match="cei:desc">
