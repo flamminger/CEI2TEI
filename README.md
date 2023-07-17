@@ -107,7 +107,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - TEI @prev attribute, from att.global.linking: change datatype to string with Reg Ex .+
   - to allow for mom content like: `prev="8 (ins. 1)"`
 - `<cei:quote>` moved to `<q>`, TEI `<q>` element is more flexible than `<quote>`
-
+- adjusted TEI `<legalActor>` model classes to be similar to `<persName>`
 ## ToDos
 - [ ] refactor templates (e.g., merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden (in progress) 
