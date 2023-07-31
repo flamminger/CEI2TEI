@@ -3830,7 +3830,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rendition">
+            <xsl:attribute name="rend">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
