@@ -3,7 +3,10 @@ This repository documents the proposal to insert diplomatics concepts into the f
 A product of the FWF-funded research project "Retain Domain Specific Functionalities in a Generic Repository with Humanities Data (FWF ORD 84. PI: Georg Vogeler)."
 
 ### Changes and Missing Elements
-`<rubrum>` Element in msDesc/diploDesc, for now moved to `<p sameAs="rubrum">`
+
+###### outdated: check meeting notes for current status
+
+- `<rubrum>` Element in msDesc/diploDesc, for now moved to `<p sameAs="rubrum">`
   - attributes @type, @position, @facs moved to @n, @style, @facs
 - Element für dispositives Verb? Anregung von Jaqueline (?)
 - `<idno>` element attribute @id moved to @source, @old moved to @prev
@@ -109,6 +112,7 @@ A product of the FWF-funded research project "Retain Domain Specific Functionali
 - `<cei:quote>` moved to `<q>`, TEI `<q>` element is more flexible than `<quote>`
 - adjusted TEI `<legalActor>` model classes to be similar to `<persName>`
 - adjusted TEI element `<witness>` can now contain a `<seal>` element
+
 ## ToDos
 - [ ] refactor templates (e.g., merge reoccurring template parts)
 - [ ] validate against deeply annotated sample, like Fontenay, IlluminierteUrkunden (in progress) 
