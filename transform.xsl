@@ -1127,7 +1127,7 @@
 
     <!-- START seg -->
     <xsl:template match="cei:seg">
-        <span inst="seg">
+        <ab>
             <xsl:if test="./@*">
                 <xsl:if test="./@id">
                     <xsl:attribute name="corresp">
@@ -1150,8 +1150,8 @@
                     </xsl:attribute>
                 </xsl:if>
             </xsl:if>
-        </span>
-        <xsl:apply-templates/>
+            <xsl:apply-templates/>
+        </ab>
     </xsl:template>
     <!-- END seg -->
 
