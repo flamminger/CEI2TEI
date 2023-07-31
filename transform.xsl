@@ -183,17 +183,6 @@
     <!-- START: msDESC Identifier -->
     <xsl:template match="cei:idno" mode="msCharterId">
         <xsl:choose>
-            <xsl:when test="./@id and ./@old and ./text() != ''">
-                <idno>
-                    <xsl:attribute name="source">
-                        <xsl:value-of select="./@id"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="prev">
-                        <xsl:value-of select="./@old"/>
-                    </xsl:attribute>
-                    <xsl:value-of select="normalize-space(./text())"/>
-                </idno>
-            </xsl:when>
             <xsl:when test="./@id and ./text() != ''">
                 <idno>
                     <xsl:attribute name="source">
