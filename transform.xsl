@@ -1274,7 +1274,7 @@
                     </xsl:attribute>
                 </xsl:if>
                 <xsl:if test="./@rend">
-                    <xsl:attribute name="rend">
+                    <xsl:attribute name="rendition">
                         <xsl:value-of select="./@rend"/>
                     </xsl:attribute>
                 </xsl:if>
@@ -2292,7 +2292,7 @@
     <!--                    </xsl:attribute>-->
     <!--                </xsl:if>-->
     <!--                <xsl:if test="./@rend">-->
-    <!--                    <xsl:attribute name="rend">-->
+    <!--                    <xsl:attribute name="rendition">-->
     <!--                        <xsl:value-of select="./@rend"/>-->
     <!--                    </xsl:attribute>-->
     <!--                </xsl:if>-->
@@ -2521,7 +2521,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2581,7 +2581,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2641,7 +2641,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2681,7 +2681,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2706,7 +2706,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2736,7 +2736,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2801,7 +2801,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2861,7 +2861,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2936,7 +2936,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2961,7 +2961,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -2998,7 +2998,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3040,7 +3040,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3072,7 +3072,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3109,7 +3109,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3141,7 +3141,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3203,7 +3203,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3270,7 +3270,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@rend) != ''">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3312,7 +3312,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3354,7 +3354,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3386,7 +3386,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3468,7 +3468,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@rend) != ''">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3511,7 +3511,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3552,7 +3552,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@rend) != ''">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3620,7 +3620,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3672,7 +3672,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@rend) != ''">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3709,7 +3709,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3751,7 +3751,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3798,7 +3798,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3830,7 +3830,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3872,7 +3872,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3941,7 +3941,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -3982,7 +3982,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
@@ -4037,7 +4037,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
-            <xsl:attribute name="rend">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@rend"/>
             </xsl:attribute>
         </xsl:if>
