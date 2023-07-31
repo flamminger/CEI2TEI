@@ -508,10 +508,10 @@
     <!-- START: rubrum -->
     <xsl:template match="cei:rubrum">
         <xsl:if test="normalize-space(.) != ''">
-            <p sameAs="rubrum">
+            <note type="ownership">
                 <xsl:call-template name="rubrum"/>
                 <xsl:apply-templates/>
-            </p>
+            </note>
         </xsl:if>
     </xsl:template>
     <!-- END: rubrum -->
@@ -2887,7 +2887,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@position">
-            <xsl:attribute name="style">
+            <xsl:attribute name="place">
                 <xsl:value-of select="./@position"/>
             </xsl:attribute>
         </xsl:if>
