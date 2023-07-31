@@ -552,7 +552,13 @@
     <!-- START: graphic -->
     <xsl:template match="cei:graphic" mode="figure">
         <xsl:if test="./@url != ''">
-            <graphic url="{./@url}">
+
+            <xsl:variable name="encoded_url">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url" select="./@url"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <graphic url="{$encoded_url}">
                 <xsl:call-template name="graphic"/>
             </graphic>
         </xsl:if>
@@ -562,7 +568,13 @@
     <!-- START: graphic -->
     <xsl:template match="cei:graphic" mode="graphDesc">
         <xsl:if test="./@url != ''">
-            <graphic url="{./@url}">
+            <xsl:variable name="encoded_url">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url" select="./@url"/>
+                </xsl:call-template>
+            </xsl:variable>
+
+            <graphic url="{$encoded_url}">
                 <xsl:call-template name="graphic"/>
                 <desc type="legacy">
                     <xsl:value-of select="../cei:figDesc"/>
@@ -1175,9 +1187,17 @@
 
     <!-- START: graphic -->
     <xsl:template match="cei:graphic">
-        <graphic url="{./@url}">
+        <xsl:if test="./@url">
             <xsl:call-template name="graphic"/>
-        </graphic>
+            <xsl:variable name="encoded_url">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url" select="./@url"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <graphic url="{$encoded_url}">
+                <xsl:call-template name="graphic"/>
+            </graphic>
+        </xsl:if>
     </xsl:template>
     <!-- END: graphic -->
 
@@ -4055,6 +4075,54 @@
     <!-- END: attributes measure -->
 
     <!-- END: attribute templates -->
+
+
+    <!-- START: URL encode -->
+    <xsl:template name="urlencode">
+        <xsl:param name="url"/>
+        <xsl:choose>
+            <xsl:when test="contains($url, '&amp;')">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url"
+                                    select="concat(substring-before($url, '&amp;'), '%26', substring-after($url, '&amp;'))"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="contains($url, '=')">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url"
+                                    select="concat(substring-before($url, '='), '%3D', substring-after($url, '='))"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="contains($url, '?')">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url"
+                                    select="concat(substring-before($url, '?'), '%3F', substring-after($url, '?'))"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="contains($url, ' ')">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url"
+                                    select="concat(substring-before($url, ' '), '%20', substring-after($url, ' '))"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="contains($url, '#')">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url"
+                                    select="concat(substring-before($url, '#'), '%23', substring-after($url, '#'))"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="contains($url, '/')">
+                <xsl:call-template name="urlencode">
+                    <xsl:with-param name="url"
+                                    select="concat(substring-before($url, '/'), '%2F', substring-after($url, '/'))"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$url"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- END: URL encode -->
 
 
 </xsl:stylesheet>
