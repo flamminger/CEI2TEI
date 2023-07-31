@@ -1515,7 +1515,7 @@
     <!-- START: divNotes -->
     <xsl:template match="cei:divNotes" mode="back">
         <xsl:if test="normalize-space(.) != ''">
-            <div type="divNotes">
+            <div type="legacy">
                 <xsl:apply-templates/>
             </div>
         </xsl:if>
@@ -1525,7 +1525,7 @@
     <!-- START: deprecated notes -->
     <xsl:template match="cei:deprecatedNote" mode="back">
         <xsl:if test="normalize-space(.) != ''">
-            <div type="deprecatedNote">
+            <div type="legacy">
                 <xsl:apply-templates/>
             </div>
         </xsl:if>
