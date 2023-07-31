@@ -564,7 +564,7 @@
         <xsl:if test="./@url != ''">
             <graphic url="{./@url}">
                 <xsl:call-template name="graphic"/>
-                <desc>
+                <desc type="legacy">
                     <xsl:value-of select="../cei:figDesc"/>
                 </desc>
             </graphic>
