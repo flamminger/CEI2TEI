@@ -2841,7 +2841,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@type">
-            <xsl:attribute name="prev">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="./@type"/>
             </xsl:attribute>
         </xsl:if>
@@ -3593,7 +3593,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@type">
-            <xsl:attribute name="prev">
+            <xsl:attribute name="rendition">
                 <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
