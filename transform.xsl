@@ -952,10 +952,10 @@
 
     <!-- START: c -->
     <xsl:template match="cei:c">
-        <span type="char">
+        <char>
             <xsl:call-template name="char"/>
             <xsl:apply-templates/>
-        </span>
+        </char>
     </xsl:template>
     <!-- END: c -->
 
@@ -3662,7 +3662,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@target) != ''">
-            <xsl:attribute name="target">
+            <xsl:attribute name="ref">
                 <xsl:value-of select="./@target"/>
             </xsl:attribute>
         </xsl:if>
@@ -3783,7 +3783,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@target">
-            <xsl:attribute name="corresp">
+            <xsl:attribute name="ref">
                 <xsl:value-of select="./@target"/>
             </xsl:attribute>
         </xsl:if>
