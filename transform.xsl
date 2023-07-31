@@ -57,7 +57,7 @@
                         </publisher>
                         <distributor>
                             <orgName ref="monasterium.net">Monasterium</orgName>
-                            <orig corresp="https://www.monasterium.net/mom/{$atomPath}/charter">
+                            <orig source="https://www.monasterium.net/mom/{$atomPath}/charter">
                                 Transformed to CEI:
                                 <xsl:value-of select="$atomPath"/>
                             </orig>
@@ -1848,110 +1848,110 @@
 
     <!-- START: cei:subscriptio -->
     <xsl:template match="cei:subscriptio">
-        <span type="subscriptio">
+        <diploPart type="subscriptio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:subscriptio -->
 
     <!-- START: cei:sanctio -->
     <xsl:template match="cei:sanctio">
-        <span type="sanctio">
+        <diploPart type="sanctio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:sanctio -->
 
     <!-- START: cei:rogatio -->
     <xsl:template match="cei:rogatio">
-        <span type="rogatio">
+        <diploPart type="rogatio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:rogatio -->
 
     <!-- START: cei:publicatio -->
     <xsl:template match="cei:publicatio">
-        <span type="publicatio">
+        <diploPart type="publicatio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:publicatio -->
 
     <!-- START: cei:narratio -->
     <xsl:template match="cei:narratio">
-        <span type="narratio">
+        <diploPart type="narratio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:narratio -->
 
     <!-- START: cei:invocatio -->
     <xsl:template match="cei:invocatio">
-        <span type="invocatio">
+        <diploPart type="invocatio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:invocatio -->
 
     <!-- START: cei:intitulatio -->
     <xsl:template match="cei:intitulatio">
-        <span type="intitulatio">
+        <diploPart type="intitulatio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:intitulatio -->
 
     <!-- START: cei:intercessio -->
     <xsl:template match="cei:intercessio">
-        <span type="intercessio">
+        <diploPart type="intercessio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:intercessio -->
 
     <!-- START: cei:inscriptio -->
     <xsl:template match="cei:inscriptio">
-        <span type="inscriptio">
+        <diploPart type="inscriptio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:inscriptio -->
 
     <!-- START: cei:datatio -->
     <xsl:template match="cei:datatio">
-        <span type="datatio">
+        <diploPart type="datatio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:datatio -->
 
     <!-- START: cei:dispositio -->
     <xsl:template match="cei:dispositio">
-        <span type="dispositio">
+        <diploPart type="dispositio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:dispositio -->
 
     <!-- START: cei:corroboratio -->
     <xsl:template match="cei:corroboratio">
-        <span type="corroboratio">
+        <diploPart type="corroboratio">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:corroboratio -->
 
     <!-- START: cei:arenga -->
     <xsl:template match="cei:arenga">
-        <span type="arenga">
+        <diploPart type="arenga">
             <xsl:apply-templates/>
-        </span>
+        </diploPart>
     </xsl:template>
     <!-- END: cei:arenga -->
 
     <!-- START: elongata -->
-    <xsl:template match="Elongata">
+    <xsl:template match="cei:elongata">
         <p style="elongata">
             <xsl:apply-templates/>
         </p>
@@ -3682,7 +3682,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="normalize-space(./@target) != ''">
-            <xsl:attribute name="ref">
+            <xsl:attribute name="target">
                 <xsl:value-of select="./@target"/>
             </xsl:attribute>
         </xsl:if>
