@@ -952,10 +952,10 @@
 
     <!-- START: c -->
     <xsl:template match="cei:c">
-        <char>
+        <g>
             <xsl:call-template name="char"/>
             <xsl:apply-templates/>
-        </char>
+        </g>
     </xsl:template>
     <!-- END: c -->
 
