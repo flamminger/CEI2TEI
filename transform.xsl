@@ -1952,7 +1952,7 @@
 
     <!-- START: elongata -->
     <xsl:template match="cei:elongata">
-        <p style="elongata">
+        <p rend="elongata" ana="http://www.cei.lmu.de/VID/#VID_160">
             <xsl:apply-templates/>
         </p>
     </xsl:template>
