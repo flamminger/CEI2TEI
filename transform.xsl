@@ -1183,10 +1183,10 @@
 
     <!-- START: byline / rights -->
     <xsl:template match="cei:rights">
-        <byline>
+        <desc type="license">
             <xsl:call-template name="hiSealdimZoneRightsFigdescFigureApp"/>
             <xsl:apply-templates/>
-        </byline>
+        </desc>
     </xsl:template>
     <!-- END: byline / rights -->
 
