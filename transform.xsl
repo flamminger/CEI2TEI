@@ -946,11 +946,11 @@
                         <xsl:value-of select="./@id"/>
                     </xsl:attribute>
                 </xsl:when>
-<!--                <xsl:when test="./@facs">-->
-<!--                    <xsl:attribute name="facs">-->
-<!--                        <xsl:value-of select="./@facs"/>-->
-<!--                    </xsl:attribute>-->
-<!--                </xsl:when>-->
+                <!--                <xsl:when test="./@facs">-->
+                <!--                    <xsl:attribute name="facs">-->
+                <!--                        <xsl:value-of select="./@facs"/>-->
+                <!--                    </xsl:attribute>-->
+                <!--                </xsl:when>-->
                 <xsl:when test="./@note">
                     <xsl:attribute name="note">
                         <xsl:value-of select="./@note"/>
@@ -980,11 +980,11 @@
                         <xsl:value-of select="./@id"/>
                     </xsl:attribute>
                 </xsl:when>
-<!--                <xsl:when test="./@facs">-->
-<!--                    <xsl:attribute name="facs">-->
-<!--                        <xsl:value-of select="./@facs"/>-->
-<!--                    </xsl:attribute>-->
-<!--                </xsl:when>-->
+                <!--                <xsl:when test="./@facs">-->
+                <!--                    <xsl:attribute name="facs">-->
+                <!--                        <xsl:value-of select="./@facs"/>-->
+                <!--                    </xsl:attribute>-->
+                <!--                </xsl:when>-->
             </xsl:choose>
             <xsl:apply-templates/>
         </pc>
@@ -3067,7 +3067,7 @@
     <!-- START: attributes graphic -->
     <xsl:template name="graphic">
 
-<xsl:choose>
+        <xsl:choose>
             <xsl:when test="./@id">
                 <xsl:attribute name="facs">
                     <xsl:value-of select="./@id"/>
@@ -3232,7 +3232,7 @@
     <!-- START: attribute persname -->
     <xsl:template name="persname">
 
-<xsl:choose>
+        <xsl:choose>
             <xsl:when test="./@id">
                 <xsl:attribute name="facs">
                     <xsl:value-of select="./@id"/>
@@ -3333,7 +3333,7 @@
     <!-- START: attribute orgname -->
     <xsl:template name="orgname">
 
-<xsl:choose>
+        <xsl:choose>
             <xsl:when test="./@id">
                 <xsl:attribute name="facs">
                     <xsl:value-of select="./@id"/>
@@ -3419,7 +3419,7 @@
     <!-- START: attribute anchor -->
     <xsl:template name="anchor">
 
-<xsl:choose>
+        <xsl:choose>
             <xsl:when test="./@id">
                 <xsl:attribute name="facs">
                     <xsl:value-of select="./@id"/>
@@ -3540,7 +3540,7 @@
     <!-- START: attribute issuer recipient -->
     <xsl:template name="issuerRecipient">
 
-<xsl:choose>
+        <xsl:choose>
             <xsl:when test="./@id">
                 <xsl:attribute name="facs">
                     <xsl:value-of select="./@id"/>
@@ -3741,7 +3741,7 @@
     <!-- START: attirbutes for sup foreign testis cit quote  -->
     <xsl:template name="supForeignTestisCitQuote">
 
-<xsl:choose>
+        <xsl:choose>
             <xsl:when test="./@id">
                 <xsl:attribute name="facs">
                     <xsl:value-of select="./@id"/>
@@ -3868,17 +3868,18 @@
 
     <!-- START: attributes char -->
     <xsl:template name="char">
-
-        <xsl:if test="./@id">
-            <xsl:attribute name="corresp">
-                <xsl:value-of select="./@id"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="./@facs">
-            <xsl:attribute name="facs">
-                <xsl:value-of select="./@facs"/>
-            </xsl:attribute>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="./@id">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@id"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="./@facs">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@facs"/>
+                </xsl:attribute>
+            </xsl:when>
+        </xsl:choose>
         <xsl:if test="./@n">
             <xsl:attribute name="n">
                 <xsl:value-of select="./@n"/>
