@@ -942,15 +942,15 @@
         <w>
             <xsl:choose>
                 <xsl:when test="./@id">
-                    <xsl:attribute name="corresp">
+                    <xsl:attribute name="facs">
                         <xsl:value-of select="./@id"/>
                     </xsl:attribute>
                 </xsl:when>
-                <xsl:when test="./@facs">
-                    <xsl:attribute name="facs">
-                        <xsl:value-of select="./@facs"/>
-                    </xsl:attribute>
-                </xsl:when>
+<!--                <xsl:when test="./@facs">-->
+<!--                    <xsl:attribute name="facs">-->
+<!--                        <xsl:value-of select="./@facs"/>-->
+<!--                    </xsl:attribute>-->
+<!--                </xsl:when>-->
                 <xsl:when test="./@note">
                     <xsl:attribute name="note">
                         <xsl:value-of select="./@note"/>
