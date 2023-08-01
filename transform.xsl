@@ -1280,11 +1280,18 @@
     <xsl:template match="cei:seal">
         <xsl:if test="normalize-space(.) != ''">
             <authen>
-                <xsl:if test="./@id">
-                    <xsl:attribute name="corresp">
-                        <xsl:value-of select="./@id"/>
-                    </xsl:attribute>
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="./@id">
+                        <xsl:attribute name="corresp">
+                            <xsl:value-of select="./@id"/>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="./@facs">
+                        <xsl:attribute name="facs">
+                            <xsl:value-of select="./@facs"/>
+                        </xsl:attribute>
+                    </xsl:when>
+                </xsl:choose>
                 <xsl:if test="./@lang">
                     <xsl:attribute name="xml:lang">
                         <xsl:value-of select="./@lang"/>
@@ -1303,11 +1310,6 @@
                 <xsl:if test="./@resp">
                     <xsl:attribute name="resp">
                         <xsl:value-of select="./@resp"/>
-                    </xsl:attribute>
-                </xsl:if>
-                <xsl:if test="./@facs">
-                    <xsl:attribute name="facs">
-                        <xsl:value-of select="./@facs"/>
                     </xsl:attribute>
                 </xsl:if>
                 <xsl:choose>
@@ -2527,16 +2529,18 @@
                 <xsl:value-of select="./@certainty"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@facs">
-            <xsl:attribute name="facs">
-                <xsl:value-of select="./@facs"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="./@id">
-            <xsl:attribute name="corresp">
-                <xsl:value-of select="./@id"/>
-            </xsl:attribute>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="./@id">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@id"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="./@facs">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@facs"/>
+                </xsl:attribute>
+            </xsl:when>
+        </xsl:choose>
         <xsl:if test="./@n">
             <xsl:attribute name="n">
                 <xsl:value-of select="./@n"/>
