@@ -872,7 +872,7 @@
                     <graphic url="{./cei:graphic/@url}">
                         <xsl:choose>
                             <xsl:when test="./@id">
-                                <xsl:attribute name="corresp">
+                                <xsl:attribute name="facs">
                                     <xsl:value-of select="./@id"/>
                                 </xsl:attribute>
                             </xsl:when>
@@ -1971,8 +1971,8 @@
     <xsl:template match="cei:pict">
         <xsl:if test="normalize-space(.) != ''">
             <figure>
-                <xsl:if test="./@URL">
-                    <graphic url="{./@URL}"/>
+                <xsl:if test="./@url">
+                    <graphic url="{./@url}"/>
                 </xsl:if>
                 <desc>
                     <xsl:call-template name="pictAdd"/>
