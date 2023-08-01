@@ -2576,11 +2576,6 @@
                 <xsl:value-of select="./@source"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@facs">
-            <xsl:attribute name="facs">
-                <xsl:value-of select="./@facs"/>
-            </xsl:attribute>
-        </xsl:if>
         <xsl:if test="./@hand">
             <xsl:attribute name="style">
                 <xsl:value-of select="./@hand"/>
@@ -2591,11 +2586,18 @@
                 <xsl:value-of select="./@n"/>
             </xsl:attribute>
         </xsl:if>
-        <xsl:if test="./@id">
-            <xsl:attribute name="corresp">
-                <xsl:value-of select="./@id"/>
-            </xsl:attribute>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="./@id">
+                <xsl:attribute name="corresp">
+                    <xsl:value-of select="./@id"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="./@facs">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@facs"/>
+                </xsl:attribute>
+            </xsl:when>
+        </xsl:choose>
         <xsl:if test="./@type">
             <xsl:attribute name="unit">
                 <xsl:value-of select="./@type"/>
