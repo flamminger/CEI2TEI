@@ -3540,16 +3540,18 @@
     <!-- START: attribute issuer recipient -->
     <xsl:template name="issuerRecipient">
 
-        <xsl:if test="./@id">
-            <xsl:attribute name="corresp">
-                <xsl:value-of select="./@id"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="./@facs">
-            <xsl:attribute name="facs">
-                <xsl:value-of select="./@facs"/>
-            </xsl:attribute>
-        </xsl:if>
+<xsl:choose>
+            <xsl:when test="./@id">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@id"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="./@facs">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@facs"/>
+                </xsl:attribute>
+            </xsl:when>
+        </xsl:choose>
         <xsl:if test="./@lang">
             <xsl:attribute name="xml:lang">
                 <xsl:value-of select="./@lang"/>
