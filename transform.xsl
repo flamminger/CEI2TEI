@@ -3067,16 +3067,18 @@
     <!-- START: attributes graphic -->
     <xsl:template name="graphic">
 
-        <xsl:if test="./@id">
-            <xsl:attribute name="corresp">
-                <xsl:value-of select="./@id"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="./@facs">
-            <xsl:attribute name="facs">
-                <xsl:value-of select="./@facs"/>
-            </xsl:attribute>
-        </xsl:if>
+<xsl:choose>
+            <xsl:when test="./@id">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@id"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="./@facs">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@facs"/>
+                </xsl:attribute>
+            </xsl:when>
+        </xsl:choose>
         <xsl:if test="./@n">
             <xsl:attribute name="n">
                 <xsl:value-of select="./@n"/>
