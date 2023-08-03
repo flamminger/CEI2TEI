@@ -1105,13 +1105,13 @@
     </xsl:template>
 
     <xsl:template match="cei:witDetail">
-        <witDetail>
-            <xsl:if test="./@wit">
+        <xsl:if test="./@wit">
+            <witDetail>
                 <xsl:attribute name="wit">
                     <xsl:value-of select="./@wit"/>
                 </xsl:attribute>
-            </xsl:if>
-        </witDetail>
+            </witDetail>
+        </xsl:if>
     </xsl:template>
     <!-- END: wit -->
 
