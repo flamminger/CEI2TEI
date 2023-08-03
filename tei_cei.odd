@@ -362,14 +362,14 @@
      </elementSpec>
      <elementSpec module="msdescription" ident="seal" mode="change">
       <content>
-       <alternate minOccurs="0" maxOccurs="unbounded">
+       <sequence minOccurs="0" maxOccurs="unbounded">
         <classRef key="model.pPart.msdesc"/>
         <classRef key="model.pLike"/>
         <classRef key="model.limitedPhrase"/>
         <classRef key="model.descLike"/>
         <elementRef key="decoNote"/>
         <elementRef key="condition"/>
-       </alternate>
+       </sequence>
       </content>
      </elementSpec>
      <elementSpec module="msdescription" ident="objectDesc" mode="change">
