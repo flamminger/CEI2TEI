@@ -473,10 +473,7 @@
        <memberOf key="model.inter"/>
       </classes>
       <content>
-       <alternate minOccurs="1" maxOccurs="unbounded">
-        <macroRef key="macro.phraseSeq"/>
-        <classRef key="model.inter"/>
-       </alternate>
+       <macroRef key="macro.phraseSeq"/>
       </content>
       <attList>
        <attDef ident="type" mode="replace">
