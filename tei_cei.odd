@@ -393,10 +393,7 @@
        <memberOf key="model.persStateLike"/>
       </classes>
       <content>
-       <alternate minOccurs="0" maxOccurs="unbounded">
-        <classRef key="model.correspActionPart"/>
-        <macroRef key="macro.specialPara"/>
-       </alternate>
+       <macroRef key="macro.phraseSeq"/>
       </content>
       <attList>
        <attDef ident="type" mode="replace">
