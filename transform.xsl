@@ -1228,24 +1228,26 @@
         <!--            <xsl:apply-templates select="//*[local-name() = 'seal']" mode="auth"/>-->
     </xsl:template>
     <!-- START: notariusDesc -->
-    <xsl:template match="cei:notariusDesc">
+    <xsl:template match="cei:notariusDesc" mode="auth">
         <xsl:if test="normalize-space(.) != ''">
-            <p copyOf="notariusDesc">
-                <xsl:apply-templates/>
-            </p>
+            <authen type="notarized">
+                <p>
+                    <xsl:apply-templates/>
+                </p>
+            </authen>
         </xsl:if>
     </xsl:template>
     <!-- END: notariusDesc -->
 
-    <!-- START: notariusDesc -->
+    <!-- START: notariusSub TODO find appropriate TEI replacement -->
     <xsl:template match="cei:notariusSub">
         <xsl:if test="normalize-space(.) != ''">
-            <span copyOf="notariusSub">
+            <q type="notariusSub">
                 <xsl:apply-templates/>
-            </span>
+            </q>
         </xsl:if>
     </xsl:template>
-    <!-- END: notariusDesc -->
+    <!-- END: notariusSub -->
 
     <!-- START: sealDesc -->
     <xsl:template match="cei:sealDesc">
