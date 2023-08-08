@@ -2096,6 +2096,10 @@
     <xsl:template match="cei:witnessOrig" mode="nota">
         <xsl:variable name="nota" select=".//cei:nota[normalize-space(.) != '']"/>
         <xsl:if test="$nota">
+            <!--            <note type="production">
+                    note content
+                    </note>
+            -->
             <history copyOf="nota">
                 <summary>
                     <xsl:apply-templates select="$nota"/>
@@ -2107,6 +2111,10 @@
     <xsl:template match="cei:diplomaticAnalysis" mode="diplomaticAnalysisNota">
         <xsl:variable name="nota" select="./cei:nota[normalize-space(.) != '']"/>
         <xsl:if test="$nota">
+            <!--            <note type="production">
+                                note content
+                                </note>
+            -->
             <history copyOf="nota">
                 <summary>
                     <xsl:apply-templates select="$nota"/>
@@ -2116,10 +2124,10 @@
     </xsl:template>
 
     <xsl:template match="cei:nota">
-        <p>
+        <note type="production">
             <xsl:call-template name="nota"/>
             <xsl:apply-templates/>
-        </p>
+        </note>
     </xsl:template>
 
     <!-- END: cei:nota -->
@@ -2878,11 +2886,6 @@
                 </xsl:attribute>
             </xsl:when>
         </xsl:choose>
-        <xsl:if test="./@type">
-            <xsl:attribute name="rendition">
-                <xsl:value-of select="./@type"/>
-            </xsl:attribute>
-        </xsl:if>
         <xsl:if test="./@position">
             <xsl:attribute name="rendition">
                 <xsl:value-of select="./@position"/>
