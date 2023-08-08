@@ -2512,14 +2512,23 @@
 
     <!-- START: cei:sic -->
     <xsl:template match="cei:sic">
-        <sic>
-            <xsl:if test="./@corr">
-                <xsl:attribute name="rendition">
-                    <xsl:value-of select="./@corr"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </sic>
+        <xsl:choose>
+            <xsl:when test="./@corr">
+                <choice>
+                    <corr>
+                        <xsl:value-of select="./@corr"/>
+                    </corr>
+                    <sic>
+                        <xsl:apply-templates/>
+                    </sic>
+                </choice>
+            </xsl:when>
+            <xsl:otherwise>
+                <sic>
+                    <xsl:apply-templates/>
+                </sic>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- END: cei:sic -->
 
