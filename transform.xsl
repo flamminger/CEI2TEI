@@ -1847,6 +1847,16 @@
     <!-- START: cei:setPhrase -->
     <xsl:template match="cei:setPhrase">
         <distinct>
+            <xsl:if test="./@type">
+                <xsl:attribute name="type">
+                    <xsl:value-of select="./@type"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="./@facs">
+                <xsl:attribute name="facs">
+                    <xsl:value-of select="./@facs"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </distinct>
     </xsl:template>
