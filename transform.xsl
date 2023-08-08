@@ -2076,10 +2076,25 @@
 
     <!-- START: cei:corr -->
     <xsl:template match="cei:corr">
-        <corr>
-            <xsl:call-template name="corr"/>
-            <xsl:apply-templates/>
-        </corr>
+        <xsl:choose>
+            <xsl:when test="./@sic">
+                <choice>
+                    <sic>
+                        <xsl:value-of select="./@sic"/>
+                    </sic>
+                    <corr>
+                        <xsl:call-template name="corr"/>
+                        <xsl:apply-templates/>
+                    </corr>
+                </choice>
+            </xsl:when>
+            <xsl:otherwise>
+                <corr>
+                    <xsl:call-template name="corr"/>
+                    <xsl:apply-templates/>
+                </corr>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- END: cei:corr -->
 
@@ -2793,7 +2808,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@hand">
-            <xsl:attribute name="rendition">
+            <xsl:attribute name="resp">
                 <xsl:value-of select="./@hand"/>
             </xsl:attribute>
         </xsl:if>
@@ -2810,11 +2825,6 @@
         <xsl:if test="./@n">
             <xsl:attribute name="n">
                 <xsl:value-of select="./@n"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="./@sic">
-            <xsl:attribute name="source">
-                <xsl:value-of select="./@sic"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@type">
