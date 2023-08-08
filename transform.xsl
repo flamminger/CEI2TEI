@@ -2507,17 +2507,17 @@
     </xsl:template>
     <!-- END: cei:addName -->
 
-    <!-- START: cei:mod -->
-    <xsl:template match="cei:mod">
-        <expan>
-            <xsl:if test="./@type">
-                <xsl:attribute name="rendition">
-                    <xsl:value-of select="./@type"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </expan>
-    </xsl:template>
+    <!-- START: cei:mod TODO FIX CHARTER -->
+<!--    <xsl:template match="cei:mod">-->
+<!--        <expan>-->
+<!--            <xsl:if test="./@type">-->
+<!--                <xsl:attribute name="rendition">-->
+<!--                    <xsl:value-of select="./@type"/>-->
+<!--                </xsl:attribute>-->
+<!--            </xsl:if>-->
+<!--            <xsl:apply-templates/>-->
+<!--        </expan>-->
+<!--    </xsl:template>-->
     <!-- END: cei:mod -->
 
     <!-- START: cei:sic -->
