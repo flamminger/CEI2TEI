@@ -1958,9 +1958,7 @@
 
     <!-- START: elongata -->
     <xsl:template match="cei:elongata">
-        <p rend="elongata" ana="http://www.cei.lmu.de/VID/#VID_160">
             <xsl:apply-templates/>
-        </p>
     </xsl:template>
     <!-- END: elongata -->
 
