@@ -1976,7 +1976,7 @@
     <!-- START: cei:pict -->
     <xsl:template match="cei:pict">
         <xsl:if test="normalize-space(.) != ''">
-            <figure>
+            <figure ana="http://www.cei.lmu.de/VID/#VID_145">
                 <xsl:if test="normalize-space(./@type) != ''">
                     <xsl:attribute name="type">
                         <xsl:value-of select="./@type"/>
