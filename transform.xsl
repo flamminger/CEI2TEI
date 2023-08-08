@@ -2606,7 +2606,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@hand">
-            <xsl:attribute name="style">
+            <xsl:attribute name="resp">
                 <xsl:value-of select="./@hand"/>
             </xsl:attribute>
         </xsl:if>
@@ -2630,11 +2630,6 @@
         <xsl:if test="./@type">
             <xsl:attribute name="unit">
                 <xsl:value-of select="./@type"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="./@resp">
-            <xsl:attribute name="resp">
-                <xsl:value-of select="./@resp"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
@@ -2668,7 +2663,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@hand">
-            <xsl:attribute name="source">
+            <xsl:attribute name="resp">
                 <xsl:value-of select="./@hand"/>
             </xsl:attribute>
         </xsl:if>
@@ -2692,11 +2687,6 @@
         <xsl:if test="./@type">
             <xsl:attribute name="type">
                 <xsl:value-of select="./@type"/>
-            </xsl:attribute>
-        </xsl:if>
-        <xsl:if test="./@resp">
-            <xsl:attribute name="resp">
-                <xsl:value-of select="./@resp"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@rend">
