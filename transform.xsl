@@ -2647,7 +2647,7 @@
             </xsl:when>
         </xsl:choose>
         <xsl:if test="./@type">
-            <xsl:attribute name="unit">
+            <xsl:attribute name="reason">
                 <xsl:value-of select="./@type"/>
             </xsl:attribute>
         </xsl:if>
