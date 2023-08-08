@@ -1836,7 +1836,7 @@
     <!-- START: cei:add -->
     <xsl:template match="cei:add">
         <add>
-            <xsl:call-template name="pictAdd"/>
+            <xsl:call-template name="add"/>
             <xsl:apply-templates/>
         </add>
     </xsl:template>
@@ -1975,13 +1975,19 @@
     <xsl:template match="cei:pict">
         <xsl:if test="normalize-space(.) != ''">
             <figure>
-                <xsl:if test="./@url">
-                    <graphic url="{./@url}"/>
+                <xsl:if test="normalize-space(./@type) != ''">
+                    <xsl:attribute name="type">
+                        <xsl:value-of select="./@type"/>
+                    </xsl:attribute>
                 </xsl:if>
-                <desc>
-                    <xsl:call-template name="pictAdd"/>
+                <xsl:if test="normalize-space(./@facs) != ''">
+                    <xsl:attribute name="facs">
+                        <xsl:value-of select="./@facs"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <figDesc>
                     <xsl:value-of select="."/>
-                </desc>
+                </figDesc>
             </figure>
         </xsl:if>
     </xsl:template>
@@ -2702,19 +2708,14 @@
     <!-- END: attribute space -->
 
     <!-- START: attribute pict -->
-    <xsl:template name="pictAdd">
-        <xsl:if test="./@certainty">
-            <xsl:attribute name="cert">
-                <xsl:value-of select="./@certainty"/>
-            </xsl:attribute>
-        </xsl:if>
+    <xsl:template name="add">
         <xsl:if test="./@certainty">
             <xsl:attribute name="cert">
                 <xsl:value-of select="./@certainty"/>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@hand">
-            <xsl:attribute name="change">
+            <xsl:attribute name="resp">
                 <xsl:value-of select="./@hand"/>
             </xsl:attribute>
         </xsl:if>
