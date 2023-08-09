@@ -1502,9 +1502,9 @@
     <!-- START: diplomaticAnalysis text content -->
     <xsl:template match="cei:diplomaticAnalysis/text()" mode="diplomaticAnalysis">
         <xsl:if test="normalize-space(.) != ''">
-            <ab>
+            <p>
                 <xsl:value-of select="."/>
-            </ab>
+            </p>
         </xsl:if>
     </xsl:template>
     <!-- END: diplomaticAnalysis text content -->
