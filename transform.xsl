@@ -3657,7 +3657,6 @@
 
     <!-- START: attributes note -->
     <xsl:template name="note">
-
         <xsl:if test="./@id">
             <xsl:attribute name="corresp">
                 <xsl:value-of select="./@id"/>
@@ -3669,7 +3668,7 @@
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="./@type">
-            <xsl:attribute name="rendition">
+            <xsl:attribute name="type">
                 <xsl:value-of select="normalize-space(./@type)"/>
             </xsl:attribute>
         </xsl:if>
