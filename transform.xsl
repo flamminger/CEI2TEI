@@ -1529,9 +1529,9 @@
 
     <!-- START: diplomaticAnalysis note -->
     <xsl:template match="cei:note" mode="diplomaticAnalysis">
-        <p>
+        <note type="impersonal">
             <xsl:apply-templates/>
-        </p>
+        </note>
     </xsl:template>
     <!-- END: diplomaticAnalysis exclude nota -->
 
