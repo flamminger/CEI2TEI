@@ -126,11 +126,16 @@
                     <xsl:apply-templates select="//*[local-name() = 'back']//*[local-name() = 'class']" mode="class"/>
                 </profileDesc>
                 <revisionDesc>
-                    <change>
-                        <date when-iso="{$atom_updated}">
-                            <xsl:value-of select="substring($atom_updated, 1, 9)"/>
-                        </date>
-                    </change>
+                    <listChange>
+                        <change>
+                            <date when-iso="{$atom_updated}">
+                                <xsl:value-of select="substring($atom_updated, 1, 9)"/>
+                            </date>
+                        </change>
+                        <change>
+                            <xsl:value-of select="//cei:sourceDesc/cei:p"/>
+                        </change>
+                    </listChange>
                 </revisionDesc>
             </teiHeader>
             <xsl:if test="//*[local-name() = 'witnessOrig']//*[local-name() = 'figure']//*[local-name() = 'graphic']/@url != '' or //*[local-name() = 'witnessOrig']//*[local-name() = 'graphic']/@url != ''">
@@ -1400,13 +1405,14 @@
     <!-- END: sourceRegest -->
 
     <!-- START: sourceRegest -->
-    <xsl:template match="cei:p" mode="sourceRegest">
-        <xsl:if test="normalize-space(.) != ''">
-            <bibl>
-                <xsl:apply-templates mode="sourceRegest"/>
-            </bibl>
-        </xsl:if>
-    </xsl:template>
+    <!--    TODO decide on what to do with cei:p, remove or keep in revisionDesc, see above-->
+    <!--    <xsl:template match="cei:p" mode="sourceRegest">-->
+    <!--        <xsl:if test="normalize-space(.) != ''">-->
+    <!--            <bibl>-->
+    <!--                <xsl:apply-templates mode="sourceRegest"/>-->
+    <!--            </bibl>-->
+    <!--        </xsl:if>-->
+    <!--    </xsl:template>-->
     <!-- END: sourceRegest -->
 
     <!-- START: sourceRegest bibl -->
