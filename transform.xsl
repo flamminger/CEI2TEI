@@ -1830,7 +1830,6 @@
     <xsl:template match="cei:handShift">
         <handShift>
             <xsl:call-template name="handShift"/>
-            <xsl:apply-templates/>
         </handShift>
     </xsl:template>
     <!-- START: cei:handShift -->
@@ -1968,7 +1967,7 @@
 
     <!-- START: elongata -->
     <xsl:template match="cei:elongata">
-            <xsl:apply-templates/>
+        <xsl:apply-templates/>
     </xsl:template>
     <!-- END: elongata -->
 
@@ -2508,16 +2507,16 @@
     <!-- END: cei:addName -->
 
     <!-- START: cei:mod TODO FIX CHARTER -->
-<!--    <xsl:template match="cei:mod">-->
-<!--        <expan>-->
-<!--            <xsl:if test="./@type">-->
-<!--                <xsl:attribute name="rendition">-->
-<!--                    <xsl:value-of select="./@type"/>-->
-<!--                </xsl:attribute>-->
-<!--            </xsl:if>-->
-<!--            <xsl:apply-templates/>-->
-<!--        </expan>-->
-<!--    </xsl:template>-->
+    <!--    <xsl:template match="cei:mod">-->
+    <!--        <expan>-->
+    <!--            <xsl:if test="./@type">-->
+    <!--                <xsl:attribute name="rendition">-->
+    <!--                    <xsl:value-of select="./@type"/>-->
+    <!--                </xsl:attribute>-->
+    <!--            </xsl:if>-->
+    <!--            <xsl:apply-templates/>-->
+    <!--        </expan>-->
+    <!--    </xsl:template>-->
     <!-- END: cei:mod -->
 
     <!-- START: cei:sic -->
@@ -2568,6 +2567,7 @@
     <!-- START: handShift attributes -->
     <xsl:template name="handShift">
         <xsl:if test="./@hand">
+            <!--            TODO make legacy data xsd name compliant -->
             <xsl:attribute name="scribe">
                 <xsl:value-of select="normalize-space(./@hand)"/>
             </xsl:attribute>
